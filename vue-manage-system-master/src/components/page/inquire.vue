@@ -3,6 +3,7 @@
         <div class="filtrate-box">
             <div class="bg"></div>
             <div class="title"><h3>筛选条件</h3></div>
+            <!-- 展示收缩 -->
             <div @click="filtrateShow=!filtrateShow"
                  :class="{'shift-knob-t':filtrateShow,'shift-knob-b':!filtrateShow}"></div>
             <el-collapse-transition>
@@ -15,7 +16,8 @@
                     </div>
                     <div class="item-row item2">
                         <div class="more-box">
-                            <el-checkbox v-model="checked1">支路:</el-checkbox>
+                            <!-- <el-checkbox v-model="checked">支路:</el-checkbox> -->
+                            <el-radio class="choice" v-model="checked" label="1">支路:</el-radio>
                             <el-select class="select" v-model="select1" placeholder="请选择支路">
                                 <el-option
                                         v-for="item in options"
@@ -27,7 +29,8 @@
                         </div>
 
                         <div class="more-box">
-                            <el-checkbox class="ml92" v-model="checked2">分项:</el-checkbox>
+                            <!-- <el-checkbox class="ml92" v-model="checked">分项:</el-checkbox> -->
+                            <el-radio class="choice" v-model="checked" label="2">分项:</el-radio>
                             <el-select class="select" v-model="select2" placeholder="请选择分项">
                                 <el-option
                                         v-for="item in options"
@@ -38,7 +41,8 @@
                             </el-select>
                         </div>
                         <div v-show="sw" class="item-show more-box">
-                            <el-checkbox class="ml92" v-model="checked3">部门:</el-checkbox>
+                            <!-- <el-checkbox class="ml92" v-model="checked3">部门:</el-checkbox> -->
+                            <el-radio class="choice" v-model="checked" label="3">部门:</el-radio>
                             <el-select class="select" v-model="select3" placeholder="请选择部门">
                                 <el-option
                                         v-for="item in options"
@@ -49,7 +53,8 @@
                             </el-select>
                         </div>
                         <div v-show="sw" class="item-show more-box">
-                            <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox>
+                            <!-- <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox> -->
+                            <el-radio class="choice" v-model="checked" label="4">位置:</el-radio>
                             <el-select class="select" v-model="select4" placeholder="请选择位置">
                                 <el-option
                                         v-for="item in options"
@@ -92,19 +97,19 @@
                             快捷查询:
                         </span>
                             <div class="days-btn">
-                                <span @click="days=0" :class="{cur:days==0}">前1天</span>
-                                <span @click="days=1" :class="{cur:days==1}">前3天</span>
-                                <span @click="days=2" :class="{cur:days==2}">前7天</span>
-                                <span @click="days=3" :class="{cur:days==3}">前1月</span>
+                                <span @click="daysBtn(0)" :class="{cur:days==0}">前1天</span>
+                                <span @click="daysBtn(1)" :class="{cur:days==1}">前3天</span>
+                                <span @click="daysBtn(2)" :class="{cur:days==2}">前7天</span>
+                                <span @click="daysBtn(3)" :class="{cur:days==3}">前1月</span>
                             </div>
                         </div>
                         <!--</el-col>-->
                     </div>
 
                     <div class="btns-box">
-                        <div @click="btns=0" :class="{'btn-item':true,cur:btns==0}">查询</div>
-                        <div @click="btns=1" :class="{'btn-item':true,cur:btns==1}">重置</div>
-                        <div @click="btns=2" :class="{'btn-item':true,cur:btns==2}">个性化</div>
+                        <div @click="btnser(0)" :class="{'btn-item':true,cur:btns==0}">查询</div>
+                        <div @click="btnser(1)" :class="{'btn-item':true,cur:btns==1}">重置</div>
+                        <div @click="btnser(2)" :class="{'btn-item':true,cur:btns==2}">个性化</div>
                     </div>
 
                 </div>
@@ -198,38 +203,38 @@
         name: "inquire",
         data() {
             return {
-                radio: '1',
-                filtrateShow: true,
-                days: 2,
-                count: '',
-                btns: 0,
-                checked1: true,
-                checked2: false,
-                checked3: false,
-                checked4: false,
-                select1: '',
-                select2: '',
+                radio: '1',                 //筛选条件 水电冷压缩
+                filtrateShow: true,         //筛选条件展示收缩
+                days: null,                    //快速查询label
+                count: '',  
+                btns: null,                    //查询重置按钮选中添加颜色
+                checked:'1',             //支路
+                // checked2: false,            //分项
+                // checked3: false,            //部门
+                // checked4: false,            //位置
+                select1: '',                //支路select
+                select2: '',                  
                 select3: '',
                 select4: '',
                 sw: true,
                 value6: '',
-
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                options: [
+                    {
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }],
                 consumptionData: [
                     {
                         tit: '2AAH101-1电源线_能耗',
@@ -328,6 +333,14 @@
             TemplateTable
         },
         methods: {
+            btnser(row){        //查询  重置    个性化按钮
+                row==0?this.btns=0:(row==1?this.btns=1:this.btns=2);
+                
+                console.log(this.radio,"筛选条件");
+            },
+            daysBtn(row){          //快速查询按钮
+                 row==0?this.days=0:(row==1?this.days=1:(row==2?this.days=2:this.days=3));
+            },
             SetEchart() {
                 // 基于准备好的dom，初始化echarts实例
                 // var growRanking = echarts.init(document.getElementById('myChart'));
