@@ -961,7 +961,7 @@
                     flex-direction: column;
                 }
                 .lists {
-
+                    width: 100%;
                     @media screen and (min-width: 1500px) {
                         &:not(:first-child) {
                             margin-left: 25px;
@@ -971,10 +971,10 @@
                         margin-left: 0;
                         margin-top: 20px;
                     }
-                    width: 100%;
+
 
                     display: flex;
-                    flex-direction: column;
+                    //flex-direction: column;
                     .item-icon-hz {
                         /*line-height: 90px;*/
                         width: 43px;
@@ -1012,7 +1012,7 @@
                     }
                     .current-period {
                         /*width: calc(100% - 25px);*/
-                        width: 100%;
+                        width: 45%;
                         height: 90px;
                         box-sizing: border-box;
                         /*padding: 20px 0;*/
@@ -1071,10 +1071,11 @@
                         }
                     }
                     .before {
-                        width: 100%;
+                        width: 45%;
                         height: 90px;
+                        margin-left: 10%;
                         box-sizing: border-box;
-                        margin-top: 25px;
+                        //margin-top: 25px;
                         /*padding: 20px 0;*/
 
                         border: 1px solid rgba(42, 244, 255, 1);
