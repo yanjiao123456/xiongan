@@ -1,14 +1,14 @@
 <template>
     <div class="RTData Inquire">
         <transition name="el-zoom-in-center">
-            <div v-show="leftShow" class="left-branch">
+            <div v-show="leftShow" id="leftShow" class="left-branch">
                 <div class="tit">选择支路</div>
                 <div class="inputBox">
                     <i class="icon-ss"></i>
                     <input placeholder="请输入支路名称" type="text" id="key" value="" class="empty"/><br/>
                 </div>
                 <!--<div class="zTreeDemoBackground left">-->
-                <ul id="treeDemo" class="ztree"></ul>
+                <ul id="treeDemo" :style="{height:(treeHeight*0.8-120)+'px'}" class="ztree"></ul>
                 <!--</div>-->
                 <div class="butt">
                     <div class="tit">已选支路</div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </transition>
-        <div @click="leftShow=!leftShow" :class="{btn:true,shrinkBtn:!leftShow}">支 路 选 择</div>
+        <div @click="leftShow=!leftShow" :class="{btn:true,shrinkBtn:!leftShow}" id="treeButton">支 路 选 择</div>
         <div :class="{main:true,mainShow:leftShow}">
             <div class="filtrate-box">
                 <div class="bg"></div>
@@ -121,6 +121,7 @@
         name: "shujuduibi",
         data() {
             return {
+                treeHeight:0,
                 option: '2',
                 leftShow: true,
                 filtrateShow: true,
@@ -695,6 +696,7 @@
 
         },
         mounted() {
+            this.treeHeight=document.getElementById("leftShow").offsetHeight;
             var setting = {
                 check: {
                     enable: true,
@@ -962,6 +964,7 @@
             }
             .ztree {
                 margin-top: 20px;
+                overflow: auto;
             }
 
             .tit {
@@ -973,6 +976,8 @@
             }
             .butt {
                 width: 100%;
+                height: 20%;
+                overflow:auto;
                 position: absolute;
                 bottom: 0;
                 left: 0;
