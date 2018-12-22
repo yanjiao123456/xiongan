@@ -1,14 +1,14 @@
 <template>
     <div class="RTData Inquire">
         <transition name="el-zoom-in-center">
-            <div v-show="leftShow" class="left-branch">
+            <div v-show="leftShow" id="leftShow" class="left-branch">
                 <div class="tit">选择支路</div>
                 <div class="inputBox">
                     <i class="icon-ss"></i>
                     <input placeholder="请输入支路名称" type="text" id="key" value="" class="empty"/><br/>
                 </div>
                 <!--<div class="zTreeDemoBackground left">-->
-                <ul id="treeDemo" class="ztree"></ul>
+                <ul id="treeDemo" :style="{height:(treeHeight*0.8-120)+'px'}" class="ztree"></ul>
                 <!--</div>-->
                 <div class="butt">
                     <div class="tit">已选支路</div>
@@ -85,149 +85,36 @@
                 </el-collapse-transition>
 
             </div>
-            <div class="data-box">
+            <div class="Table">
                 <div class="bg"></div>
                 <div class="title"><h3>数据列表</h3>
                     <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
                 </div>
-                <div class="content-table">
-                    <div class="tit">【 2018-10-18 16:05:30 】</div>
 
-                    <div id="myTable" class="myTable table-box">
-                        <el-table
-                                :data="tableData"
-                                align="center"
-                                border
-                                stripe
-                                :default-sort="{prop: 'date', order: 'descending'}"
-                                style="width: 100%">
-                            <el-table-column
-                                    align="center"
-                                    fixed
-                                    sortable
-                                    prop="date"
-                                    label="日期"
-                                    show-overflow-tooltip
-                                    width="158">
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="name"
-                                    sortable
-                                    label="姓名"
-                                    width="150"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="name"
-                                    sortable
-                                    label="姓名"
-                                    width="150"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="name"
-                                    sortable
-                                    label="姓名"
-                                    width="150"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="province"
-                                    sortable
-                                    label="省份"
-                                    width="150"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="city"
-                                    sortable
-                                    label="市区"
-                                    width="250"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="address"
-                                    sortable
-                                    label="地址"
-                                    width="250"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
-                            <el-table-column
-                                    align="center"
-                                    prop="zip"
-                                    sortable
-                                    label="邮编"
-                                    width="250"
-                                    show-overflow-tooltip
-                            >
-                            </el-table-column>
 
-                        </el-table>
-                        <!--<div class="table-header">-->
-                        <!--<table>-->
-                        <!--<tr>-->
-                        <!--<th>日期</th>-->
-                        <!--&lt;!&ndash;<th>日期</th>&ndash;&gt;-->
-                        <!--</tr>-->
-                        <!--&lt;!&ndash;<tr></tr>&ndash;&gt;-->
-
-                        <!--<tr v-for="v in 10">-->
-                        <!--<td>01-03-LPB-E4-00</td>-->
-                        <!--</tr>-->
-                        <!--</table>-->
-                        <!--</div>-->
-                        <!--<div class="table-right">-->
-                        <!--<table>-->
-                        <!--&lt;!&ndash;<tr style="border-bottom: 1px solid #1B6D9A;">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<th style="border-right: 1px solid #1B6D9A;" colspan="5">查询结果项1</th>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<th style="border-right: 1px solid #1B6D9A;" colspan="5">查询结果项2</th>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<th style="border-right: 1px solid #1B6D9A;" colspan="5">查询结果项3</th>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                        <!--<tr>-->
-                        <!--<th v-for="v in 5">名称</th>-->
-                        <!--</tr>-->
-                        <!--<tr v-for="v in 10">-->
-                        <!--<td v-for="v in 5">01-03-LPB-E4-00</td>-->
-                        <!--</tr>-->
-                        <!--</table>-->
-                        <!--</div>-->
+                <template-table :data-tit="tableTitle"></template-table>
+                <div class="selector">
+                    <i class="icon-front"></i>
+                    <i class="icon-prev"></i>
+                    <div class="page-num">
+                        <div class="bg"></div>
+                        <input type="text" value="1">
                     </div>
-                    <div class="selector">
-                        <i class="icon-front"></i>
-                        <i class="icon-prev"></i>
-                        <div class="page-num">
-                            <div class="bg"></div>
-                            <input type="text" value="1">
-                        </div>
 
-                        <span class="page-all">
+                    <span class="page-all">
                         /共1页
                     </span>
-                        <i class="icon-next"></i>
-                        <i class="icon-last"></i>
-                        <div class="count">
-                            <div class="bg"></div>
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                        </div>
+                    <i class="icon-next"></i>
+                    <i class="icon-last"></i>
+                    <div class="count">
+                        <div class="bg"></div>
+                        <select>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -235,10 +122,12 @@
 </template>
 
 <script>
+    import TemplateTable from '../views/template-table'
     export default {
         name: "ShiShiShuJu",
         data() {
             return {
+                treeHeight:0,
                 option: '2',
                 leftShow: true,
                 filtrateShow: true,
@@ -246,6 +135,56 @@
                 no2off: true,
                 value6: '',
                 days: 2,
+                tableTitle: {
+                    title: '【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】',
+                    titArr: [
+                        {
+                            prop: "id",
+                            label: "日期",
+                            sortable: false
+                        },
+                        {
+                            prop: "dianliuIa",
+                            label: "电流Ia",
+                            sortable: false
+                        },
+                        {
+                            prop: "dianliuIb",
+                            label: "电流Ib",
+                            sortable: false
+                        },
+                        {
+                            prop: "dianliuIc",
+                            label: "电流Ic",
+                            sortable: false
+                        },
+                        {
+                            prop: "zhengDianNeng",
+                            label: "当前正向有功总电能",
+                            sortable: false
+                        },
+                        {
+                            prop: "cuUan",
+                            label: "粗电压Uan",
+                            sortable: false
+                        },
+                        {
+                            prop: "cuUbn",
+                            label: "粗电压Ubn",
+                            sortable: false
+                        },
+                        {
+                            prop: "cuUcn",
+                            label: "粗电压Ucn",
+                            sortable: false
+                        },
+                        {
+                            prop: "sum",
+                            label: "总有功功率W",
+                            sortable: false
+                        },
+                    ]
+                },
                 tableData: [{
                     date: '2016-05-03',
                     name: '王小虎',
@@ -277,7 +216,11 @@
                 }],
             }
         },
+        components: {
+            TemplateTable
+        },
         mounted() {
+            this.treeHeight=document.getElementById("leftShow").offsetHeight;
             var setting = {
                 check: {
                     enable: true,
@@ -498,9 +441,9 @@
 
         .left-branch {
             width: 245px;
-            height: 894px;
+            height: 100%;
             box-sizing: border-box;
-            margin-bottom: 40px;
+            //margin-bottom: 40px;
             /*float: left;*/
             /*margin-right: 24px;*/
             position: relative;
@@ -544,6 +487,7 @@
             }
             .ztree {
                 margin-top: 20px;
+                overflow: auto;
             }
 
             .tit {
@@ -555,6 +499,8 @@
             }
             .butt {
                 width: 100%;
+                height: 20%;
+                overflow:auto;
                 position: absolute;
                 bottom: 0;
                 left: 0;
@@ -615,8 +561,9 @@
 
         .main {
             width: 100%;
-            height: 894px;
-
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
             margin-left: 4px;
 
@@ -893,6 +840,146 @@
                             background: url("../../assets/NengHaoChaXun/bt_xz.png") no-repeat;
                             -webkit-background-size: 100% 100%;
                             background-size: 100% 100%;
+                        }
+                    }
+                }
+            }
+            .Table {
+                width: 100%;
+                position: relative;
+                box-sizing: border-box;
+                padding: 23px 20px;
+                margin-top: 25px;
+                margin-bottom: 25px;
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+                    position: relative;
+                    z-index: 5;
+                    /*margin-bottom: 15px;*/
+                    h3 {
+                        font-size: 16px;
+                        font-family: HiraginoSansGB-W3;
+                        font-weight: bold;
+                        color: rgba(254, 254, 255, 1);
+                    }
+                    .icon-pdf {
+                        display: inline-block;
+                        width: 21px;
+                        height: 21px;
+                        background: url("../../assets/NengHaoChaXun/pdf.png") no-repeat;
+                        margin-right: 20px;
+                    }
+                    .icon-excel {
+                        display: inline-block;
+                        width: 21px;
+                        height: 21px;
+                        background: url("../../assets/NengHaoChaXun/excel.png") no-repeat;
+                    }
+                }
+                .table-box {
+                    position: relative;
+                    z-index: 5;
+                    border: 1px solid #15759A;
+                    /*padding-bottom: 60px;*/
+                    .table-tit {
+                        padding: 20px;
+                        width: 100%;
+                        /*letter-spacing:2px;*/
+                        font-size: 14px;
+                        font-family: HiraginoSansGB-W3;
+                        font-weight: normal;
+                        color: rgba(95, 251, 248, 1);
+                        text-align: center;
+                    }
+
+                }
+                .selector {
+                    position: relative;
+                    z-index: 5;
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 20px;
+                    align-items: center;
+
+                    .icon-front {
+                        width: 10px;
+                        height: 14px;
+                        display: inline-block;
+                        background: url("../../assets/NengHaoChaXun/icon_zz.png") no-repeat;
+                    }
+                    .icon-prev {
+                        width: 8px;
+                        height: 14px;
+                        display: inline-block;
+                        transform: rotate(180deg);
+                        margin-left: 10px;
+                        background: url("../../assets/NengHaoChaXun/箭头2.png") no-repeat;
+                    }
+                    .icon-next {
+                        width: 8px;
+                        height: 14px;
+                        display: inline-block;
+                        margin-left: 20px;
+                        background: url("../../assets/NengHaoChaXun/箭头2.png") no-repeat;
+                    }
+                    .icon-last {
+                        margin-left: 10px;
+                        width: 10px;
+                        height: 14px;
+                        display: inline-block;
+                        background: url("../../assets/NengHaoChaXun/icon_yy.png") no-repeat;
+                    }
+                    .page-num {
+
+                        width: 38px;
+                        height: 26px;
+                        margin-left: 20px;
+                        position: relative;
+                        input {
+                            position: relative;
+                            z-index: 5;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(26, 96, 134, 0);
+                            border: 0px;
+                            outline: none;
+                            cursor: pointer;
+                            font-size: 12px;
+                            font-family: HiraginoSansGB-W3;
+                            font-weight: bold;
+                            color: rgba(45, 243, 255, 1);
+                            text-align: center;
+                        }
+                    }
+                    .page-all {
+                        font-size: 12px;
+                        font-family: HiraginoSansGB-W3;
+                        font-weight: bold;
+                        color: rgba(45, 243, 255, 1);
+                        margin-left: 10px;
+                    }
+                    .count {
+                        width: 48px;
+                        height: 26px;
+                        margin-left: 22px;
+                        position: relative;
+                        select {
+                            border: 0px;
+                            outline: none;
+                            cursor: pointer;
+                            position: relative;
+                            z-index: 5;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(26, 96, 134, 0);
+                            font-size: 12px;
+                            font-family: HiraginoSansGB-W3;
+                            font-weight: bold;
+                            color: rgba(45, 243, 255, 1);
+                            option {
+                                background-color: #0B3F6F;
+                            }
                         }
                     }
                 }
