@@ -1,0 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#app,
+.wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'PingFang SC', "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+}
+
+a {
+    text-decoration: none
+}
+
+
+.content-box {
+    position: absolute;
+    right: 0;
+    left: 230px;
+    top: 80px;
+    bottom: 0;
+    padding-bottom: 30px;
+    -webkit-transition: left .3s ease-in-out;
+    transition: left .3s ease-in-out;
+    /* background: #083C6C; */
+    background:radial-gradient(circle,rgba(23,46,80,1),rgba(41,85,138,1));
+
+
+}
+
+.content {
+    width: auto;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+}
+
+.content-collapse {
+    left: 65px;
+}
+
+.container {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.crumbs {
+    margin: 10px 0;
+}
+
+.pagination {
+    margin: 20px 0;
+    text-align: right;
+}
+
+.plugins-tips {
+    padding: 20px 10px;
+    margin-bottom: 20px;
+}
+
+.el-button+.el-tooltip {
+    margin-left: 10px;
+}
+
+.el-table tr:hover {
+    background: #f6faff;
+}
+
+.mgb20 {
+    margin-bottom: 20px;
+}
+
+.move-enter-active,
+.move-leave-active {
+    transition: opacity .5s;
+}
+
+.move-enter,
+.move-leave {
+    opacity: 0;
+}
+/* 滚动条样式 */
+body{
+    scrollbar-arrow-color: rgb(8,26,46);; /*上下按钮上三角箭头的颜色*/
+    scrollbar-face-color: #030D16; /*滚动条凸出部分的颜色*/
+    scrollbar-3dlight-color: blue; /*滚动条亮边的颜色*/
+    scrollbar-highlight-color:#29669B; /*滚动条空白部分的颜色*/
+    scrollbar-shadow-color: rgb(8,26,46); /*滚动条阴影的颜色*/
+    scrollbar-darkshadow-color: green; /*滚动条强阴影的颜色*/
+    scrollbar-track-color: #122C47; /*滚动条背景颜色*/
+
+    scrollbar-base-color: black; /*滚动条的基本颜色*/
+    /*以上2项适用与：body、div、textarea、iframe*/
+}
+
+
+::-webkit-scrollbar {  /* 滚动条整体部分 */
+    width:10px;
+    margin-right:2px
+}
+
+::-webkit-scrollbar-button { /* 滚动条两端的按钮 */
+    width:10px;
+    background-color:#0855A7;
+}
+
+::-webkit-scrollbar:horizontal {
+    height:10px;
+    margin-bottom:2px
+}
+::-webkit-scrollbar-track {  /* 外层轨道 */
+    border-radius: 0px;
+}
+::-webkit-scrollbar-track-piece {  /*内层轨道，滚动条中间部分 */
+    background-color: #122C47;
+    border-radius: 0px;
+}
+::-webkit-scrollbar-thumb {  /* 滑块 */
+    width:10px;
+    border-radius: 5px;
+    background: #2DF3FF;/***滚动条颜色***/
+}
+
+::-webkit-scrollbar-thumb:hover { /* 鼠标移入滑块 */
+    background: #2DF3FF;/***滚动条颜色***/
+}
+/*BaseForm*/
+
+.form-box {
+    width: 600px;
+}
+
+.form-box .line {
+    text-align: center;
+}
+
+.el-time-panel__content::after,
+.el-time-panel__content::before {
+    margin-top: -7px;
+}
+
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+    padding-bottom: 0;
+}
+
+/*Upload*/
+.el-menu{
+    border-right:0;
+}
+.pure-button {
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.g-core-image-corp-container .info-aside {
+    height: 45px;
+}
+
+.el-upload--text {
+    background-color: #fff;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 360px;
+    height: 180px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.el-upload--text .el-icon-upload {
+    font-size: 67px;
+    color: #97a8be;
+    margin: 40px 0 16px;
+    line-height: 50px;
+}
+
+.el-upload--text {
+    color: #97a8be;
+    font-size: 14px;
+    text-align: center;
+}
+
+.el-upload--text em {
+    font-style: normal;
+}
+
+/*VueEditor*/
+
+.ql-container {
+    min-height: 400px;
+}
+
+.ql-snow .ql-tooltip {
+    transform: translateX(117.5px) translateY(10px) !important;
+}
+
+.editor-btn {
+    margin-top: 20px;
+}
+
+/*markdown*/
+
+.v-note-wrapper .v-note-panel {
+    min-height: 500px;
+}
