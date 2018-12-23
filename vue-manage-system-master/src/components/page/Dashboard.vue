@@ -310,7 +310,7 @@
                 color10: '#B791F7',
                 buildingId:1,
                 buildingImg: ' ',
-                buildingTitle: 'hkkhjhh',
+                buildingTitle: '金风科技',
                 buildingDetail: '位于北京市经济开发区博兴一路8号，总面积63889平方米，其中 1#天诚厂房建筑面积42154平方米，总面积63889平方米，其中 1#天诚厂房建筑面积42154平方米',
                 energyBtn: ['总', '电', '水', '冷', '热'],
                 defalut: 0,
@@ -355,7 +355,7 @@
                     // {energy:'热'}
                 ],
                 Data: {
-                    sliderData1: [
+                    sliderData2: [
                         {
                             title: '今日用水',
                             view: 1,
@@ -384,7 +384,7 @@
                             class2: 'icon-hb'
                         }
                     ],
-                    sliderData2: [
+                    sliderData1: [
                         {
                             title: '今日用电',
                             view: 2,
@@ -395,7 +395,7 @@
                             class2: 'icon-hb'
                         },
                         {
-                            title: '12313今月用电',
+                            title: '今月用电',
                             view: 2,
                             data: 1062.86,
                             tongbi: 0.13,
@@ -413,7 +413,7 @@
                             class2: 'icon-hb'
                         }
                     ],
-                    sliderData3: [
+                    sliderData4: [
                         {
                             title: '今日用热',
                             name1: '同比',
@@ -444,35 +444,35 @@
                             class2: 'icon-hb'
                         }
                     ],
-                    // sliderData4:[
-                    //     {
-                    //         title:'今日用冷',
-                    //         view:2,
-                    //         data:62.86,
-                    //         tongbi:32.12,
-                    //         class1:'icon-tb',
-                    //         huanbi:12.10,
-                    //         class2:'icon-hb'
-                    //     },
-                    //     {
-                    //         title:'12313今月用冷',
-                    //         view:2,
-                    //         data:1062.86,
-                    //         tongbi:0.13,
-                    //         class1:'icon-tb',
-                    //         huanbi:0.10,
-                    //         class2:'icon-hb'
-                    //     },
-                    //     {
-                    //         title:'今年用冷',
-                    //         view:2,
-                    //         data:20562.86,
-                    //         tongbi:0.14,
-                    //         class1:'icon-tb',
-                    //         huanbi:0.10,
-                    //         class2:'icon-hb'
-                    //     }
-                    // ],
+                    sliderData3:[
+                        {
+                            title:'今日用冷',
+                            view:2,
+                            data:62.86,
+                            tongbi:32.12,
+                            class1:'icon-tb',
+                            huanbi:12.10,
+                            class2:'icon-hb'
+                        },
+                        {
+                            title:'12313今月用冷',
+                            view:2,
+                            data:1062.86,
+                            tongbi:0.13,
+                            class1:'icon-tb',
+                            huanbi:0.10,
+                            class2:'icon-hb'
+                        },
+                        {
+                            title:'今年用冷',
+                            view:2,
+                            data:20562.86,
+                            tongbi:0.14,
+                            class1:'icon-tb',
+                            huanbi:0.10,
+                            class2:'icon-hb'
+                        }
+                    ],
                 },
 
 
