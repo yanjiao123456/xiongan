@@ -17,15 +17,7 @@
                 </div>
                 <!--<div class="zTreeDemoBackground left">-->
                 <ul id="treeDemo" class="ztree"></ul>
-                <!--</div>-->
-                <!--<div class="butt">-->
-                <!--<div class="tit">已选支路</div>-->
-                <!--<ul>-->
-                <!--<li><i :class="option == 0?'icon-not':'icon-yes'"></i><span>2AH103-馈线-</span></li>-->
-                <!--<li><i :class="option == 1?'icon-not':'icon-yes'"></i><span>2AH103-馈线-</span></li>-->
-                <!--<li><i :class="option == 2?'icon-not':'icon-yes'"></i><span>2AH103-馈线-</span></li>-->
-                <!--</ul>-->
-                <!--</div>-->
+
             </div>
         </transition>
         <div @click="leftShow=!leftShow" :class="{btn:true,shrinkBtn:!leftShow}">支 路 选 择</div>
@@ -93,23 +85,12 @@
                                         end-placeholder="结束日期"
                                 ></el-date-picker>
                             </div>
-                            <!--<div class="fl days-box">-->
-                            <!--<span class="days-tit date-select">-->
-                            <!--<i class="el-icon-search"></i>-->
-                            <!--快捷查询:-->
-                            <!--</span>-->
-                            <!--<div class="days-btn">-->
-                            <!--<span @click="days=0" :class="{cur:days==0}">前1天</span>-->
-                            <!--<span @click="days=1" :class="{cur:days==1}">前3天</span>-->
-                            <!--<span @click="days=2" :class="{cur:days==2}">前7天</span>-->
-                            <!--<span @click="days=3" :class="{cur:days==3}">前1月</span>-->
-                            <!--</div>-->
-                            <!--</div>-->
+
                         </div>
 
                         <div class="btns-box">
-                            <div @click="bindQuery" :class="{'btn-item':true,cur:btns==0}">查询</div>
-                            <div @click="btns=1" :class="{'btn-item':true,cur:btns==1}">重置</div>
+                            <div @click="bindQuery" class="btn-item">查询</div>
+                            <div @click="reset" class="btn-item">重置</div>
                         </div>
                     </div>
                 </el-collapse-transition>
@@ -169,7 +150,7 @@
 
                 <!--<template-table :data-tit="tableTitle"></template-table>-->
                 <div class="table-box">
-                    <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
+                    <div class="table-tit">【 {{ startDate }} 至 {{ endDate }} 能耗数据 】</div>
                     <el-table :data="tableData" border stripe style="width: 100%">
                         <el-table-column
                                 :key="index"
@@ -184,28 +165,7 @@
                     </el-table>
                 </div>
                 <pages :total="totalSize" @returnPageNum="getDate"></pages>
-                <!--<div class="selector">-->
-                    <!--<i @click="pageA" class="icon-front"></i>-->
-                    <!--<i @click="pageB" class="icon-prev"></i>-->
-                    <!--<div class="page-num">-->
-                        <!--<div class="bg"></div>-->
-                        <!--<input type="text" v-model="pageNum">-->
-                    <!--</div>-->
 
-                    <!--<span v-show="!pageShow" class="page-all">/共1页</span>-->
-                    <!--<span v-show="pageShow" class="page-all">/共{{ pageAll }}页</span>-->
-                    <!--<i @click="nextB" class="icon-next"></i>-->
-                    <!--<i @click="nextA" class="icon-last"></i>-->
-                    <!--<div class="count">-->
-                        <!--<div class="bg"></div>-->
-                        <!--<select v-model="newPage">-->
-                            <!--<option>10</option>-->
-                            <!--<option>20</option>-->
-                            <!--<option>50</option>-->
-                            <!--<option>100</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
 
 
@@ -221,42 +181,16 @@
         name: "nenghaoqushi",
         data() {
             return {
-                newPage:10,
-                pageNum:1,
-                pageShow:false,
-                page:0,
-                pageSize:10,
+                newPage: 10,
+                pageNum: 1,
+                pageShow: false,
+                page: 0,
+                pageSize: 10,
+
 
                 dateType: 'hour',
-                totalSize:1,
-                // pickerOptions2: {
-                //     shortcuts: [{
-                //         text: '最近一周',
-                //         onClick(picker) {
-                //             const end = new Date();
-                //             const start = new Date();
-                //             start.setTime(start.getTime() - 3600 * 1000 * 1);
-                //             picker.$emit('pick', [start, end]);
-                //         }
-                //     }, {
-                //         text: '最近一个月',
-                //         onClick(picker) {
-                //             const end = new Date();
-                //             const start = new Date();
-                //             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                //             picker.$emit('pick', [start, end]);
-                //         }
-                //     }, {
-                //         text: '最近三个月',
-                //         onClick(picker) {
-                //             const end = new Date();
-                //             const start = new Date();
-                //             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                //             picker.$emit('pick', [start, end]);
-                //         }
-                //     }]
-                // },
-                // value4: [new Date().setTime(new Date().getTime() - 3600 * 1000 * 1), new Date().getTime()],
+                totalSize: 1,
+
                 value4: [],
                 startDate: '',
                 endDate: '',
@@ -382,34 +316,29 @@
         components: {
             pages
         },
-        computed:{
-            pageAll(){
-                Math.ceil(this.totalSize/this.newPage)　　// 3
-            }
-        },
+        computed: {},
         //2018-12-23 00:00:00
         methods: {
-            pageA(){
 
+            reset() {
+                this.value4 = '';
+                this.userDefined = '';
             },
-            pageB(){
-
-            },
-            nextA(){
-
-            },
-            nextB(){
-
-            },
-            getDate(page,pageSize){
-                this.page=page;
-                this.pageSize=pageSize;
+            getDate(page, pageSize) {
+                this.page = page;
+                this.pageSize = pageSize;
                 this.getTableData();
             },
             bindQuery() {
-                this.getMainData();
+                if (this.value4) {
+                    // console.log('有数据');
+                    this.getMainData();
+                } else {
+                    // console.log('没有数据');
+                    this.$message.error(' 请选择日期 ');
 
-                this.btns = 0
+                }
+
             },
             bindAdd(date, part, value) {
                 value *= 1;
@@ -465,24 +394,19 @@
                 this.getTreeData();
             },
             zTreeOnCheck(event, treeId, setting) {
-                //   console.log("treeId", treeId);
-                // console.log("setting", setting);
+
                 this.treeId = setting.id;
                 this.getMainData();
                 this.getTableData();
             },
-            treeDom() {
-                let treeUl = $("#treeDemo");
-                for (let i = 0; i < array.length; i++) {
-                }
-            },
+
             messageErr() {
                 this.$message.error(' 该支路下没有绑定实体表 ');
             },
             getTableData() {
                 this.bindss();
                 let _this = this;
-                //树型导航
+                //表格
                 this.$axios
                     .get("/xa_energy_analysis!queryTableData.action", {
                         params: {
@@ -493,14 +417,14 @@
                             endTime: _this.endDate,
                             compareBeginTime: _this.cpStartDate,
                             compareEndTime: _this.cpEndDate,
-                            pageStart: (_this.page*_this.pageSize),
+                            pageStart: (_this.page * _this.pageSize) > 10 ? (_this.page * _this.pageSize) - _this.pageSize : (_this.page * _this.pageSize),
                             pageSize: _this.pageSize
                             // buildingId: 1
                         }
                     })
                     .then(function (response) {
                         var data = response.data.data;
-                        console.log(data);
+                        // console.log(data);
                         if (data.message == " 该支路下没有绑定实体表 ") {
                             // _this.messageErr();
                         } else {
@@ -547,7 +471,7 @@
                         this.cpEndDate = this.format(enddate);
                     }
                 } else if (this.compareVal == 'zibi') {
-                    console.log(this.userDefined);
+                    // console.log(this.userDefined);
                     this.cpStartDate = this.userDefined[0];
                     this.cpEndDate = this.userDefined[1];
                 }
@@ -583,7 +507,7 @@
                             _this.messageErr();
                         } else {
 
-                            _this.totalSize=data.totalSize;
+                            _this.totalSize = data.totalSize;
 
                             _this.dataShow = true;
                             // console.log(data.yls);
@@ -797,10 +721,6 @@
             var now = new Date().getTime();
             this.value4[0] = prev;
             this.value4[1] = now;
-
-            // this.value4[0]=this.format(prev);
-            // this.value4[1]=this.format(now);
-            // console.log(this.value4);
 
 
         },
@@ -1112,7 +1032,6 @@
                         margin-left: 0;
                         margin-top: 20px;
                     }
-
 
                     display: flex;
                     flex-direction: column;
@@ -1581,6 +1500,11 @@
                             background: url("../../assets/NengHaoChaXun/bt_wxz.png") no-repeat;
                             -webkit-background-size: 100% 100%;
                             background-size: 100% 100%;
+                            &:hover {
+                                background: url("../../assets/NengHaoChaXun/bt_xz.png") no-repeat;
+                                -webkit-background-size: 100% 100%;
+                                background-size: 100% 100%;
+                            }
                         }
                         .cur {
                             background: url("../../assets/NengHaoChaXun/bt_xz.png") no-repeat;
