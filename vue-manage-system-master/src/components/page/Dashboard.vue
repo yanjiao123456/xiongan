@@ -9,7 +9,7 @@
                             <div class="sliderCon">
                                 <div class="sbg"></div>
                                     <div class="slider-inner">
-                                        <span v-bind:class="{'water-icon':d.view==1 ,'yd-icon':d.view==2,'rl-icon':d.view==3 ,'ll-icon':d.view==4,
+                                        <span v-bind:class="{'water-icon':d.view==2 ,'yd-icon':d.view==1,'rl-icon':d.view==4 ,'ll-icon':d.view==3,
                                         'hidden-sm-and-down':true}"></span>
                                         <div class="see-blank">
                                             <p>{{d.title}}</p>
@@ -18,14 +18,14 @@
                                         </div>
                                         <div class="tong-huan-bi hidden-md-and-down">
                                             <p class="tongbi">
-                                                <span>同比：</span>
-                                                <span class="tongbi-detail">{{d.tongbi}}<small>%</small></span>
+                                                <span>{{d.name1}}</span>
+                                                <span class="tongbi-detail">{{d.tongbi}}</span>
                                                 
                                                 <i :class="d.class1"></i>
                                             </p>
                                             <p class="huanbi">
-                                                <span>环比：</span>
-                                                <span class="hunabi-detail">{{d.huanbi}}<small>%</small></span>
+                                                <span>{{d.name2}}</span>
+                                                <span class="hunabi-detail">{{d.huanbi}}</span>
                                                 <i :class="d.class2"></i>
                                             </p>
                                         </div>
@@ -293,7 +293,7 @@
                 isActiv:true,
                 show:true,
                 selectValbar:'day',
-                selectVal:'month',
+                selectVal:'day',
                 selectValPie2:'day',
                 selectValPie3:'day',
                 selectValPie4:'day',
@@ -415,6 +415,8 @@
                 sliderData3:[
                     {
                         title:'今日用热',
+                        name1:'同比',
+                        name2:'环比',
                         view:3,
                         data:62.86,
                         tongbi:32.12,
@@ -486,474 +488,97 @@
         },
       
         methods: {
-            // SliderData(){
-            //     var that=this;
-            //     this.$axios.get(
-            //         'http://10.76.107.100:18080/jinfeng/xa_index!searchIndexTop.action',{
-            //             buildingId:1
-            //         })
-            //         .then(function(response){
-            //       console.log(response.data);
-            //       console.log(response.data.theObj);
-            //             // that.Data=response.data.theObj[0];
-            //             // console.log(that.Data);
-            //      })
-            //      .catch(function(err){
-            //         console.log(error); 
-            //      });
+            // parseRouter(){
+            //     var buildingId=window.location.href.split("?")[1].split("=")[1];
+            //     localStorage.setItem('buildingId',buildingId);
             // },
-            KPIData(){
+
+
+            SliderData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
-                        params: {
-                        buildingId: 1
-                        // dateType: 'day'
-                        }
-                    }).then(function(response){
-                //   console.log(response.data);
-                //   console.log(response.data.theObj);
-                  that.buildingDetail=response.data.theObj.buildingDetail;
-                  that.buildingTitle=response.data.theObj.buildingTitle;
-                  that.buildingImg=response.data.theObj.buildingImg;
-                        // that.Data=response.data.theObj[0];
-                        // console.log(that.Data);
-                 })
-                 .catch(function(err){
-                    console.log(error); 
-                 });
-            },
-            QiYeData(){
-                 var that=this;
-                this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
-                        params: {
-                        buildingId: 1
-                        // dateType: 'day'
-                        }
-                    }).then(function(response){
-                //   console.log(response.data);
-                //   console.log(response.data.theObj);
-                  that.buildingDetail=response.data.theObj.buildingDetail;
-                  that.buildingTitle=response.data.theObj.buildingTitle;
-                  that.buildingImg=response.data.theObj.buildingImg;
-                        // that.Data=response.data.theObj[0];
-                        // console.log(that.Data);
-                 })
-                 .catch(function(err){
-                    console.log(error); 
-                 });
-            },
-            QushiData(){
-                var that=this;
-                this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTrend.action',{
-                        params: {
-                        buildingId: 1,
-                        dateType: that.selectValbar,
-                        energyType:that.btns
-                        }
-                    }).then(function(response){
-                  console.log(response.data.theObj);
-                  
-                // 能耗趋势与对比
-                var LegendData=[];
-                var Datas=[];
-                var XData=[]; 
-                for(var i=0;i<response.data.theObj.length;i++){
-                    // LegendData.push(response.data.theObj[i].name);
-                    // Datas.push(response.data.theObj[i].dataS);
-                    // XData.push(response.data.theObj[0].xData);
-                    response.data.theObj[0].tyepe="bar";
-                    response.data.theObj[1].tyepe="bar";
-                    response.data.theObj[2].tyepe="line";
-                    response.data.theObj[2].symbolSize=8;
-                    response.data.theObj[2].smooth='true';
-                }
-                console.log(response.data.theObj);
-                // console.log(Datas);
-                // console.log(XData);
-                var qushi = document.getElementById('qushi');
-                var qushiChart = echarts.init(qushi);
-                var qu1 = Datas[0];
-                var qu2 = Datas[1];
-                var qu3 = Datas[2];
-                var qushiData=response.data.theObj;
-                var option1 = {
-                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    legend: {
-                        data: LegendData,
-                        // align: 'left',
-                        x: 'center',
-                        right: '4%',
-                        // icon: 'rect',
-                        itemWidth: 10, 
-                        itemHeight: 10, 
-                        itemGap: 30,
-                        textStyle: {
-                            color: 'rgb(91,227,224)',
-                            fontSize: 12
-                        }
-                    },
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            lineStyle: {
-                                type: 'shadow',
-                                color: '#778AA8'
-                            }
-                        }
-                    },
-                    xAxis: [{
-                        data: XData,
-                        type: 'category',
-                        // boundaryGap: false,
-                        axisLine: {
-                            lineStyle: {
-                                color: 'rgb(91,227,224)'//x轴坐标颜色
-                            }
-                        }
-                    }],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '单位（kw）',
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine: {
-                                lineStyle: {
-                                    color: 'rgb(223,253,255)'
-                                }
-                            },
-                            axisLabel: {
-                                margin: 10,
-                                textStyle: {
-                                    fontSize: 14
-                                }
-                            },
-                            splitLine: {
-                                lineStyle: {
-                                    color: 'rgb(42,81,125)'
-                                }
-                            }
-                        }
-                    ],
-                    series:qushiData
-                    //  [{
-                    //     name: '总能耗',
-                    //     type: 'bar',
-                    //     data: qu1,
-                    //     },
-                    //     {
-                    //     name: '环比总能耗',
-                    //     type: 'bar',
-                    //     data: qu2,
-                    //     },
-                    //     {
-                    //     name: '去年同期总能耗',
-                    //     type: 'line',
-                    //     symbolSize: 8,
-                    //     smooth: true,
-                    //     data: qu3,
-                    //     }
-                    // ]
-                }
-                qushiChart.setOption(option1);
-                        console.log(that.Data);
-                 })
-                 .catch(function(err){
-                    console.log(error); 
-                 });
-            },
-            ClassData(){
-                var that=this;
-                this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTypePro.action',{
-                     params: {
-                        buildingId: 1,
-                        dateType: that.selectVal
-                        }
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchIndexTop.action',{
+                        buildingId:1
                     })
                     .then(function(response){
-                        that.list1=response.data.theObj[0];
-                        that.list2=response.data.theObj[1];
-                        that.list3=response.data.theObj[2];
-                        that.list4=response.data.theObj[3];
-                        // console.log(response.data.theObj[0]);
-                        // 用能种类占比
-                        var yongneng = document.getElementById('yongneng');
-                        var yongnengChart = echarts.init(yongneng);
-                        var yongnengdata= response.data.theObj;
-                        var option2 = {
-                        // color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                        grid: {
-                            left: '2%',
-                            right: '2%',
-                            bottom: '2%',
-                            top: '15%',
-                            containLabel: true
-                        },
-                        tooltip: {
-                            trigger: 'item',
-                            formatter: "{a} <br/>{b} : {c} ({d}%)"
-                        },
-                        series: [{
-                            name: '能源种类占比',
-                            type: 'pie',
-                            selectedMode: 'single',
-                            radius: ['0', '60%'],
-                            center: ['50%', '40%'],
-                            color: ['#1a9bff', '#00e099','#FF9602','#74C936'],
-                            label: {
-                                normal: {
-                                    show: false
-                                }  
-                            },
-                            labelLine: {
-                                normal: {
-                                        show: false
-                                    }
-                            },
-                            data:yongnengdata
-                        }]
+                  var dian=response.data.theObj.sliderData1;
+                  for(var i=0;i<dian.lenght;i++){
+                      console.log(dian[i]);
+                      dian[i].push({view:1});
+                  }
+                  console.log(dian);
+                //   for(var key in dian){
+                //       dian['view']=1;
+                //   }
+                //   console.log(dian);
+                //  response.data.theObj.sliderData1.view=1;
+                //  response.data.theObj.sliderData2.view=2;
+                //  response.data.theObj.sliderData3.view=3;
+                //  response.data.theObj.sliderData4.view=4;
+                  var data = response.data.theObj;
+                  for(var key in data){
+                      
+                    var temp = data[key];
+                    for(var i=0;i<temp.length;i++){
+                        temp[i].name1='同比：';
+                        temp[i].name2='环比：';
+                        temp[i].tongbi=temp[i].tongbi+'%';
+                        temp[i].huanbi=temp[i].huanbi+'%';
+                        temp[i].view = key.substring(key.length-1,key.length);
+                        if(temp[i].class1 == '+'){
+                            temp[i].class1 = 'icon-tb';
+                        }
+                       if(temp[i].class1 == '-'){
+                        temp[i].class1 = 'icon-hb';
+                       }
+                       if(temp[i].class2 == '+'){
+                            temp[i].class2 = 'icon-tb';
+                        }
+                       if(temp[i].class2 == '-'){
+                        temp[i].class2 = 'icon-hb';
+                       }
+                       if(temp[i].title=="今年用电"||temp[i].title=="今年用水"||temp[i].title=="今年用冷"||temp[i].title=="今年用热"){
+                        temp[i].tongbi='';
+                        delete  temp[i]['class1']; 
+                      delete  temp[i]['name1']; 
+                       }
                     }
-                    yongnengChart.setOption(option2);
-              
-                 
+                  }
+                 console.log(response.data.theObj);
+                 that.Data=response.data.theObj;
+                //   for(var i=0;i<response.data.theObj.length;i++){
+                //       if(response.data.theObj[i][i].class2=="+"){
+                //           console.log("+");
+                //       }
+                //   }
                 //   console.log(response.data.theObj);
                         // that.Data=response.data.theObj[0];
                         // console.log(that.Data);
+                    
                  })
                  .catch(function(err){
-                    console.log(error); 
+                    console.log(err); 
                  });
             },
-            FenXiangData(){
+            KPI(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchElectricTypePro.action',{
-                     params: {
-                        buildingId: 1,
-                        dateType: that.selectVal
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingKpi.action',{
+                        params: {
+                        buildingId: 1
+                        // dateType: 'day'
                         }
-                    })
-                    .then(function(response){
-                        that.list5=response.data.theObj[0];
-                        that.list6=response.data.theObj[1];
-                        that.list7=response.data.theObj[2];
-                        that.list8=response.data.theObj[3];
-                        // console.log(response.data.theObj);
-                        // 用电分项
-                 var fenxiang = document.getElementById('fenxiang');
-                var fenxiangChart = echarts.init(fenxiang);
-                var fenxiangdata=response.data.theObj;
-                var option3 = {
-                    color: ['#20C0F4', '#B791F7', '#1A9BFF', '#74C936', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    series: [{
-                        name: '用电分项占比',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: ['0', '60%'],
-                        center: ['50%', '40%'],
-                        // color: ['#1a9bff', '#00e099','#386AB7'],
-                        label: {
-                            normal: {
-                                show: false
-                            }  
-                        },
-                        labelLine: {
-                            normal: {
-                                    show: false
-                                }
-                        },
-                        data: fenxiangdata
-                    }]
-                }
-                fenxiangChart.setOption(option3);
-                 })
-                 .catch(function(err){
-                    console.log(error); 
-                 });
-            },
-            LouCengData(){
-                var that=this;
-                this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingFloorPro.action',{
-                     params: {
-                        buildingId: 1,
-                        dateType: that.selectValPie3
-                        }
-                    })
-                    .then(function(response){
-                        that.list9=response.data.theObj[0];
-                        that.list10=response.data.theObj[1];
-                        that.list11=response.data.theObj[2];
-                        // console.log(response.data.theObj);
-                        // 楼层能耗占比
-                        var quyu = document.getElementById('quyu');
-                        var quyuChart = echarts.init(quyu);
-                        var quyudata=response.data.theObj;
-                        //  [{
-                        //     value: 2061,
-                        //     name: '一层'
-                        //     },
-                        //     {
-                        //         value: 610,
-                        //         name: '二层'
-                        //     },
-                        //     {
-                        //         value: 1039,
-                        //         name: '三层'
-                        //     }];
-                            var option4 = {
-                                color: ['#00CFDF', '#1A9BFF', '#FF9602', '#B791F7', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                                grid: {
-                                    left: '2%',
-                                    right: '2%',
-                                    bottom: '2%',
-                                    top: '15%',
-                                    containLabel: true
-                                },
-                                tooltip: {
-                                    trigger: 'item',
-                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                                },
-                                series: [{
-                                    name: '楼层能耗占比',
-                                    type: 'pie',
-                                    selectedMode: 'single',
-                                    radius: ['0', '60%'],
-                                    center: ['50%', '40%'],
-                                    // color: ['#1a9bff', '#00e099','#386AB7'],
-                                    label: {
-                                        normal: {
-                                            show: false
-                                        }  
-                                    },
-                                    labelLine: {
-                                        normal: {
-                                                show: false
-                                            }
-                                    },
-                                    data:quyudata
-                                }]
-                            }
-                            quyuChart.setOption(option4);
-                    })
-                    .catch(function(err){
-                        console.log(error); 
-                    });
-            },
-            PaiMingData(){
-                var that=this;
-                this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyUnitAreaTop3.action',{
-                     params: {
-                        buildingId: 1,
-                        dateType: that.selectValPie4
-                        }
-                    })
-                    .then(function(response){
-                        // console.log(response.data.theObj);
-                         // 排名
-                         var datas=[];
-                         var Ydata=[];
-                        var zhilu = document.getElementById('zhilu');
-                        var zhiluChart = echarts.init(zhilu);
-                        for(var i=0;i<response.data.theObj.length;i++){
-                            datas.push(response.data.theObj[i].value);
-                            Ydata.push(response.data.theObj[i].treeName);
-                        }
-                        var option5 = {
-                            color: ['#75C8F0','#3E62AC', '#52A991','#66A9C9','#00BFC7','#99D683','#B4C1D7','#21834B'],
-                            tooltip: {
-                            formatter: '{b} ({c})',
-                            trigger: 'axis',
-                            axisPointer: {
-                                type: 'shadow'
-                                }   
-                            },
-                            grid: {
-                                top: '15%',
-                                left: '5%',
-                                right: '5%',
-                                bottom: '5%',
-                                containLabel: true
-                            },
-                            xAxis: {
-                                type: 'value',
-                                gridIndex: 0,
-                                boundaryGap: [0, 0.01],
-                                axisLine:{show:false},
-                                axisTick: {show:false},
-                                axisLabel: {show:false},
-                                splitLine: {show:false}
-                            },
-                            yAxis: {
-                                type: 'category',
-                                interval:0,
-                                gridIndex: 0,
-                                axisTick: {show:false},
-                                axisLabel: {show:true},
-                                axisLine: {
-                                    lineStyle: {
-                                        color: '#2DF3FF'
-                                    }
-                                },
-                                splitLine: {
-                                    show:false
-                                },
-                                data:Ydata
-                            },
-                            series: [
-                                {
-                                    name: '能耗',
-                                    type: 'bar',
-                                    xAxisIndex: 0,
-                                    yAxisIndex: 0,
-                                    barWidth:'40%',
-                                    label:{normal:{show:true, position:"right",textStyle:{fontWeight:"bold"}}},
-                                    data:datas.sort()
-                                }
-                            ]
-                        }
-                        zhiluChart.setOption(option5);
-                    })
-                    .catch(function(err){
-                        console.log(error); 
-                    });
-            },
-            SetEchart() {
-                window.onresize = function () {
-                    gonglvChart.resize();
-                }
+                    }).then(function(response){
+                   that.kpiList=response.data.theObj.list;
+                    // KPI
                 var gonglv = document.getElementById('gonglv');
-                var gonglvChart = echarts.init(gonglv);
+                var gonglvChart= echarts.init(gonglv);
                 var highlight = '#03b7c9';
                 
                 var demoData = [
-                    { name: '单位面积综合能耗\n(kgce.a)', value: 15,  pos: ['16.6%', '35%'], range: [0, 50] },
-                    { name: '单位面积电耗\n(kWh.a)', value: 50,  pos: ['49.8%', '35%'], range: [0, 100] },
-                    { name: '单位面积热能耗\n(Gj/m².a)', value: 0.2, pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
+                    { name: '单位面积综合能耗\n(kgce.a)', value: response.data.theObj.echarts['0'],  pos: ['16.6%', '35%'], range: [0, 50] },
+                    { name: '单位面积电耗\n(kWh.a)', value: response.data.theObj.echarts['A'],  pos: ['49.8%', '35%'], range: [0, 100] },
+                    { name: '单位面积热能耗\n(Gj/m².a)', value: response.data.theObj.echarts['D2'], pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
                     
                 ];
                 var option = {
@@ -1080,34 +705,447 @@
                             return result;
                         })()
                     };
-                gonglvChart.setOption(option);
-
-               
-                
+                    gonglvChart.setOption(option);
+                    
+                 })
                  
-               
-
-               
+                 .catch(function(err){
+                    console.log(err); 
+                 });
+                 
+            },
+            QiYeData(){
+                 var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
+                        params: {
+                        buildingId: 1
+                        // dateType: 'day'
+                        }
+                    }).then(function(response){
+                //   console.log(response.data);
+                //   console.log(response.data.theObj);
+                  that.buildingDetail=response.data.theObj.buildingDetail;
+                  that.buildingTitle=response.data.theObj.buildingTitle;
+                  that.buildingImg=response.data.theObj.buildingImg;
+                        // that.Data=response.data.theObj[0];
+                        // console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(err); 
+                 });
+            },
+            QushiData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTrend.action',{
+                        params: {
+                        buildingId: 1,
+                        dateType: that.selectValbar,
+                        energyType:that.btns
+                        }
+                    }).then(function(response){
+                //   console.log(response.data);
+                  
+                // 能耗趋势与对比
+                var LegendName=[];
+                for(var i=0;i<response.data.theObj.dataList.length;i++){
+                    LegendName.push(response.data.theObj.dataList[i].name);
+                    response.data.theObj.dataList[0].type="bar";
+                    response.data.theObj.dataList[1].type="bar";
+                    response.data.theObj.dataList[2].type="line";
+                    response.data.theObj.dataList[2].symbolSize=8;
+                    response.data.theObj.dataList[2].smooth='true';
+                }
+                var qushi = document.getElementById('qushi');
+                var qushiChart = echarts.init(qushi);
+                var option1 = {
+                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                    legend: {
+                        data:LegendName,
+                        // align: 'left',
+                        x: 'center',
+                        right: '4%',
+                        // icon: 'rect',
+                        itemWidth: 10, 
+                        itemHeight: 10, 
+                        itemGap: 30,
+                        textStyle: {
+                            color: 'rgb(91,227,224)',
+                            fontSize: 12
+                        }
+                    },
+                    grid: {
+                        left: '2%',
+                        right: '2%',
+                        bottom: '2%',
+                        top: '15%',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            lineStyle: {
+                                type: 'shadow',
+                                color: '#778AA8'
+                            }
+                        }
+                    },
+                    xAxis: [{
+                        data: ['0', '1', '2','3','4','5', '6', '7','8','9','10','11','12','13','14','15', '16', '17','18','19','20','21','22','23'],
+                        type: 'category',
+                        // boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'rgb(91,227,224)'//x轴坐标颜色
+                            }
+                        }
+                    }],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '单位（kw）',
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgb(223,253,255)'
+                                }
+                            },
+                            axisLabel: {
+                                margin: 10,
+                                textStyle: {
+                                    fontSize: 14
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgb(42,81,125)'
+                                }
+                            }
+                        }
+                    ],
+                    series: response.data.theObj.dataList
+                    // [{
+                    //     name: '总能耗',
+                    //     type: 'bar',
+                    //     data: qu1,
+                    //     },
+                    //     {
+                    //     name: '环比总能耗',
+                    //     type: 'bar',
+                    //     data: qu2,
+                    //     },
+                    //     {
+                    //     name: '去年同期总消耗',
+                    //     type: 'line',
+                    //     symbolSize: 8,
+                    //     smooth: true,
+                    //     data: qu3,
+                    //     }
+                    // ]
+                }
+                qushiChart.setOption(option1);
+                 })
+                 .catch(function(err){
+                    console.log(err); 
+                 });
+            },
+            ClassData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTypePro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectVal
+                        }
+                    })
+                    .then(function(response){
+                        that.list1=response.data.theObj[0];
+                        that.list2=response.data.theObj[1];
+                        that.list3=response.data.theObj[2];
+                        that.list4=response.data.theObj[3];
+                        // console.log(response.data.theObj[0]);
+                        // 用能种类占比
+                        var yongneng = document.getElementById('yongneng');
+                        var yongnengChart = echarts.init(yongneng);
+                        var yongnengdata= response.data.theObj;
+                        var option2 = {
+                        // color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                        grid: {
+                            left: '2%',
+                            right: '2%',
+                            bottom: '2%',
+                            top: '15%',
+                            containLabel: true
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        series: [{
+                            name: '能源种类占比',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: ['0', '60%'],
+                            center: ['50%', '40%'],
+                            color: ['#1a9bff', '#00e099','#FF9602','#74C936'],
+                            label: {
+                                normal: {
+                                    show: false
+                                }  
+                            },
+                            labelLine: {
+                                normal: {
+                                        show: false
+                                    }
+                            },
+                            data:yongnengdata
+                        }]
+                    }
+                    yongnengChart.setOption(option2);
+              
+                 
+                //   console.log(response.data.theObj);
+                        // that.Data=response.data.theObj[0];
+                        // console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(err); 
+                 });
+            },
+            FenXiangData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchElectricTypePro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectVal
+                        }
+                    })
+                    .then(function(response){
+                        that.list5=response.data.theObj[0];
+                        that.list6=response.data.theObj[1];
+                        that.list7=response.data.theObj[2];
+                        that.list8=response.data.theObj[3];
+                        // console.log(response.data.theObj);
+                        // 用电分项
+                 var fenxiang = document.getElementById('fenxiang');
+                var fenxiangChart = echarts.init(fenxiang);
+                var fenxiangdata=response.data.theObj;
+                var option3 = {
+                    color: ['#20C0F4', '#B791F7', '#1A9BFF', '#74C936', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                    grid: {
+                        left: '2%',
+                        right: '2%',
+                        bottom: '2%',
+                        top: '15%',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    series: [{
+                        name: '用电分项占比',
+                        type: 'pie',
+                        selectedMode: 'single',
+                        radius: ['0', '60%'],
+                        center: ['50%', '40%'],
+                        // color: ['#1a9bff', '#00e099','#386AB7'],
+                        label: {
+                            normal: {
+                                show: false
+                            }  
+                        },
+                        labelLine: {
+                            normal: {
+                                    show: false
+                                }
+                        },
+                        data: fenxiangdata
+                    }]
+                }
+                fenxiangChart.setOption(option3);
+                 })
+                 .catch(function(err){
+                    console.log(err); 
+                 });
+            },
+            LouCengData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingFloorPro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectValPie3
+                        }
+                    })
+                    .then(function(response){
+                        that.list9=response.data.theObj[0];
+                        that.list10=response.data.theObj[1];
+                        that.list11=response.data.theObj[2];
+                        // console.log(response.data.theObj);
+                        // 楼层能耗占比
+                        var quyu = document.getElementById('quyu');
+                        var quyuChart = echarts.init(quyu);
+                        var quyudata=response.data.theObj;
+                        //  [{
+                        //     value: 2061,
+                        //     name: '一层'
+                        //     },
+                        //     {
+                        //         value: 610,
+                        //         name: '二层'
+                        //     },
+                        //     {
+                        //         value: 1039,
+                        //         name: '三层'
+                        //     }];
+                            var option4 = {
+                                color: ['#00CFDF', '#1A9BFF', '#FF9602', '#B791F7', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                                grid: {
+                                    left: '2%',
+                                    right: '2%',
+                                    bottom: '2%',
+                                    top: '15%',
+                                    containLabel: true
+                                },
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                },
+                                series: [{
+                                    name: '楼层能耗占比',
+                                    type: 'pie',
+                                    selectedMode: 'single',
+                                    radius: ['0', '60%'],
+                                    center: ['50%', '40%'],
+                                    // color: ['#1a9bff', '#00e099','#386AB7'],
+                                    label: {
+                                        normal: {
+                                            show: false
+                                        }  
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                                show: false
+                                            }
+                                    },
+                                    data:quyudata
+                                }]
+                            }
+                            quyuChart.setOption(option4);
+                    })
+                    .catch(function(err){
+                        console.log(err); 
+                    });
+            },
+            PaiMingData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyUnitAreaTop3.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectValPie4
+                        }
+                    })
+                    .then(function(response){
+                        // console.log(response.data.theObj);
+                         // 排名
+                         var datas=[];
+                         var Ydata=[];
+                        var zhilu = document.getElementById('zhilu');
+                        var zhiluChart = echarts.init(zhilu);
+                        for(var i=0;i<response.data.theObj.length;i++){
+                            datas.push(response.data.theObj[i].value);
+                            Ydata.push(response.data.theObj[i].treeName);
+                        }
+                        var option5 = {
+                            color: ['#75C8F0','#3E62AC', '#52A991','#66A9C9','#00BFC7','#99D683','#B4C1D7','#21834B'],
+                            tooltip: {
+                            formatter: '{b} ({c})',
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                                }   
+                            },
+                            grid: {
+                                top: '15%',
+                                left: '5%',
+                                right: '5%',
+                                bottom: '5%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                gridIndex: 0,
+                                boundaryGap: [0, 0.01],
+                                axisLine:{show:false},
+                                axisTick: {show:false},
+                                axisLabel: {show:false},
+                                splitLine: {show:false}
+                            },
+                            yAxis: {
+                                type: 'category',
+                                interval:0,
+                                gridIndex: 0,
+                                axisTick: {show:false},
+                                axisLabel: {show:true},
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#2DF3FF'
+                                    }
+                                },
+                                splitLine: {
+                                    show:false
+                                },
+                                data:Ydata
+                            },
+                            series: [
+                                {
+                                    name: '能耗',
+                                    type: 'bar',
+                                    xAxisIndex: 0,
+                                    yAxisIndex: 0,
+                                    barWidth:'40%',
+                                    label:{normal:{show:true, position:"right",textStyle:{fontWeight:"bold"}}},
+                                    data:datas.sort()
+                                }
+                            ]
+                        }
+                        zhiluChart.setOption(option5);
+                        // zhiluChart.resize();
+                    })
+                    .catch(function(err){
+                        console.log(err); 
+                    });
+            },
+            SetEchart() {
                 // 自适应
                 window.onresize = function () {
-                    gonglvChart.resize();
-                    qushiChart.resize();
-                    yongnengChart.resize();
-                    fenxiangChart.resize();
-                    zhiluChart.resize();
-                    quyuChart.resize();
+                   SliderData();
+                    QiYeData();
+                    KPI();
+                    ClassData();
+                    FenXiangData();
+                    LouCengData();
+                    PaiMingData();
+                    QushiData();
                     // duibiChart.resize();
                     // zengjianChart.resize();
                     };
             },
         },
         mounted() {
+            // this.parseRouter();
             this.SetEchart();
         },
         created(){
-            // this. SliderData();
-            this. QiYeData();
-            // this. KPI();
+            this.SliderData();
+            this.QiYeData();
+            this.KPI();
             this.ClassData();
             this.FenXiangData();
             this.LouCengData();
@@ -1367,7 +1405,7 @@
         /* margin-right:10%; */
     }
     .tongbi .tongbi-detail{
-        color:#2FA1FF;
+        /* color:#2FA1FF; */
         width:50px;
         display: inline-block;
     }
@@ -1375,7 +1413,7 @@
         margin-bottom:13px;
     }
     .huanbi .hunabi-detail{
-        color:#FE6134;
+        /* color:#FE6134; */
         width:50px;
         display: inline-block;
     }
