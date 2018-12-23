@@ -86,27 +86,20 @@
             </div>
             <!--对比-->
             <div class="contrast">
-                <el-row :gutter="24">
-                    <el-col :key="index" v-for="(v,index) in lists" :xl="6" :lg="6" :md="24" :sm="24" :xs="24">
-                        <div class="current-period">
-                            <div :style="{background:v.color}" class="item-left">
-                                <i :class="v.icon"></i>
-                            </div>
-                            <div class="item-right">
-                                <div class="p">
-                                    <span>{{ v.title }}</span>
-                                    <!--<span class="time">2018-10-26   00：46：00</span>-->
-                                </div>
-
-                                <div class="kwh">
-                                    <span class="number">166.56</span>
-                                    <!--<span class="unit">kWh</span>-->
-                                </div>
+                <div class="lists" v-for="v in lists">
+                    <div class="current-period">
+                        <div :style="{background:v.color}" class="item-left">
+                            <i :class="v.icon"></i>
+                        </div>
+                        <div class="item-right">
+                            <p>{{ v.title }}</p>
+                            <div class="kwh">
+                                <span class="number">166.56</span>
+                                <span class="unit">kWh</span>
                             </div>
                         </div>
-                    </el-col>
-                </el-row>
-
+                    </div>
+                </div>
             </div>
 
             <div class="data-box">
@@ -828,225 +821,181 @@
             margin-left: 4px;
             .contrast {
                 width: 100%;
-                /*display: flex;*/
-                /*flex-wrap: nowrap;*/
-                /*justify-content: space-between;*/
-                margin-top: 24px;
-                .el-row {
-                    margin-bottom: 24px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                //margin-top: 24px;
+                /* @media screen and (max-width: 1500px) {
+                     flex-direction: column;
+                 }*/
+                .lists {
 
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                    @media screen and (max-width: 1200px) {
-                        margin-bottom: 0;
-                    }
-                }
-
-
-                /*@media screen and (min-width: 1500px) {*/
-                /*&:not(:first-child) {*/
-                /*margin-left: 25px;*/
-                /*}*/
-                /*}*/
-                /*@media screen and (max-width: 1500px) {*/
-                /*margin-left: 0;*/
-                /*margin-top: 20px;*/
-                /*}*/
-                /*width: 100%;*/
-
-                /*display: flex;*/
-                /*flex-direction: column;*/
-                .item-icon-hz {
-                    /*line-height: 90px;*/
-                    width: 43px;
-                    height: 43px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_hz2.png") no-repeat;
-                }
-                .item-icon-pjf {
-                    /*line-height: 90px;*/
-                    width: 40px;
-                    height: 37px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_pjf.png") no-repeat;
-                }
-                .item-icon-max {
-                    /*line-height: 90px;*/
-                    width: 59px;
-                    height: 21px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/max.png") no-repeat;
-                }
-                .item-icon-min {
-                    /*line-height: 90px;*/
-                    width: 60px;
-                    height: 24px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/mIN.png") no-repeat;
-                }
-                .item-icon-tb {
-                    /*line-height: 90px;*/
-                    width: 41px;
-                    height: 34px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_tb.png") no-repeat;
-                }
-                .item-icon-r {
-                    /*line-height: 90px;*/
-                    width: 32px;
-                    height: 41px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_r.png") no-repeat;
-                }
-                .item-icon-zdfh {
-                    /*line-height: 90px;*/
-                    width: 49px;
-                    height: 41px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_zdfh.png") no-repeat;
-                }
-                .item-icon-fhxs {
-                    /*line-height: 90px;*/
-                    width: 48px;
-                    height: 41px;
-                    display: inline-block;
-                    background: url("../../assets/PeiDianJianCe/icon_fhxs.png") no-repeat;
-                }
-                .current-period {
-                    /*width: calc(100% - 25px);*/
-                    width: 100%;
+                    /* @media screen and (min-width: 1500px) {
+                         &:not(:first-child) {
+                             margin-left: 25px;
+                         }
+                     }
+                     @media screen and (max-width: 1500px) {
+                         margin-left: 0;
+                         margin-top: 20px;
+                     }*/
+                    width: 45%;
                     height: 90px;
-                    box-sizing: border-box;
-                    /*padding: 20px 0;*/
-
-                    border: 1px solid rgba(42, 244, 255, 1);
-                    box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
-                    /*opacity:0.5;*/
-                    border-radius: 3px;
-                    @media screen and (max-width: 1200px) {
-                        margin-top: 24px;
-                    }
-
-
-
-
-                    .item-left {
-                        width: 90px;
+                    margin-top: 24px;
+                    // display: flex;
+                    //flex-direction: column;
+                    .current-period {
+                        /*width: calc(100% - 25px);*/
+                        width: 100%;
                         height: 90px;
                         box-sizing: border-box;
-                        /*padding: ;*/
-                        float: left;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        text-align: center;
-                        background-color: #01A8F2;
-                        border-radius: 3px 3px 0px 0px;
-                        margin-top: -1px;
-                        margin-left: -1px;
-
-                    }
-                    .item-right {
-                        box-sizing: border-box;
-                        /*padding-left: 90px;*/
-                        /*box-sizing: border-box;*/
                         /*padding: 20px 0;*/
-                        padding: 20px 20px 20px 110px;
-                        .p {
-                            font-size:14px;
-                            font-family:HiraginoSansGB-W3;
-                            font-weight:normal;
-                            color:rgba(223,253,255,1);
-                            display: flex;
-                            justify-content:space-between;
-                        }
-                        .kwh {
-                            margin-top: 6px;
-                            display: flex;
-                            justify-content: space-between;
-                        }
-                        .number {
-                            font-size: 18px;
-                            font-family: DigitaldreamFat;
-                            font-weight: 400;
-                            color: rgba(44, 244, 242, 1);
-                        }
-                        .unit {
-                            font-size: 14px;
-                            font-family: HiraginoSansGB-W3;
-                            font-weight: normal;
-                            color: rgba(223, 253, 255, 1);
-                        }
 
+                        border: 1px solid rgba(42, 244, 255, 1);
+                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
+                        /*opacity:0.5;*/
+                        border-radius: 3px;
+                        .item-left {
+                            width: 90px;
+                            height: 90px;
+                            box-sizing: border-box;
+                            /*padding: ;*/
+                            float: left;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            background-color: #01A8F2;
+                            border-radius: 3px 3px 0px 0px;
+                            margin-top: -1px;
+                            margin-left: -1px;
+                            .item-icon-hz {
+                                /*line-height: 90px;*/
+                                width: 43px;
+                                height: 43px;
+                                display: inline-block;
+                                background: url("../../assets/PeiDianJianCe/icon_hz2.png") no-repeat;
+                            }
+                            .item-icon-pjf {
+                                /*line-height: 90px;*/
+                                width: 40px;
+                                height: 37px;
+                                display: inline-block;
+                                background: url("../../assets/PeiDianJianCe/icon_pjf.png") no-repeat;
+                            }
+                            .item-icon-max {
+                                /*line-height: 90px;*/
+                                width: 59px;
+                                height: 21px;
+                                display: inline-block;
+                                background: url("../../assets/PeiDianJianCe/max.png") no-repeat;
+                            }
+                            .item-icon-min {
+                                /*line-height: 90px;*/
+                                width: 60px;
+                                height: 24px;
+                                display: inline-block;
+                                background: url("../../assets/PeiDianJianCe/mIN.png") no-repeat;
+                            }
+                        }
+                        .item-right {
+                            box-sizing: border-box;
+                            /*padding-left: 90px;*/
+                            /*box-sizing: border-box;*/
+                            /*padding: 20px 0;*/
+                            padding: 20px 20px 20px 110px;
+                            p {
+                                font-size: 14px;
+                                font-family: HiraginoSansGB-W3;
+                                font-weight: normal;
+                                color: rgba(223, 253, 255, 1);
+                            }
+                            .kwh {
+                                margin-top: 6px;
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                            .number {
+                                font-size: 18px;
+                                font-family: DigitaldreamFat;
+                                font-weight: 400;
+                                color: rgba(44, 244, 242, 1);
+                            }
+                            .unit {
+                                font-size: 14px;
+                                font-family: HiraginoSansGB-W3;
+                                font-weight: normal;
+                                color: rgba(223, 253, 255, 1);
+                            }
+
+                        }
                     }
-                }
-                .before {
-                    width: 100%;
-                    height: 90px;
-                    box-sizing: border-box;
-                    margin-top: 25px;
-                    /*padding: 20px 0;*/
-
-                    border: 1px solid rgba(42, 244, 255, 1);
-                    box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
-                    /*opacity:0.5;*/
-                    border-radius: 3px;
-                    .item-left {
-                        width: 90px;
+                    .before {
+                        width: 100%;
                         height: 90px;
                         box-sizing: border-box;
-                        /*padding: ;*/
-                        float: left;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        text-align: center;
-                        background-color: #5361DB;
-                        border-radius: 3px 3px 0px 0px;
-                        margin-top: -1px;
-                        margin-left: -1px;
-                        .item-icon-hz {
-                            /*line-height: 90px;*/
-                            width: 43px;
-                            height: 43px;
-                            display: inline-block;
-                            background: url("../../assets/PeiDianJianCe/icon_hz2.png") no-repeat;
-                        }
-                    }
-                    .item-right {
-                        box-sizing: border-box;
-                        /*padding-left: 90px;*/
-                        /*box-sizing: border-box;*/
+                        margin-top: 25px;
                         /*padding: 20px 0;*/
-                        padding: 20px 20px 20px 110px;
-                        p {
-                            font-size: 14px;
-                            font-family: HiraginoSansGB-W3;
-                            font-weight: normal;
-                            color: rgba(223, 253, 255, 1);
-                        }
-                        .kwh {
-                            margin-top: 6px;
-                            display: flex;
-                            justify-content: space-between;
-                        }
-                        .number {
-                            font-size: 18px;
-                            font-family: DigitaldreamFat;
-                            font-weight: 400;
-                            color: rgba(44, 244, 242, 1);
-                        }
-                        .unit {
-                            font-size: 14px;
-                            font-family: HiraginoSansGB-W3;
-                            font-weight: normal;
-                            color: rgba(223, 253, 255, 1);
-                        }
 
+                        border: 1px solid rgba(42, 244, 255, 1);
+                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
+                        /*opacity:0.5;*/
+                        border-radius: 3px;
+                        .item-left {
+                            width: 90px;
+                            height: 90px;
+                            box-sizing: border-box;
+                            /*padding: ;*/
+                            float: left;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            background-color: #5361DB;
+                            border-radius: 3px 3px 0px 0px;
+                            margin-top: -1px;
+                            margin-left: -1px;
+                            .item-icon-hz {
+                                /*line-height: 90px;*/
+                                width: 43px;
+                                height: 43px;
+                                display: inline-block;
+                                background: url("../../assets/PeiDianJianCe/icon_hz2.png") no-repeat;
+                            }
+                        }
+                        .item-right {
+                            box-sizing: border-box;
+                            /*padding-left: 90px;*/
+                            /*box-sizing: border-box;*/
+                            /*padding: 20px 0;*/
+                            padding: 20px 20px 20px 110px;
+                            p {
+                                font-size: 14px;
+                                font-family: HiraginoSansGB-W3;
+                                font-weight: normal;
+                                color: rgba(223, 253, 255, 1);
+                            }
+                            .kwh {
+                                margin-top: 6px;
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                            .number {
+                                font-size: 18px;
+                                font-family: DigitaldreamFat;
+                                font-weight: 400;
+                                color: rgba(44, 244, 242, 1);
+                            }
+                            .unit {
+                                font-size: 14px;
+                                font-family: HiraginoSansGB-W3;
+                                font-weight: normal;
+                                color: rgba(223, 253, 255, 1);
+                            }
+
+                        }
                     }
                 }
-
             }
 
             .bg {

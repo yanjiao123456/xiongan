@@ -14,7 +14,7 @@
             </li>
         </ul>
     </div>
-    
+
 
     <div class="on-right">
         <i class="icon icon-right"></i>
@@ -34,9 +34,9 @@
     <div @click="handleFullScreen" class="on-full">
         <i class="icon icon-full"></i>
     </div>
-    
+
 </div>
-    
+
 </template>
 
 <script>
@@ -73,6 +73,7 @@ export default {
           // IE11
           element.msRequestFullscreen();
         }
+          
       }
       this.fullscreen = !this.fullscreen;
     },
@@ -91,7 +92,7 @@ export default {
         this.$router.push("/");
       }
     },
-   
+
     // 设置标签
     setTags(route) {
       const isExist = this.tagsList.some(item => {

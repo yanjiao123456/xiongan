@@ -229,7 +229,7 @@
 
 <script>
     import TemplateTable from '../views/template-table'
-
+    var echarts=require('echarts');
     // let echarts = require('echarts');
     // let echarts = require('echarts');
 
@@ -363,15 +363,116 @@
             TemplateTable
         },
         methods: {
-            SetEchart() {
-
-
+            SetEchart(){
+                var base = document.getElementById('base');
+                var baseChart = echarts.init(base);
+                var one = [224, 220, 335, 188, 350, 230, 354, 261];
+                var two = [110, 220, 115, 300, 188, 120, 241, 321];
+                var option={
+                    color: ['#CFDB48', '#00C3F4','#CFDB48',  '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                    // title: [{
+                    //    text: '对比定标单耗增长排名',
+                    //    x: 'center',
+                    //    y: 'top',
+                    //    textStyle: {
+                    //        color: '#01CED4',
+                    //        textAlign: 'center',
+                    //        fontSize: 14,
+                    //        fontWeight: 'bold'
+                    //    }
+                    // }],
+                    legend: {
+                        data: ['1#进线', '2#进线'],
+                        align: 'left',
+                        top:'5%',
+                        x: 'center',
+                        right: '4%',
+                        icon: 'rect',
+                        itemWidth: 10, // 图例图形宽度
+                        itemHeight: 10, // 图例图形高度
+                        itemGap: 50,
+                        textStyle: {
+                            color: 'rgb(91,227,224)',
+                            fontSize: 12
+                        }
+                    },
+                    grid: {
+                        top: 50,
+                        bottom: 70,
+                        left:50,
+                        right:50
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    xAxis: [{
+                        data: ['2018年10月16日', '2018年10月17日', '2018年10月18日', '2018年10月19日', '2018年10月20日', '2018年10月21日', '2018年10月22日', '2018年10月23日'],
+                        type: 'category',
+                        axisLine: {
+                            lineStyle: {
+                                color: 'rgb(91,227,224)'//x轴坐标颜色
+                            }
+                        },
+                        boundaryGap: true
+                    }],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '单位（%）',
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgb(223,253,255)'
+                                }
+                            },
+                            axisLabel: {
+                                margin: 10,
+                                textStyle: {
+                                    fontSize: 14
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgb(42,81,125)'
+                                }
+                            }
+                        }
+                    ],
+                    series: [{
+                        name: '1#进线',
+                        type: 'bar',
+                        // // stack: 'all',
+                        barWidth: '30%',
+                        // barGap:'40%',
+                        data: one
+                    }, {
+                        name:  '2#进线',
+                        type: 'bar',
+                        // stack: 'all',
+                        barWidth: '30%',
+                        // barGap:'40%',
+                        data: two
+                    }
+                    ]
+                }
+                baseChart.setOption(option);
+                window.onresize=function(){
+                    baseChart.resize();
+                }
             }
         },
         mounted() {
+                this.SetEchart();
 
 
-
+        },
+        created(){
+            
         }
 
     }

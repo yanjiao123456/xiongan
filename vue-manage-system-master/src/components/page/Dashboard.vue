@@ -9,7 +9,8 @@
                             <div class="sliderCon">
                                 <div class="sbg"></div>
                                     <div class="slider-inner">
-                                        <span v-bind:class="{'water-icon':d.view==1 ,'yd-icon':d.view==2,'hidden-sm-and-down':true}"></span>
+                                        <span v-bind:class="{'water-icon':d.view==1 ,'yd-icon':d.view==2,'rl-icon':d.view==3 ,'ll-icon':d.view==4,
+                                        'hidden-sm-and-down':true}"></span>
                                         <div class="see-blank">
                                             <p>{{d.title}}</p>
                                             <span class="led-text">{{d.data}}</span>
@@ -51,7 +52,7 @@
                                     </el-aside>
                                     <el-main>
                                         <div class="b-descrip">
-                                            <span class="b-name">{{buildingTltle}}</span>
+                                            <span class="b-name">{{buildingTitle}}</span>
                                             {{buildingDetail}}
                                          </div>
                                     </el-main>
@@ -93,15 +94,19 @@
                                 <h3>能耗趋势与对比</h3>
                                 <div class="shouye-sel">
                                     <div class="sel-bg"></div>
-                                    <select>
-                                        <option>日</option>
-                                        <option>月</option>
-                                        <option>年</option>
-                                    </select>
+                                    <select v-model="selectValbar">
+                                            <option value="day">日</option>
+                                            <option value="month">月</option>
+                                            <option value="year">年</option>
+                                        </select>
                                 </div>
                                 <el-container style="padding-left:10px;height:339px;">
-                                    <el-aside width="30px" style="padding-top:60px;">
-                                        <div @click="btns=index" :class="{butCur:btns==index,'butCircle':true}" v-for="(btn,index) in energyBtn">{{btn}}</div>
+                                    <el-aside width="30px" style="padding-top:35px;">
+                                        <div @click="btns='all'" :class="{butCur:btns=='all','butCircle':true}">总</div>
+                                        <div @click="btns='A'" :class="{butCur:btns=='A','butCircle':true}">电</div>
+                                        <div @click="btns='B'" :class="{butCur:btns=='B','butCircle':true}">水</div>
+                                        <div @click="btns='D1'" :class="{butCur:btns=='D1','butCircle':true}">冷</div>
+                                        <div @click="btns='D2'" :class="{butCur:btns=='D2','butCircle':true}">热</div>
                                     </el-aside>
                                     <el-main style="padding:0;">
                                         <div id="qushi" style="width:100%;height:100%;"></div>
@@ -120,13 +125,13 @@
                         <div class="sbg"></div>
                         <div class="slider-inner">
                             <div class="title">
-                                <h3>清洁能源占比</h3>
+                                <h3>能源种类占比</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select>
-                                            <option>日</option>
-                                            <option>月</option>
-                                            <option>年</option>
+                                        <select v-model="selectVal">
+                                            <option value="day">日</option>
+                                            <option value="month">月</option>
+                                            <option value="year">年</option>
                                         </select>
                                     </div>
                                 <el-container>
@@ -135,15 +140,26 @@
                                     </div> -->
                                     <div class="cav"> 
                                         <div class="cav-flex">
-                                            <div  v-for="v in list1">
-                                                <p><span class="rec" v-bind:style="{background:color1}"></span> {{v.title}}</p>
-                                                <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
+                                                <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kWh</small>
                                             </div>
-                                            <div  v-for="v in list2">
-                                                <p> <span class="rec" v-bind:style="{background:color2}"></span> {{v.title}}</p>
-                                                <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                            <div>
+                                                <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
+                                                <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kWh</small>
                                             </div>    
+                                        </div> 
+                                        <div class="cav-flex">
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
+                                                <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kWh</small>
+                                            </div>
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.title}}</p>
+                                                <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kWh</small>
+                                            </div>
                                         </div>  
+                                   
                                     </div>
                                     <div id="yongneng" style="width:100%;height:100%;"></div>
                                 </el-container>      
@@ -159,32 +175,32 @@
                                 <h3>用电分项占比</h3>
                                 <div class="shouye-sel">
                                     <div class="sel-bg"></div>
-                                    <select>
-                                        <option>日</option>
-                                        <option>月</option>
-                                        <option>年</option>
+                                    <select v-model="selectValPie2">
+                                        <option value="day">日</option>
+                                        <option value="month">月</option>
+                                        <option value="year">年</option>
                                     </select>
                                 </div>
                                 <el-container>
                                     <div class="cav"> 
                                         <div class="cav-flex">
-                                            <div  v-for="v in list3">
-                                                <p><span class="rec" v-bind:style="{background:color3}"></span> {{v.title}}</p>
-                                                <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color3}"></span> {{list5.name}}</p>
+                                                <span>{{list5.per}}</span><small>%</small> <span>{{list5.value}}</span><small>kWh</small>
                                             </div>
-                                            <div  v-for="v in list4">
-                                                <p> <span class="rec" v-bind:style="{background:color4}"></span> {{v.title}}</p>
-                                                <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                            <div>
+                                                <p> <span class="rec" v-bind:style="{background:color4}"></span> {{list6.name}}</p>
+                                                <span>{{list6.per}}</span><small>%</small> <span>{{list6.value}}</span><small>kWh</small>
                                             </div>
                                         </div>  
                                         <div class="cav-flex">
-                                                <div  v-for="v in list5">
-                                                    <p><span class="rec" v-bind:style="{background:color5}"></span> {{v.title}}</p>
-                                                    <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                                <div>
+                                                    <p><span class="rec" v-bind:style="{background:color5}"></span> {{list7.name}}</p>
+                                                    <span>{{list7.per}}</span><small>%</small> <span>{{list7.value}}</span><small>kWh</small>
                                                 </div>
-                                                <div  v-for="v in list6">
-                                                    <p> <span class="rec" v-bind:style="{background:color6}"></span> {{v.title}}</p>
-                                                    <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
+                                                <div>
+                                                    <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.title}}</p>
+                                                    <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
                                                 </div>
                                             </div>  
                                         </div>
@@ -199,38 +215,38 @@
                         <div class="sbg"></div>
                         <div class="slider-inner">
                             <div class="title">
-                                <h3>区域位置占比</h3>
+                                <h3>楼层能耗占比</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select>
-                                            <option>日</option>
-                                            <option>月</option>
-                                            <option>年</option>
+                                        <select v-model="selectValPie3">
+                                            <option value="day">日</option>
+                                            <option value="month">月</option>
+                                            <option value="year">年</option>
                                         </select>
                                     </div>
                                 <el-container>
-                                        <div class="cav"> 
-                                                <div class="cav-flex">
-                                                    <div  v-for="v in list7">
-                                                        <p><span class="rec" v-bind:style="{background:color7}"></span> {{v.title}}</p>
-                                                        <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                    </div>
-                                                    <div  v-for="v in list8">
-                                                        <p> <span class="rec" v-bind:style="{background:color8}"></span> {{v.title}}</p>
-                                                        <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                    </div>
-                                                </div>  
-                                                <div class="cav-flex">
-                                                        <div  v-for="v in list9">
-                                                            <p><span class="rec" v-bind:style="{background:color9}"></span> {{v.title}}</p>
-                                                            <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                        </div>
-                                                        <div  v-for="v in list10">
+                                    <div class="cav"> 
+                                        <div class="cav-flex">
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color7}"></span> {{list9.name}}</p>
+                                                <span>{{list9.per}}</span><small>%</small> <span>{{list9.value}}</span><small>kWh</small>
+                                            </div>
+                                            <div>
+                                                <p> <span class="rec" v-bind:style="{background:color8}"></span> {{list10.name}}</p>
+                                                <span>{{list10.per}}</span><small>%</small> <span>{{list10.value}}</span><small>kWh</small>
+                                            </div>
+                                        </div>  
+                                        <div class="cav-flex" style="width:50%;">
+                                            <div>
+                                                <p><span class="rec" v-bind:style="{background:color9}"></span> {{list11.name}}</p>
+                                                <span>{{list11.per}}</span><small>%</small> <span>{{list11.value}}</span><small>kWh</small>
+                                            </div>
+                                                        <!-- <div  v-for="v in list10">
                                                             <p> <span class="rec" v-bind:style="{background:color10}"></span> {{v.title}}</p>
                                                             <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                        </div>
-                                                    </div>  
-                                                </div>
+                                                        </div> -->
+                                        </div>  
+                                    </div>
                                     <div id="quyu" style="width:100%;height:100%;"></div>
                                 </el-container>      
                             </div>
@@ -242,28 +258,16 @@
                         <div class="sbg"></div>
                         <div class="slider-inner">
                             <div class="title">
-                                <h3>支路用电占比</h3>
+                                <h3>能耗TOP排名</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select>
-                                            <option>日</option>
-                                            <option>月</option>
-                                            <option>年</option>
+                                        <select v-model="selectValPie4">
+                                            <option value="day">日</option>
+                                            <option value="month">月</option>
+                                            <option value="year">年</option>
                                         </select>
                                     </div>
                                 <el-container>
-                                        <div class="cav"> 
-                                                <div class="cav-flex">
-                                                    <div  v-for="v in list11">
-                                                        <p><span class="rec" v-bind:style="{background:color1}"></span> {{v.title}}</p>
-                                                        <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                    </div>
-                                                    <div  v-for="v in list12">
-                                                        <p> <span class="rec" v-bind:style="{background:color2}"></span> {{v.title}}</p>
-                                                        <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                    </div>    
-                                                </div>  
-                                            </div>
                                     <div id="zhilu" style="width:100%;height:100%;"></div>
                                 </el-container>      
                             </div>
@@ -272,36 +276,7 @@
                 </el-col>   
             </el-row>   
         </div>
-        <!-- <div class="six-line">
-                <el-row :gutter="20">
-                    <el-col :lg="12" :md="24" :sm="24" :xs="24">
-                        <div class="sliderCon">
-                            <div class="sbg"></div>
-                            <div class="slider-inner">
-                                <div class="title">
-                                    <h3>区域位置用电量对比</h3>
-                                    <el-container style="padding-left:30px;padding-top:27px;">
-                                            <div id="duibi" style="width:100%;height:100%;"></div>
-                                    </el-container>    
-                                </div>
-                            </div>       
-                        </div>  
-                    </el-col>  
-                    <el-col :lg="12" :md="24" :sm="24" :xs="24">
-                        <div class="sliderCon">
-                            <div class="sbg"></div>
-                            <div class="slider-inner">
-                                <div class="title">
-                                    <h3>区域位置用电增减幅</h3>
-                                    <el-container>
-                                        <div id="zengjian" style="width:100%;height:100%;"></div>
-                                    </el-container>      
-                                </div>
-                            </div>       
-                        </div>  
-                    </el-col>  
-                </el-row>   
-            </div> -->
+       
     </div>
 </template>
 
@@ -317,21 +292,26 @@
             return {
                 isActiv:true,
                 show:true,
-                btns:0,
+                selectValbar:'day',
+                selectVal:'month',
+                selectValPie2:'day',
+                selectValPie3:'day',
+                selectValPie4:'day',
+                btns:'all',
                 color1:'#00E099',
                 color2:'#1A9BFF',
                 color3:'#20C0F4',
-                color4:'#00E099',
+                color4:'#B791F7',
                 color5:'#1A9BFF',
-                color6:'#00CFDF',
+                color6:'#74C936',
                 color7:'#00CFDF',
                 color8:'#1A9BFF',
                 color9:'#FF9602',
                 color10:'#B791F7',
-                // buildingImg:'../../assets/ShouYe/pp.jpg',
-                buildingTltle:'金风园区智慧楼',
+                buildingImg:' ',
+                buildingTitle:'hkkhjhh',
                 buildingDetail:'位于北京市经济开发区博兴一路8号，总面积63889平方米，其中 1#天诚厂房建筑面积42154平方米，总面积63889平方米，其中 1#天诚厂房建筑面积42154平方米',
-                energyBtn:['总','电','水','气'],
+                energyBtn:['总','电','水','冷','热'],
                 defalut:0,
                 kpiList:[
                     {
@@ -353,90 +333,18 @@
                         qw:0.21
                     },
                 ],
-                list1:[
-                    {
-                    title:'风机',
-                    per:60,
-                    val:10570.45
-                    }
-                ],
-                list2:[
-                    {
-                    title:'光伏',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list3:[
-                    {
-                    title:'温室',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list4:[
-                    {
-                    title:'发电',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list5:[
-                    {
-                    title:'用电',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list6:[
-                    {
-                    title:'区插电用电',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list7:[
-                    {
-                    title:'生产厂房',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list8:[
-                    {
-                    title:'办公楼',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list9:[
-                    {
-                    title:'食堂',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list10:[
-                    {
-                    title:'门卫',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list11:[
-                    {
-                    title:'1#进线',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
-                list12:[
-                    {
-                    title:'2#进线',
-                    per:40,
-                    val:9450.45
-                    }
-                ],
+                list1:[],
+                list2:[],
+                list3:[],
+                list4:[],
+                list5:[],
+                list6:[],
+                list7:[],
+                list8:[],
+                list9:[],
+                list10:[],
+                list11:[],
+                list12:[],
                 energyList:[
                     {energy:'总'},
                     {energy:'电'},
@@ -504,6 +412,64 @@
                         class2:'icon-hb'
                     }
                 ],
+                sliderData3:[
+                    {
+                        title:'今日用热',
+                        view:3,
+                        data:62.86,
+                        tongbi:32.12,
+                        class1:'icon-tb',
+                        huanbi:12.10,
+                        class2:'icon-hb'
+                    },
+                    {
+                        title:'12313今月用热',
+                        view:3,
+                        data:1062.86,
+                        tongbi:0.13,
+                        class1:'icon-tb',
+                        huanbi:0.10,
+                        class2:'icon-hb'
+                    },
+                    {
+                        title:'今年用热',
+                        view:3,
+                        data:20562.86,
+                        tongbi:0.14,
+                        class1:'icon-tb',
+                        huanbi:0.10,
+                        class2:'icon-hb'
+                    }
+                ],
+                // sliderData4:[
+                //     {
+                //         title:'今日用冷',
+                //         view:2,
+                //         data:62.86,
+                //         tongbi:32.12,
+                //         class1:'icon-tb',
+                //         huanbi:12.10,
+                //         class2:'icon-hb'
+                //     },
+                //     {
+                //         title:'12313今月用冷',
+                //         view:2,
+                //         data:1062.86,
+                //         tongbi:0.13,
+                //         class1:'icon-tb',
+                //         huanbi:0.10,
+                //         class2:'icon-hb'
+                //     },
+                //     {
+                //         title:'今年用冷',
+                //         view:2,
+                //         data:20562.86,
+                //         tongbi:0.14,
+                //         class1:'icon-tb',
+                //         huanbi:0.10,
+                //         class2:'icon-hb'
+                //     }
+                // ],
                 },
                 
                 
@@ -520,6 +486,462 @@
         },
       
         methods: {
+            // SliderData(){
+            //     var that=this;
+            //     this.$axios.get(
+            //         'http://10.76.107.100:18080/jinfeng/xa_index!searchIndexTop.action',{
+            //             buildingId:1
+            //         })
+            //         .then(function(response){
+            //       console.log(response.data);
+            //       console.log(response.data.theObj);
+            //             // that.Data=response.data.theObj[0];
+            //             // console.log(that.Data);
+            //      })
+            //      .catch(function(err){
+            //         console.log(error); 
+            //      });
+            // },
+            KPIData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
+                        params: {
+                        buildingId: 1
+                        // dateType: 'day'
+                        }
+                    }).then(function(response){
+                //   console.log(response.data);
+                //   console.log(response.data.theObj);
+                  that.buildingDetail=response.data.theObj.buildingDetail;
+                  that.buildingTitle=response.data.theObj.buildingTitle;
+                  that.buildingImg=response.data.theObj.buildingImg;
+                        // that.Data=response.data.theObj[0];
+                        // console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(error); 
+                 });
+            },
+            QiYeData(){
+                 var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
+                        params: {
+                        buildingId: 1
+                        // dateType: 'day'
+                        }
+                    }).then(function(response){
+                //   console.log(response.data);
+                //   console.log(response.data.theObj);
+                  that.buildingDetail=response.data.theObj.buildingDetail;
+                  that.buildingTitle=response.data.theObj.buildingTitle;
+                  that.buildingImg=response.data.theObj.buildingImg;
+                        // that.Data=response.data.theObj[0];
+                        // console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(error); 
+                 });
+            },
+            QushiData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTrend.action',{
+                        params: {
+                        buildingId: 1,
+                        dateType: that.selectValbar,
+                        energyType:that.btns
+                        }
+                    }).then(function(response){
+                  console.log(response.data.theObj);
+                  
+                // 能耗趋势与对比
+                var LegendData=[];
+                var Datas=[];
+                var XData=[]; 
+                for(var i=0;i<response.data.theObj.length;i++){
+                    // LegendData.push(response.data.theObj[i].name);
+                    // Datas.push(response.data.theObj[i].dataS);
+                    // XData.push(response.data.theObj[0].xData);
+                    response.data.theObj[0].tyepe="bar";
+                    response.data.theObj[1].tyepe="bar";
+                    response.data.theObj[2].tyepe="line";
+                    response.data.theObj[2].symbolSize=8;
+                    response.data.theObj[2].smooth='true';
+                }
+                console.log(response.data.theObj);
+                // console.log(Datas);
+                // console.log(XData);
+                var qushi = document.getElementById('qushi');
+                var qushiChart = echarts.init(qushi);
+                var qu1 = Datas[0];
+                var qu2 = Datas[1];
+                var qu3 = Datas[2];
+                var qushiData=response.data.theObj;
+                var option1 = {
+                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                    legend: {
+                        data: LegendData,
+                        // align: 'left',
+                        x: 'center',
+                        right: '4%',
+                        // icon: 'rect',
+                        itemWidth: 10, 
+                        itemHeight: 10, 
+                        itemGap: 30,
+                        textStyle: {
+                            color: 'rgb(91,227,224)',
+                            fontSize: 12
+                        }
+                    },
+                    grid: {
+                        left: '2%',
+                        right: '2%',
+                        bottom: '2%',
+                        top: '15%',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            lineStyle: {
+                                type: 'shadow',
+                                color: '#778AA8'
+                            }
+                        }
+                    },
+                    xAxis: [{
+                        data: XData,
+                        type: 'category',
+                        // boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'rgb(91,227,224)'//x轴坐标颜色
+                            }
+                        }
+                    }],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '单位（kw）',
+                            axisTick: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'rgb(223,253,255)'
+                                }
+                            },
+                            axisLabel: {
+                                margin: 10,
+                                textStyle: {
+                                    fontSize: 14
+                                }
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    color: 'rgb(42,81,125)'
+                                }
+                            }
+                        }
+                    ],
+                    series:qushiData
+                    //  [{
+                    //     name: '总能耗',
+                    //     type: 'bar',
+                    //     data: qu1,
+                    //     },
+                    //     {
+                    //     name: '环比总能耗',
+                    //     type: 'bar',
+                    //     data: qu2,
+                    //     },
+                    //     {
+                    //     name: '去年同期总能耗',
+                    //     type: 'line',
+                    //     symbolSize: 8,
+                    //     smooth: true,
+                    //     data: qu3,
+                    //     }
+                    // ]
+                }
+                qushiChart.setOption(option1);
+                        console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(error); 
+                 });
+            },
+            ClassData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTypePro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectVal
+                        }
+                    })
+                    .then(function(response){
+                        that.list1=response.data.theObj[0];
+                        that.list2=response.data.theObj[1];
+                        that.list3=response.data.theObj[2];
+                        that.list4=response.data.theObj[3];
+                        // console.log(response.data.theObj[0]);
+                        // 用能种类占比
+                        var yongneng = document.getElementById('yongneng');
+                        var yongnengChart = echarts.init(yongneng);
+                        var yongnengdata= response.data.theObj;
+                        var option2 = {
+                        // color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                        grid: {
+                            left: '2%',
+                            right: '2%',
+                            bottom: '2%',
+                            top: '15%',
+                            containLabel: true
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        series: [{
+                            name: '能源种类占比',
+                            type: 'pie',
+                            selectedMode: 'single',
+                            radius: ['0', '60%'],
+                            center: ['50%', '40%'],
+                            color: ['#1a9bff', '#00e099','#FF9602','#74C936'],
+                            label: {
+                                normal: {
+                                    show: false
+                                }  
+                            },
+                            labelLine: {
+                                normal: {
+                                        show: false
+                                    }
+                            },
+                            data:yongnengdata
+                        }]
+                    }
+                    yongnengChart.setOption(option2);
+              
+                 
+                //   console.log(response.data.theObj);
+                        // that.Data=response.data.theObj[0];
+                        // console.log(that.Data);
+                 })
+                 .catch(function(err){
+                    console.log(error); 
+                 });
+            },
+            FenXiangData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchElectricTypePro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectVal
+                        }
+                    })
+                    .then(function(response){
+                        that.list5=response.data.theObj[0];
+                        that.list6=response.data.theObj[1];
+                        that.list7=response.data.theObj[2];
+                        that.list8=response.data.theObj[3];
+                        // console.log(response.data.theObj);
+                        // 用电分项
+                 var fenxiang = document.getElementById('fenxiang');
+                var fenxiangChart = echarts.init(fenxiang);
+                var fenxiangdata=response.data.theObj;
+                var option3 = {
+                    color: ['#20C0F4', '#B791F7', '#1A9BFF', '#74C936', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                    grid: {
+                        left: '2%',
+                        right: '2%',
+                        bottom: '2%',
+                        top: '15%',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    series: [{
+                        name: '用电分项占比',
+                        type: 'pie',
+                        selectedMode: 'single',
+                        radius: ['0', '60%'],
+                        center: ['50%', '40%'],
+                        // color: ['#1a9bff', '#00e099','#386AB7'],
+                        label: {
+                            normal: {
+                                show: false
+                            }  
+                        },
+                        labelLine: {
+                            normal: {
+                                    show: false
+                                }
+                        },
+                        data: fenxiangdata
+                    }]
+                }
+                fenxiangChart.setOption(option3);
+                 })
+                 .catch(function(err){
+                    console.log(error); 
+                 });
+            },
+            LouCengData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingFloorPro.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectValPie3
+                        }
+                    })
+                    .then(function(response){
+                        that.list9=response.data.theObj[0];
+                        that.list10=response.data.theObj[1];
+                        that.list11=response.data.theObj[2];
+                        // console.log(response.data.theObj);
+                        // 楼层能耗占比
+                        var quyu = document.getElementById('quyu');
+                        var quyuChart = echarts.init(quyu);
+                        var quyudata=response.data.theObj;
+                        //  [{
+                        //     value: 2061,
+                        //     name: '一层'
+                        //     },
+                        //     {
+                        //         value: 610,
+                        //         name: '二层'
+                        //     },
+                        //     {
+                        //         value: 1039,
+                        //         name: '三层'
+                        //     }];
+                            var option4 = {
+                                color: ['#00CFDF', '#1A9BFF', '#FF9602', '#B791F7', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                                grid: {
+                                    left: '2%',
+                                    right: '2%',
+                                    bottom: '2%',
+                                    top: '15%',
+                                    containLabel: true
+                                },
+                                tooltip: {
+                                    trigger: 'item',
+                                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                },
+                                series: [{
+                                    name: '楼层能耗占比',
+                                    type: 'pie',
+                                    selectedMode: 'single',
+                                    radius: ['0', '60%'],
+                                    center: ['50%', '40%'],
+                                    // color: ['#1a9bff', '#00e099','#386AB7'],
+                                    label: {
+                                        normal: {
+                                            show: false
+                                        }  
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                                show: false
+                                            }
+                                    },
+                                    data:quyudata
+                                }]
+                            }
+                            quyuChart.setOption(option4);
+                    })
+                    .catch(function(err){
+                        console.log(error); 
+                    });
+            },
+            PaiMingData(){
+                var that=this;
+                this.$axios.get(
+                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyUnitAreaTop3.action',{
+                     params: {
+                        buildingId: 1,
+                        dateType: that.selectValPie4
+                        }
+                    })
+                    .then(function(response){
+                        // console.log(response.data.theObj);
+                         // 排名
+                         var datas=[];
+                         var Ydata=[];
+                        var zhilu = document.getElementById('zhilu');
+                        var zhiluChart = echarts.init(zhilu);
+                        for(var i=0;i<response.data.theObj.length;i++){
+                            datas.push(response.data.theObj[i].value);
+                            Ydata.push(response.data.theObj[i].treeName);
+                        }
+                        var option5 = {
+                            color: ['#75C8F0','#3E62AC', '#52A991','#66A9C9','#00BFC7','#99D683','#B4C1D7','#21834B'],
+                            tooltip: {
+                            formatter: '{b} ({c})',
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                                }   
+                            },
+                            grid: {
+                                top: '15%',
+                                left: '5%',
+                                right: '5%',
+                                bottom: '5%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                                type: 'value',
+                                gridIndex: 0,
+                                boundaryGap: [0, 0.01],
+                                axisLine:{show:false},
+                                axisTick: {show:false},
+                                axisLabel: {show:false},
+                                splitLine: {show:false}
+                            },
+                            yAxis: {
+                                type: 'category',
+                                interval:0,
+                                gridIndex: 0,
+                                axisTick: {show:false},
+                                axisLabel: {show:true},
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#2DF3FF'
+                                    }
+                                },
+                                splitLine: {
+                                    show:false
+                                },
+                                data:Ydata
+                            },
+                            series: [
+                                {
+                                    name: '能耗',
+                                    type: 'bar',
+                                    xAxisIndex: 0,
+                                    yAxisIndex: 0,
+                                    barWidth:'40%',
+                                    label:{normal:{show:true, position:"right",textStyle:{fontWeight:"bold"}}},
+                                    data:datas.sort()
+                                }
+                            ]
+                        }
+                        zhiluChart.setOption(option5);
+                    })
+                    .catch(function(err){
+                        console.log(error); 
+                    });
+            },
             SetEchart() {
                 window.onresize = function () {
                     gonglvChart.resize();
@@ -660,515 +1082,12 @@
                     };
                 gonglvChart.setOption(option);
 
+               
+                
+                 
+               
 
-                // 能耗趋势与对比
-                var qushi = document.getElementById('qushi');
-                var qushiChart = echarts.init(qushi);
-                var qu1 = [224, 220, 335, 188, 350, 230, 354, 261,220,231,241,351,254,123,255,154,365,234,125,421,322,122,352,421];
-                var qu2 = [124, 120, 235, 288, 250, 330, 254, 361,320,331,141,351,224,220,335,188,350,230,354,261,220,231,241,351];
-                var qu3 = [114, 110, 135, 218, 210, 130, 214, 311,120,131,111,151,124,210,135,118,150,130,154,211,120,211,141,151];
-                var option1 = {
-                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    legend: {
-                        data: ['总能耗', '环比总能耗','去年同期总消耗'],
-                        // align: 'left',
-                        x: 'center',
-                        right: '4%',
-                        // icon: 'rect',
-                        itemWidth: 10, 
-                        itemHeight: 10, 
-                        itemGap: 30,
-                        textStyle: {
-                            color: 'rgb(91,227,224)',
-                            fontSize: 12
-                        }
-                    },
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            lineStyle: {
-                                type: 'shadow',
-                                color: '#778AA8'
-                            }
-                        }
-                    },
-                    xAxis: [{
-                        data: ['0', '1', '2','3','4','5', '6', '7','8','9','10','11','12','13','14','15', '16', '17','18','19','20','21','22','23'],
-                        type: 'category',
-                        // boundaryGap: false,
-                        axisLine: {
-                            lineStyle: {
-                                color: 'rgb(91,227,224)'//x轴坐标颜色
-                            }
-                        }
-                    }],
-                    yAxis: [
-                        {
-                            type: 'value',
-                            name: '单位（kw）',
-                            axisTick: {
-                                show: false
-                            },
-                            axisLine: {
-                                lineStyle: {
-                                    color: 'rgb(223,253,255)'
-                                }
-                            },
-                            axisLabel: {
-                                margin: 10,
-                                textStyle: {
-                                    fontSize: 14
-                                }
-                            },
-                            splitLine: {
-                                lineStyle: {
-                                    color: 'rgb(42,81,125)'
-                                }
-                            }
-                        }
-                    ],
-                    series: [{
-                        name: '总能耗',
-                        type: 'bar',
-                        smooth: true,
-                        symbolSize: 0,
-                        data: qu1,
-                        },
-                        {
-                        name: '环比总能耗',
-                        type: 'bar',
-                        smooth: true,
-                        symbolSize: 0,
-                        data: qu2,
-                        },
-                        {
-                        name: '去年同期总消耗',
-                        type: 'line',
-                        symbolSize: 8,
-                        smooth: true,
-                        data: qu3,
-                        }
-                    ]
-                }
-                qushiChart.setOption(option1);
-                // 用能种类占比
-                var yongneng = document.getElementById('yongneng');
-                var yongnengChart = echarts.init(yongneng);
-                var option2 = {
-                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    series: [{
-                        name: '新能源占比',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: ['0', '60%'],
-                        center: ['50%', '40%'],
-                        color: ['#1a9bff', '#00e099','#386AB7'],
-                        label: {
-                            normal: {
-                                show: false
-                            }  
-                        },
-                        labelLine: {
-                            normal: {
-                                    show: false
-                                }
-                        },
-                        data: [{
-                            value: 3661,
-                            name: '光伏'
-                        },
-                            {
-                                value: 5100,
-                                name: '风机'
-                            }]
-                    }]
-                }
-                yongnengChart.setOption(option2);
-                // 用电分项
-                 var fenxiang = document.getElementById('fenxiang');
-                var fenxiangChart = echarts.init(fenxiang);
-                var option3 = {
-                    color: ['#20C0F4', '#00E099', '#1A9BFF', '#00CFDF', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    series: [{
-                        name: '用电分项占比',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: ['0', '60%'],
-                        center: ['50%', '40%'],
-                        // color: ['#1a9bff', '#00e099','#386AB7'],
-                        label: {
-                            normal: {
-                                show: false
-                            }  
-                        },
-                        labelLine: {
-                            normal: {
-                                    show: false
-                                }
-                        },
-                        data: [{
-                            value: 2061,
-                            name: '温室'
-                            },
-                            {
-                                value: 610,
-                                name: '发电'
-                            },
-                            {
-                                value: 1039,
-                                name: '用电'
-                            },{
-                                value: 510,
-                                name: '区插电用电'
-                            }]
-                    }]
-                }
-                fenxiangChart.setOption(option3);
-                // 区域用电占比
-                var quyu = document.getElementById('quyu');
-                var quyuChart = echarts.init(quyu);
-                var option4 = {
-                    color: ['#00CFDF', '#1A9BFF', '#FF9602', '#B791F7', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    series: [{
-                        name: '用电分项占比',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: ['0', '60%'],
-                        center: ['50%', '40%'],
-                        // color: ['#1a9bff', '#00e099','#386AB7'],
-                        label: {
-                            normal: {
-                                show: false
-                            }  
-                        },
-                        labelLine: {
-                            normal: {
-                                    show: false
-                                }
-                        },
-                        data: [{
-                            value: 2061,
-                            name: '生产厂房'
-                            },
-                            {
-                                value: 610,
-                                name: '办公楼'
-                            },
-                            {
-                                value: 1039,
-                                name: '食堂'
-                            },{
-                                value: 510,
-                                name: '门卫'
-                            }]
-                    }]
-                }
-                quyuChart.setOption(option4);
-
-                // 支路
-                var zhilu = document.getElementById('zhilu');
-                var zhiluChart = echarts.init(zhilu);
-                var option5 = {
-                    color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
-                    grid: {
-                        left: '2%',
-                        right: '2%',
-                        bottom: '2%',
-                        top: '15%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    series: [{
-                        name: '支路',
-                        type: 'pie',
-                        selectedMode: 'single',
-                        radius: ['0', '60%'],
-                        center: ['50%', '40%'],
-                        color: ['#1a9bff', '#00e099','#386AB7'],
-                        label: {
-                            normal: {
-                                show: false
-                            }  
-                        },
-                        labelLine: {
-                            normal: {
-                                    show: false
-                                }
-                        },
-                        data: [{
-                            value: 3661,
-                            name: '1#进线'
-                        },
-                            {
-                                value: 5100,
-                                name: '2#进线'
-                            }]
-                    }]
-                }
-                zhiluChart.setOption(option5);
-
-                // 对比
-                // var duibi = document.getElementById('duibi');
-                // var duibiChart = echarts.init(duibi);
-                // var db1 = [224,124];
-                // var option6 = {
-                //     legend: {
-                //         data: ['总能耗'],
-                //         // align: 'left',
-                //         x: 'center',
-                //         right: '4%',
-                //         // icon: 'rect',
-                //         itemWidth: 10, 
-                //         itemHeight: 10, 
-                //         itemGap: 30,
-                //         textStyle: {
-                //             color: 'rgb(91,227,224)',
-                //             fontSize: 12
-                //         }
-                //     },
-                //     grid: {
-                //         left: '2%',
-                //         right: '2%',
-                //         bottom: '2%',
-                //         top: '15%',
-                //         containLabel: true
-                //     },
-                //     tooltip: {
-                //         trigger: 'axis',
-                //         axisPointer: {
-                //             lineStyle: {
-                //                 type: 'shadow',
-                //                 color: '#778AA8'
-                //             }
-                //         }
-                //     },
-                //     xAxis: [{
-                //         data: ['温室用电', '木屋用电'],
-                //         type: 'category',
-                //         // boundaryGap: false,
-                //         axisLine: {
-                //             lineStyle: {
-                //                 color: 'rgb(91,227,224)'//x轴坐标颜色
-                //             }
-                //         }
-                //     }],
-                //     yAxis: [
-                //         {
-                //             type: 'value',
-                //             name: '单位（kw）',
-                //             axisTick: {
-                //                 show: false
-                //             },
-                //             axisLine: {
-                //                 lineStyle: {
-                //                     color: 'rgb(223,253,255)'
-                //                 }
-                //             },
-                //             axisLabel: {
-                //                 margin: 10,
-                //                 textStyle: {
-                //                     fontSize: 14
-                //                 }
-                //             },
-                //             splitLine: {
-                //                 lineStyle: {
-                //                     color: 'rgb(42,81,125)'
-                //                 }
-                //             }
-                //         }
-                //     ],
-                //     series: [{
-                //         name: '总能耗',
-                //         type: 'bar',
-                //         barWidth:'20%',
-                //         data: db1,
-                //         itemStyle:{
-                //             normal: {
-                //                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                //                     offset: 0,
-                //                     color: 'rgba(46, 160, 255, 1)'
-                //                 }, {
-                //                     offset: 0.8,
-                //                     color: 'rgba(86, 213, 254, 1)'
-                //                 }], false),
-                //                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                //                 shadowBlur: 10
-                //             }
-                //         },
-                        
-                //     }]
-                // }
-                // duibiChart.setOption(option6);
-
-
-                // // 增减
-                // var zengjian = document.getElementById('zengjian');
-                // var zengjianChart = echarts.init(zengjian);
-                // var zj1 = [224,124];
-                // var zj2 = [120,200];
-                // var zj3 = [100,150];
-                // var option7 = {
-                //     legend: {
-                //         data: ['昨日','今日','增减幅'],
-                //         // align: 'left',
-                //         x: 'center',
-                //         right: '4%',
-                //         // icon: 'rect',
-                //         itemWidth: 10, 
-                //         itemHeight: 10, 
-                //         itemGap: 30,
-                //         textStyle: {
-                //             color: 'rgb(91,227,224)',
-                //             fontSize: 12
-                //         }
-                //     },
-                //     grid: {
-                //         left: '2%',
-                //         right: '2%',
-                //         bottom: '2%',
-                //         top: '15%',
-                //         containLabel: true
-                //     },
-                //     tooltip: {
-                //         trigger: 'axis',
-                //         axisPointer: {
-                //             lineStyle: {
-                //                 type: 'shadow',
-                //                 color: '#778AA8'
-                //             }
-                //         }
-                //     },
-                //     xAxis: [{
-                //         data: ['温室用电', '木屋用电'],
-                //         type: 'category',
-                //         // boundaryGap: false,
-                //         axisLine: {
-                //             lineStyle: {
-                //                 color: 'rgb(91,227,224)'//x轴坐标颜色
-                //             }
-                //         }
-                //     }],
-                //     yAxis: [
-                //         {
-                //             type: 'value',
-                //             name: '单位（kw）',
-                //             axisTick: {
-                //                 show: false
-                //             },
-                //             axisLine: {
-                //                 lineStyle: {
-                //                     color: 'rgb(223,253,255)'
-                //                 }
-                //             },
-                //             axisLabel: {
-                //                 margin: 10,
-                //                 textStyle: {
-                //                     fontSize: 14
-                //                 }
-                //             },
-                //             splitLine: {
-                //                 lineStyle: {
-                //                     color: 'rgb(42,81,125)'
-                //                 }
-                //             }
-                //         }
-                //     ],
-                //     series: [{
-                //         name: '昨日',
-                //         type: 'bar',
-                //         barWidth:'20%',
-                //         data: zj1,
-                //         itemStyle:{
-                //             normal: {
-                //                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                //                     offset: 0,
-                //                     color: 'rgba(46, 160, 255, 1)'
-                //                 }, {
-                //                     offset: 0.8,
-                //                     color: 'rgba(86, 213, 254, 1)'
-                //                 }], false),
-                //                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                //                 shadowBlur: 10
-                //             }
-                //         },
-                        
-                //     },{
-                //         name: '今日',
-                //         type: 'bar',
-                //         barWidth:'20%',
-                //         data: zj2,
-                //         itemStyle:{
-                //             normal: {
-                //                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                //                     offset: 0,
-                //                     color: 'rgba(116, 201, 54, 1)'
-                //                 }, {
-                //                     offset: 0.8,
-                //                     color: 'rgba(37, 250, 170, 1)'
-                //                 }], false),
-                //                 shadowColor: 'rgba(0, 0, 0, 0.1)',
-                //                 shadowBlur: 10
-                //             }
-                //         },
-                        
-                //     },{
-                //         name: '增减幅',
-                //         type: 'line',
-                //         barWidth:'20%',
-                //         data: zj3,
-                //         itemStyle:{
-                //             normal: {
-                //                 color: '#FFF350'
-                //             }
-                //         },
-                        
-                //     }
-                //     ]
-                // }
-                // zengjianChart.setOption(option7);
+               
                 // 自适应
                 window.onresize = function () {
                     gonglvChart.resize();
@@ -1184,6 +1103,16 @@
         },
         mounted() {
             this.SetEchart();
+        },
+        created(){
+            // this. SliderData();
+            this. QiYeData();
+            // this. KPI();
+            this.ClassData();
+            this.FenXiangData();
+            this.LouCengData();
+            this.PaiMingData();
+            this.QushiData();
         }
     };
 </script>
@@ -1364,6 +1293,28 @@
         margin-top:20px;
         margin-left:4%;
         background: url("../../assets/ShouYe/icon_yd.png") no-repeat;
+    }
+    .rl-icon{
+        width:92px;
+        height:104px;
+        line-height:124px;
+        flex-grow:0;
+        position:relative;
+        flex-shrink:1;
+        margin-top:20px;
+        margin-left:4%;
+        background: url("../../assets/ShouYe/icon_rl@2x.png") no-repeat;
+    }
+    .ll-icon{
+        width:92px;
+        height:104px;
+        line-height:124px;
+        flex-grow:0;
+        position:relative;
+        flex-shrink:1;
+        margin-top:20px;
+        margin-left:4%;
+        background: url("../../assets/ShouYe/icon_ll@2x.png") no-repeat;
     }
     .see-blank{
         position:relative;

@@ -1003,15 +1003,11 @@
             .contrast {
                 width: 100%;
                 display: flex;
-                flex-wrap: nowrap;
+                flex-wrap: wrap;
                 justify-content: space-between;
-                margin-top: 24px;
-                @media screen and (max-width: 1500px) {
-                    flex-direction: column;
-                }
+                //margin-top: 24px;
                 .lists {
-
-                    @media screen and (min-width: 1500px) {
+                    /*@media screen and (min-width: 1500px) {
                         &:not(:first-child) {
                             margin-left: 25px;
                         }
@@ -1019,11 +1015,12 @@
                     @media screen and (max-width: 1500px) {
                         margin-left: 0;
                         margin-top: 20px;
-                    }
-                    width: 100%;
-
-                    display: flex;
-                    flex-direction: column;
+                    }*/
+                    margin-top: 24px;
+                    width: 45%;
+                    height: 90px;
+                    //display: flex;
+                    //flex-direction: column;
                     .current-period {
                         /*width: calc(100% - 25px);*/
                         width: 100%;

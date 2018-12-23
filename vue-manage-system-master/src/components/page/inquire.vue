@@ -3,6 +3,7 @@
         <div class="filtrate-box">
             <div class="bg"></div>
             <div class="title"><h3>筛选条件</h3></div>
+            <!-- 展示收缩 -->
             <div @click="filtrateShow=!filtrateShow"
                  :class="{'shift-knob-t':filtrateShow,'shift-knob-b':!filtrateShow}"></div>
             <el-collapse-transition>
@@ -15,47 +16,52 @@
                     </div>
                     <div class="item-row item2">
                         <div class="more-box">
-                            <el-checkbox v-model="checked1">支路:</el-checkbox>
-                            <el-select class="select" v-model="select1" placeholder="请选择支路">
+                            <!-- <el-checkbox v-model="checked">支路:</el-checkbox> -->
+                            <!-- 后期改为单选其他禁用就定义多个if  判断label其他禁用   selectData1 2 3 4  可以是一个  model不一样只是四个框赋值不一样 -->
+                            <el-radio class="choice" @change="checkedChange(1,1)" v-model="checked" label="1">支路:</el-radio>
+                            <el-select class="select"  @change="selectChange(1)" multiple collapse-tags v-model="select1" placeholder="请选择支路">
                                 <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in selectData1"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
 
                         <div class="more-box">
-                            <el-checkbox class="ml92" v-model="checked2">分项:</el-checkbox>
-                            <el-select class="select" v-model="select2" placeholder="请选择分项">
+                            <!-- <el-checkbox class="ml92" v-model="checked">分项:</el-checkbox> -->
+                            <el-radio class="choice" @change="checkedChange(2,4)" v-model="checked" label="2">分项:</el-radio>
+                            <el-select class="select"  @change="selectChange(2)" multiple collapse-tags v-model="select2" placeholder="请选择分项">
                                 <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in selectData2"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
-                        <div v-show="sw" class="item-show more-box">
+                        <!-- <div v-show="sw" class="item-show more-box">
                             <el-checkbox class="ml92" v-model="checked3">部门:</el-checkbox>
-                            <el-select class="select" v-model="select3" placeholder="请选择部门">
+                            <el-radio class="choice" @change="checkedChange(3,null)" v-model="checked" label="3">部门:</el-radio>
+                            <el-select class="select" @change="selectChange(3)" multiple collapse-tags v-model="select3" placeholder="请选择部门">
                                 <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in selectData3"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
-                        </div>
+                        </div> -->
                         <div v-show="sw" class="item-show more-box">
-                            <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox>
-                            <el-select class="select" v-model="select4" placeholder="请选择位置">
+                            <!-- <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox> -->
+                            <el-radio class="choice" @change="checkedChange(4,2)" v-model="checked" label="4">位置:</el-radio>
+                            <el-select class="select" @change="selectChange(4)" multiple collapse-tags v-model="select4" placeholder="请选择位置">
                                 <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        v-for="item in selectData4"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
                         </div>
@@ -73,6 +79,7 @@
                             <span class="date-select">时间选择</span>
                             <el-date-picker
                                     class=""
+                                    @change="pickerBtn"
                                     v-model="value6"
                                     type="daterange"
                                     range-separator="—"
@@ -86,25 +93,25 @@
 
                         <!--</el-col>-->
                         <!--<el-col :xs="24" :sm="24" :lg="8">-->
-                        <div class="fl days-box">
+                        <div class="fl days-box" v-if="daysnum">
                         <span class="days-tit date-select">
                             <i class="el-icon-search"></i>
                             快捷查询:
                         </span>
                             <div class="days-btn">
-                                <span @click="days=0" :class="{cur:days==0}">前1天</span>
-                                <span @click="days=1" :class="{cur:days==1}">前3天</span>
-                                <span @click="days=2" :class="{cur:days==2}">前7天</span>
-                                <span @click="days=3" :class="{cur:days==3}">前1月</span>
+                                <span @click="daysBtn(0)" :class="{cur:days==0}">前1天</span>
+                                <span @click="daysBtn(1)" :class="{cur:days==1}">前3天</span>
+                                <span @click="daysBtn(2)" :class="{cur:days==2}">前7天</span>
+                                <span @click="daysBtn(3)" :class="{cur:days==3}">前1月</span>
                             </div>
                         </div>
                         <!--</el-col>-->
                     </div>
 
                     <div class="btns-box">
-                        <div @click="btns=0" :class="{'btn-item':true,cur:btns==0}">查询</div>
-                        <div @click="btns=1" :class="{'btn-item':true,cur:btns==1}">重置</div>
-                        <div @click="btns=2" :class="{'btn-item':true,cur:btns==2}">个性化</div>
+                        <div @click="btnser(0)" :class="{'btn-item':true,cur:btns==0}">查询</div>
+                        <div @click="btnser(1)" :class="{'btn-item':true,cur:btns==1}">重置</div>
+                        <div @click="btnser(2)" :class="{'btn-item':true,cur:btns==2}">个性化</div>
                     </div>
 
                 </div>
@@ -198,38 +205,31 @@
         name: "inquire",
         data() {
             return {
-                radio: '1',
-                filtrateShow: true,
-                days: 2,
-                count: '',
-                btns: 0,
-                checked1: true,
-                checked2: false,
-                checked3: false,
-                checked4: false,
-                select1: '',
-                select2: '',
-                select3: '',
-                select4: '',
+                radio: '1',                 //筛选条件 水电冷压缩
+                filtrateShow: true,         //筛选条件展示收缩
+                days: null,                    //快速查询label
+                daysnum:true,
+                count: '',  
+                btns: null,                    //查询重置按钮选中添加颜色
+                checked:'1',             //支路
+                selectNum:[],             //筛选条件数据
+                indexData:"",             //筛选做处理
+                startTime:"",             //开始时间
+                endTime:"",               //结束时间
+                branchs:"",
+                powers:"",
+                location:"",
+                selectData1:[],           //支出初始框
+                selectData2:[],
+                selectData3:[],
+                selectData4:[],
+                select1: [],                //支路select
+                select2: [],                  
+                select3: [],
+                select4: [],
                 sw: true,
                 value6: '',
-
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                options: [],
                 consumptionData: [
                     {
                         tit: '2AAH101-1电源线_能耗',
@@ -328,6 +328,157 @@
             TemplateTable
         },
         methods: {
+            pickerBtn(){
+                var preDate = new Date(this.value6[0]); //前一天
+                    var Y = preDate.getFullYear() + '-';
+                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
+                    var D = preDate.getDate();
+                    this.startTime=Y+M+D;
+
+                var preDate = new Date(this.value6[1]); //前一天
+                    var Y = preDate.getFullYear() + '-';
+                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
+                    var D = preDate.getDate();
+                    this.endTime=Y+M+D;
+                    
+                    this.days=null
+            },
+            checkedChange(index,row){ //条件切换单选，条件内容为空
+                this.select1=[];
+                this.select2=[];
+                this.select3=[];
+                this.select4=[];
+                this.selectNum=[];
+                this.selectList(index,row)
+            },
+            selectChange(row){
+                this.indexData = '';
+                if(row==1){    //支路
+                    this.selectNum=this.select1;
+                }else if(row==2){  //分项
+                    this.selectNum=this.select2;
+                }else if(row==3){  //部门
+                    this.selectNum=this.select3;
+                }else if(row==4){  //位置
+                    this.selectNum=this.select4;
+                }else{
+                    this.selectNum=[];
+                }
+                for(var i=0;i<this.selectNum.length;i++){
+                    if(!this.indexData){      	//得到多行的id
+                        this.indexData += this.selectNum[i];
+                    }else{
+                        this.indexData += ','+this.selectNum[i];
+                    }
+                }
+            },
+            creatList(){
+                this.$axios.get('/sep_tree!queryTreeByType.action', {
+                    params: {
+                        type: 1,
+                        parentId: 0
+                    }
+                 }).then(function (res) {
+                    console.log(response);
+                }).catch(function (error){
+                    console.log(error);
+                });
+            },
+            inquLre(){
+                this.branchs="";
+                this.powers="";
+                this.location="";
+                if(this.checked==1){
+                    this.branchs=this.indexData;
+                }else if(this.checked==2){
+                    this.powers=this.indexData;
+                }else{
+                    this.location=this.indexData;
+                };
+                console.log(typeof this.endTime)
+                var params={
+                        energyType:this.radio,      //水电冷热
+                        branch:this.branchs,        //支路
+                        power:this.powers,         //分项
+                        location:this.location,      //位置
+                        beginTime:this.startTime,  //开始时间
+                        endTime:this.endTime     //结束时间
+                };
+                console.log(params)
+                this.$axios.get('energy_query!queryChart.action', {params}).then((response)=> {
+                    console.log(response,"inquLre")
+                }).catch((error)=>{
+                    console.log(error);
+                });
+            },
+            btnser(row){        //查询  重置    个性化按钮
+                // row==0?this.btns=0:(row==1?this.btns=1:this.btns=2);
+                if(row==0){ //查询按钮
+                    this.btns=0;    //添加css颜色
+                    this.inquLre();
+                }else if(row==1){   //重置按钮
+                    this.btns=1;  
+                    this.selectNum=[];
+                    this.value6="";
+                    this.select1=[];
+                    this.select2=[];
+                    this.select3=[];
+                    this.select4=[];
+                    this.days=null;
+                    this.radio=""
+
+                }else{      //个性化按钮
+                    this.btns=2;    //添加css颜色
+                }
+            },
+            newDatas(news,ends){
+                var curDate = new Date();
+                    var preDate = new Date(curDate.getTime() - 24*60*60*1000*news); //前一天
+                    var Y = preDate.getFullYear() + '-';
+                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
+                    var D = preDate.getDate();
+                    this.startTime=Y+M+D;   //开始时间
+
+                    var endDate = new Date();
+                    var endDates = new Date(endDate.getTime() - 24*60*60*1000*ends); //前一天
+                    var Y = endDates.getFullYear() + '-';
+                    var M = (endDates.getMonth()+1 < 10 ? '0'+(endDates.getMonth()+1) : endDates.getMonth()+1) + '-';
+                    var D = endDates.getDate();
+                    this.endTime=Y+M+D;//结束时间
+            },
+            newMonth(){
+                var nowdays = new Date();
+                var year = nowdays.getFullYear();
+                var month = nowdays.getMonth();
+                if(month==0)
+                {
+                    month=12;
+                    year=year-1;
+                }
+                if (month < 10) {
+                    month = "0" + month;
+                }
+                this.startTime = year + "-" + month + "-" + "01";//上个月的第一天
+                var myDate = new Date(year, month, 0);
+                this.endTime = year + "-" + month + "-" + myDate.getDate();//上个月的最后一天
+            },
+            daysBtn(row){          //快速查询按钮
+                //  row==0?this.days=0:(row==1?this.days=1:(row==2?this.days=2:this.days=3));
+                this.value6="";
+                if(row==0){
+                    this.days=0;
+                    this.newDatas(1,1)
+                }else if(row==1){
+                    this.days=1
+                     this.newDatas(3,1)
+                }else if(row==2){
+                    this.days=2
+                    this.newDatas(7,1)
+                }else if(row==3){
+                     this.days=3
+                     this.newMonth()
+                }
+            },
             SetEchart() {
                 // 基于准备好的dom，初始化echarts实例
                 // var growRanking = echarts.init(document.getElementById('myChart'));
@@ -463,11 +614,35 @@
                 });
 
                 return sums;
+            },
+            selectList(index,row){
+                this.$axios.get('/jinfeng/sep_tree!queryTreeByType.action', {
+                    params: {
+                        parentId:0,
+                        buildingId:1,       //后期改变
+                        type:row
+                    }
+                }).then((response)=> {
+                    let Do=response;
+                    if(Do.status==200){
+                        if(index==1){
+                            this.selectData1=Do.data.data[0].children
+                        }else if(index==2){
+                            this.selectData2=Do.data.data[0].children
+                        }else if(index==3){
+                            this.selectData3=Do.data.data[0].children
+                        }else{
+                            this.selectData4=Do.data.data[0].children
+                        }
+                    }
+                }).catch((error)=>{
+                    console.log(error);
+                });
             }
-
         },
         mounted() {
             this.SetEchart();
+            this.checkedChange(1,1)
             // =================================================
 
         }
@@ -566,6 +741,9 @@
                     .select {
                         /*width: 220px;*/
                         margin-left: 7px;
+                        .el-tag{
+                            background-color: none !important;
+                        }
                     }
                     .ml92 {
                         /*margin-left: 92px;*/
@@ -965,5 +1143,13 @@
                 }
             }
         }
+    }
+</style>
+<style>
+    .el-select-dropdown /deep/ .selected{
+        background: none !important;
+    }
+    .select /deep/ .el-tag{
+        background: none;
     }
 </style>
