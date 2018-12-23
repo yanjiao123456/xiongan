@@ -471,7 +471,7 @@
                                 show: true,
                                 formatter: '{c}'
                             },
-                            symbol: 'img://../../assets/PeiDianJianCe/data_k.png',
+                            // symbol: 'img://../../assets/PeiDianJianCe/data_k.png',
                             // symbol:'roundRect',
                             data: [
                                 {type: 'max', name: '最大值'},
