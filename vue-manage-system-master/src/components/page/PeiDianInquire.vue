@@ -438,7 +438,7 @@
                                 formatter:'{c}'
                             },
                             // symbol:'image://././assets/PeiDianJianCe/data_k.png',
-                            symbol:'roundRect',
+                            // symbol:'roundRect',
                             data: [
                                 {type: 'max', name: '最大值'},
                                 {type: 'min', name: '最小值'}

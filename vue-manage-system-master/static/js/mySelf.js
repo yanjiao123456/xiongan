@@ -1,9 +1,8 @@
 $(window).load(function(){
     $('.collapse-btn').click(function(){
         setTimeout(function(){
-            // window.onresize();
-            console.log('resize');
-        },500);
+            window.onresize();
+        },800);
     })
     // $('#treeButton').click(function(){
     //     setTimeout(function(){

@@ -518,7 +518,7 @@
                     grid: {
                         left: '3%',
                         right: '1%',
-                        bottom: '3%',
+                        bottom: '10%',
                         top: '15%',
                         containLabel: true
                     },
@@ -566,21 +566,25 @@
                     series: [{
                         name: '2AA101-1号电源线_能耗',
                         type: 'bar',
+                        barWidth:'50%;',
                         stack: 'all',
                         data: one
                     }, {
                         name: '2AA102-1号电源线_能耗',
                         type: 'bar',
+                        barWidth:'50%;',
                         stack: 'all',
                         data: two
                     }, {
                         name: '2AA103-1号电源线_能耗',
                         type: 'bar',
+                        barWidth:'50%;',
                         stack: 'all',
                         data: three
                     }, {
                         name: '2AA104-1号电源线_能耗',
                         type: 'bar',
+                        barWidth:'50%;',
                         stack: 'all',
                         data: four
                     }

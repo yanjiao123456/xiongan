@@ -94,22 +94,22 @@
                                 <h3>能耗趋势与对比</h3>
                                 <div class="shouye-sel">
                                     <div class="sel-bg"></div>
-                                    <select v-model="selectValbar">
-                                            <option value="day">日</option>
-                                            <option value="month">月</option>
-                                            <option value="year">年</option>
+                                    <select @change="getNH()" v-model="selectValbar">
+                                            <option value="hour">日</option>
+                                            <option value="day">月</option>
+                                            <option value="month">年</option>
                                         </select>
                                 </div>
                                 <el-container style="padding-left:10px;height:339px;">
                                     <el-aside width="30px" style="padding-top:35px;">
-                                        <div @click="btns='all'" :class="{butCur:btns=='all','butCircle':true}">总</div>
-                                        <div @click="btns='A'" :class="{butCur:btns=='A','butCircle':true}">电</div>
-                                        <div @click="btns='B'" :class="{butCur:btns=='B','butCircle':true}">水</div>
-                                        <div @click="btns='D1'" :class="{butCur:btns=='D1','butCircle':true}">冷</div>
-                                        <div @click="btns='D2'" :class="{butCur:btns=='D2','butCircle':true}">热</div>
+                                        <div @click="btns='all',QushiData()" :class="{butCur:btns=='all','butCircle':true}">总</div>
+                                        <div @click="btns='A',QushiData()" :class="{butCur:btns=='A','butCircle':true}">电</div>
+                                        <div @click="btns='B',QushiData()" :class="{butCur:btns=='B','butCircle':true}">水</div>
+                                        <div @click="btns='D1',QushiData()" :class="{butCur:btns=='D1','butCircle':true}">冷</div>
+                                        <div @click="btns='D2',QushiData()" :class="{butCur:btns=='D2','butCircle':true}">热</div>
                                     </el-aside>
                                     <el-main style="padding:0;">
-                                        <div id="qushi" style="width:100%;height:100%;"></div>
+                                        <div id="qushi" style="width:100%;height:100%;overflow: hidden;"></div>
                                     </el-main>
                                 </el-container>    
                             </div>
@@ -128,7 +128,7 @@
                                 <h3>能源种类占比</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select v-model="selectVal">
+                                        <select  @change="getDate()"  v-model="selectVal">
                                             <option value="day">日</option>
                                             <option value="month">月</option>
                                             <option value="year">年</option>
@@ -175,7 +175,7 @@
                                 <h3>用电分项占比</h3>
                                 <div class="shouye-sel">
                                     <div class="sel-bg"></div>
-                                    <select v-model="selectValPie2">
+                                    <select @change="getFX()" v-model="selectValPie2">
                                         <option value="day">日</option>
                                         <option value="month">月</option>
                                         <option value="year">年</option>
@@ -218,7 +218,7 @@
                                 <h3>楼层能耗占比</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select v-model="selectValPie3">
+                                        <select @change="getLC()" v-model="selectValPie3">
                                             <option value="day">日</option>
                                             <option value="month">月</option>
                                             <option value="year">年</option>
@@ -261,7 +261,7 @@
                                 <h3>能耗TOP排名</h3>
                                 <div class="shouye-sel">
                                         <div class="sel-bg"></div>
-                                        <select v-model="selectValPie4">
+                                        <select @change="getTOP()" v-model="selectValPie4">
                                             <option value="day">日</option>
                                             <option value="month">月</option>
                                             <option value="year">年</option>
@@ -276,7 +276,7 @@
                 </el-col>   
             </el-row>   
         </div>
-       
+ 
     </div>
 </template>
 
@@ -292,7 +292,7 @@
             return {
                 isActiv:true,
                 show:true,
-                selectValbar:'day',
+                selectValbar:'hour',
                 selectVal:'day',
                 selectValPie2:'day',
                 selectValPie3:'day',
@@ -488,33 +488,37 @@
         },
       
         methods: {
-            // parseRouter(){
-            //     var buildingId=window.location.href.split("?")[1].split("=")[1];
-            //     localStorage.setItem('buildingId',buildingId);
-            // },
+           
 
 
+            getDate(){
+                // var date=this.selectVal
+                this.ClassData();
+            },
+            getNH(){
+                this.QushiData();
+            },
+            getFX(){
+                this.FenXiangData();
+            },
+            getLC(){
+                this.LouCengData();
+            },
+            getTOP(){
+                this.PaiMingData();
+            },
             SliderData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchIndexTop.action',{
-                        buildingId:1
-                    })
+                    '/xa_index!searchIndexTop.action',
+                    {params: {
+                        buildingId: 1
+                        // dateType: 'day'
+                        }}
+                )
                     .then(function(response){
-                  var dian=response.data.theObj.sliderData1;
-                  for(var i=0;i<dian.lenght;i++){
-                      console.log(dian[i]);
-                      dian[i].push({view:1});
-                  }
-                  console.log(dian);
-                //   for(var key in dian){
-                //       dian['view']=1;
-                //   }
-                //   console.log(dian);
-                //  response.data.theObj.sliderData1.view=1;
-                //  response.data.theObj.sliderData2.view=2;
-                //  response.data.theObj.sliderData3.view=3;
-                //  response.data.theObj.sliderData4.view=4;
+                
+                  console.log(response.data);
                   var data = response.data.theObj;
                   for(var key in data){
                       
@@ -563,7 +567,7 @@
             KPI(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingKpi.action',{
+                    '/xa_index!searchBuildingKpi.action',{
                         params: {
                         buildingId: 1
                         // dateType: 'day'
@@ -706,9 +710,10 @@
                         })()
                     };
                     gonglvChart.setOption(option);
-                    
+                    window.onresize = function () {
+                        gonglvChart.resize();
+                    }
                  })
-                 
                  .catch(function(err){
                     console.log(err); 
                  });
@@ -717,9 +722,9 @@
             QiYeData(){
                  var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingInfo.action',{
+                    '/xa_index!searchBuildingInfo.action',{
                         params: {
-                        buildingId: 1
+                        buildingId:1
                         // dateType: 'day'
                         }
                     }).then(function(response){
@@ -738,7 +743,7 @@
             QushiData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTrend.action',{
+                    '/xa_index!searchEnergyTrend.action',{
                         params: {
                         buildingId: 1,
                         dateType: that.selectValbar,
@@ -847,6 +852,9 @@
                     // ]
                 }
                 qushiChart.setOption(option1);
+                window.onresize = function () {
+                    qushiChart.resize();
+                }
                  })
                  .catch(function(err){
                     console.log(err); 
@@ -855,7 +863,7 @@
             ClassData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyTypePro.action',{
+                    '/xa_index!searchEnergyTypePro.action',{
                      params: {
                         buildingId: 1,
                         dateType: that.selectVal
@@ -905,7 +913,9 @@
                         }]
                     }
                     yongnengChart.setOption(option2);
-              
+                    window.onresize = function () {
+                        yongnengChart.resize();
+                }
                  
                 //   console.log(response.data.theObj);
                         // that.Data=response.data.theObj[0];
@@ -918,10 +928,10 @@
             FenXiangData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchElectricTypePro.action',{
+                    '/xa_index!searchElectricTypePro.action',{
                      params: {
                         buildingId: 1,
-                        dateType: that.selectVal
+                        dateType: that.selectValPie2
                         }
                     })
                     .then(function(response){
@@ -968,6 +978,9 @@
                     }]
                 }
                 fenxiangChart.setOption(option3);
+                window.onresize = function () {
+                    fenxiangChart.resize();
+                    }
                  })
                  .catch(function(err){
                     console.log(err); 
@@ -976,7 +989,7 @@
             LouCengData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchBuildingFloorPro.action',{
+                    '/xa_index!searchBuildingFloorPro.action',{
                      params: {
                         buildingId: 1,
                         dateType: that.selectValPie3
@@ -1037,6 +1050,9 @@
                                 }]
                             }
                             quyuChart.setOption(option4);
+                            window.onresize = function () {
+                                quyuChart.resize();
+                            }
                     })
                     .catch(function(err){
                         console.log(err); 
@@ -1045,7 +1061,7 @@
             PaiMingData(){
                 var that=this;
                 this.$axios.get(
-                    'http://10.76.107.100:18080/jinfeng/xa_index!searchEnergyUnitAreaTop3.action',{
+                    '/xa_index!searchEnergyUnitAreaTop3.action',{
                      params: {
                         buildingId: 1,
                         dateType: that.selectValPie4
@@ -1116,6 +1132,9 @@
                             ]
                         }
                         zhiluChart.setOption(option5);
+                        window.onresize = function () {
+                            zhiluChart.resize();
+                            }
                         // zhiluChart.resize();
                     })
                     .catch(function(err){
@@ -1139,10 +1158,15 @@
             },
         },
         mounted() {
-            // this.parseRouter();
+            // this.parseRouter();this.parseRouter();
             this.SetEchart();
         },
         created(){
+            var buildingId=window.location.href.split("?")[1].split("=")[1];
+            console.log(buildingId);
+            if(buildingId){
+                localStorage.setItem('buildingId',buildingId);
+            }
             this.SliderData();
             this.QiYeData();
             this.KPI();
