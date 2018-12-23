@@ -3,15 +3,17 @@
         <transition name="el-zoom-in-center">
             <div v-show="leftShow" class="left-branch">
                 <div class="tabTit">
-                    <span @click="tabTit=0" :class="{cur:tabTit==0}">分项</span>
-                    <span @click="tabTit=1" :class="{cur:tabTit==1}">部门</span>
-                    <span @click="tabTit=2" :class="{cur:tabTit==2}">位置</span>
-                    <span @click="tabTit=3" :class="{cur:tabTit==3}">支路</span>
+          <span
+                  v-for="(v,index) in tabTitleArr"
+                  @click="bindTabTit(index+1)"
+                  :class="{cur:tabTit==index+1}"
+          >{{ v }}</span>
                 </div>
                 <!--<div class="tit">选择支路</div>-->
                 <div class="inputBox">
                     <i class="icon-ss"></i>
-                    <input placeholder="请输入支路名称" type="text" id="key" value="" class="empty"/><br/>
+                    <input placeholder="请输入支路名称" type="text" id="key" value class="empty">
+                    <br>
                 </div>
                 <!--<div class="zTreeDemoBackground left">-->
                 <ul id="treeDemo" class="ztree"></ul>
@@ -30,46 +32,66 @@
         <div :class="{main:true,mainShow:leftShow}">
             <div class="filtrate-box">
                 <div class="bg"></div>
-                <div class="title"><h3>筛选条件</h3>
-
+                <div class="title">
+                    <h3>筛选条件</h3>
                 </div>
-                <div @click="filtrateShow=!filtrateShow"
-                     :class="{'shift-knob-t':filtrateShow,'shift-knob-b':!filtrateShow}"></div>
+                <div
+                        @click="filtrateShow=!filtrateShow"
+                        :class="{'shift-knob-t':filtrateShow,'shift-knob-b':!filtrateShow}"
+                ></div>
                 <el-collapse-transition>
                     <div v-show="filtrateShow" class="filtrate-show">
                         <div class="item-row">
+
                             <i class="icon-lx"></i>
                             <span class="checkbox-tit">分析方法:</span>
                             <div class="count">
                                 <!--<div class="bg"></div>-->
                                 <select v-model="compareVal">
-                                    <option>同比</option>
-                                    <option>环比</option>
-                                    <option>15</option>
-                                    <option>30</option>
-                                    <option>60</option>
+                                    <option value="tongbi">同比</option>
+                                    <option value="huanbi">环比</option>
+                                    <option value="zibi">自比</option>
                                 </select>
                             </div>
 
+
+                            <!--v-show="compareVal == 15"-->
+                        </div>
+                        <div v-show="compareVal == 'zibi'" class="item-row">
+                            <div class="fl">
+                                <span class="date-select">时间选择</span>
+                                <el-date-picker
+                                        class
+                                        v-model="userDefined"
+                                        type="datetimerange"
+                                        range-separator="—"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期"
+                                ></el-date-picker>
+                            </div>
                         </div>
                         <div class="item-row">
                             <i class="icon-wd"></i>
                             <span class="checkbox-tit">维度:</span>
-                            <el-radio class="choice" v-model="radio" label="1">时</el-radio>
-                            <el-radio class="choice" v-model="radio" label="2">天</el-radio>
-                            <el-radio class="choice" v-model="radio" label="3">月</el-radio>
+                            <el-radio class="choice" v-model="dateType" label="hour">时</el-radio>
+                            <el-radio class="choice" v-model="dateType" label="day">天</el-radio>
+                            <el-radio class="choice" v-model="dateType" label="month">月</el-radio>
                         </div>
-                        <div v-show="compareVal == 15" class="item-row item-row-br">
+                        <!--value-format="yyyy-MM-dd HH:mm:ss"-->
+                        <!--value-format="timestamp"-->
+                        <div class="item-row item-row-br">
                             <div class="fl">
                                 <span class="date-select">时间选择</span>
                                 <el-date-picker
-                                        class=""
-                                        v-model="value6"
+                                        class
+                                        v-model="value4"
                                         type="datetimerange"
+                                        value-format="timestamp"
                                         range-separator="—"
                                         start-placeholder="开始日期"
-                                        end-placeholder="结束日期">
-                                </el-date-picker>
+                                        end-placeholder="结束日期"
+                                ></el-date-picker>
                             </div>
                             <!--<div class="fl days-box">-->
                             <!--<span class="days-tit date-select">-->
@@ -85,19 +107,17 @@
                             <!--</div>-->
                         </div>
 
-
                         <div class="btns-box">
-                            <div @click="btns=0" :class="{'btn-item':true,cur:btns==0}">查询</div>
+                            <div @click="bindQuery" :class="{'btn-item':true,cur:btns==0}">查询</div>
                             <div @click="btns=1" :class="{'btn-item':true,cur:btns==1}">重置</div>
                         </div>
-
                     </div>
                 </el-collapse-transition>
-
             </div>
+
             <!--对比-->
             <div class="contrast">
-                <div class="lists" v-for="v in lists">
+                <div class="lists" v-for="(v,index) in lists">
                     <div class="current-period">
                         <div class="item-left">
                             <i :class="v.icon"></i>
@@ -105,7 +125,8 @@
                         <div class="item-right">
                             <p>{{ v.title }}</p>
                             <div class="kwh">
-                                <span class="number">166.56</span>
+                                <span v-if="dataShow" class="number">{{ yls[index].key1 }}</span>
+                                <span v-if="!dataShow" class="number">0</span>
                                 <span class="unit">kWh</span>
                             </div>
                         </div>
@@ -117,7 +138,8 @@
                         <div class="item-right">
                             <p>{{ v.title2 }}</p>
                             <div class="kwh">
-                                <span class="number">166.56</span>
+                                <span v-if="dataShow" class="number">{{ yls[index].key2 }}</span>
+                                <span v-if="!dataShow" class="number">0</span>
                                 <span class="unit">kWh</span>
                             </div>
                         </div>
@@ -127,32 +149,38 @@
 
             <div class="data-box">
                 <div class="bg"></div>
-                <div class="title"><h3>光伏发电量监测</h3>
+                <div class="title">
+                    <h3>光伏发电量监测</h3>
                 </div>
                 <div class="my-charts">
                     <div id="chart" style="width:100%;height:100%;"></div>
                 </div>
             </div>
 
-
             <div class="Table">
                 <div class="bg"></div>
-                <div class="title"><h3>数据列表</h3>
-                    <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
+                <div class="title">
+                    <h3>数据列表</h3>
+                    <div class="head-right">
+                        <i class="icon-pdf"></i>
+                        <i class="icon-excel"></i>
+                    </div>
                 </div>
-
 
                 <!--<template-table :data-tit="tableTitle"></template-table>-->
                 <div class="table-box">
-                    <div class="table-tit">{{ tableTitle.title }}</div>
-                    <el-table
-                            :data="tableData6"
-                            border
-                            stripe
-                            style="width: 100%">
-                        <el-table-column :key="index" v-for="(v,index) in tableTitle.titArr" class="trs" :prop="v.prop"
-                                         :label="v.label"></el-table-column>
-
+                    <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
+                    <el-table :data="tableData" border stripe style="width: 100%">
+                        <el-table-column
+                                :key="index"
+                                v-for="(v,index) in titArr"
+                                class="trs"
+                                :prop="v.prop"
+                                :label="v.label"
+                        ></el-table-column>
+                        prop: "id",
+                        label: "日期",
+                        sortable: false
                     </el-table>
                 </div>
                 <div class="selector">
@@ -163,9 +191,7 @@
                         <input type="text" value="1">
                     </div>
 
-                    <span class="page-all">
-                        /共1页
-                    </span>
+                    <span class="page-all">/共1页</span>
                     <i class="icon-next"></i>
                     <i class="icon-last"></i>
                     <div class="count">
@@ -180,149 +206,160 @@
                 </div>
             </div>
 
+
         </div>
     </div>
 </template>
 
 <script>
-    import TemplateTable from '../views/template-table'
+    import TemplateTable from "../views/template-table";
 
-    var echarts = require('echarts');
+    var echarts = require("echarts");
     export default {
         name: "nenghaoqushi",
         data() {
             return {
-                compareVal: '同比',
-                compareShow: false,
-                tableData6: [{
-                    id: '12987122',
-                    name: '王小虎',
-                    amount1: '234',
-                    amount2: '3.2',
-                    amount3: 10
-                }, {
-                    id: '12987123',
-                    name: '王小虎',
-                    amount1: '165',
-                    amount2: '4.43',
-                    amount3: 12
-                }, {
-                    id: '12987124',
-                    name: '王小虎',
-                    amount1: '324',
-                    amount2: '1.9',
-                    amount3: 9
-                }, {
-                    id: '12987125',
-                    name: '王小虎',
-                    amount1: '621',
-                    amount2: '2.2',
-                    amount3: 17
-                }, {
-                    id: '12987126',
-                    name: '王小虎',
-                    amount1: '539',
-                    amount2: '4.1',
-                    amount3: 15
-                }],
-                lists: [
+                dateType: 'hour',
+                // pickerOptions2: {
+                //     shortcuts: [{
+                //         text: '最近一周',
+                //         onClick(picker) {
+                //             const end = new Date();
+                //             const start = new Date();
+                //             start.setTime(start.getTime() - 3600 * 1000 * 1);
+                //             picker.$emit('pick', [start, end]);
+                //         }
+                //     }, {
+                //         text: '最近一个月',
+                //         onClick(picker) {
+                //             const end = new Date();
+                //             const start = new Date();
+                //             start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                //             picker.$emit('pick', [start, end]);
+                //         }
+                //     }, {
+                //         text: '最近三个月',
+                //         onClick(picker) {
+                //             const end = new Date();
+                //             const start = new Date();
+                //             start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                //             picker.$emit('pick', [start, end]);
+                //         }
+                //     }]
+                // },
+                // value4: [new Date().setTime(new Date().getTime() - 3600 * 1000 * 1), new Date().getTime()],
+                value4: [],
+                startDate: '',
+                endDate: '',
+                cpStartDate: '',
+                cpEndDate: '',
+                legend: [],
+                datas: [],
+                xisDatas: [],
+                userDefined: '',
+                tabTitleArr: ["分项", "部门", "位置", "支路"],
+                titArr: [
                     {
-                        title: '本期汇总',
-                        icon: 'item-icon-hz',
-                        title2: '同期汇总',
+                        prop: "dateTime",
+                        label: "日期",
+                        sortable: false
                     },
                     {
-                        title: '本期平均',
-                        icon: 'item-icon-pjf',
-                        title2: '同期平均',
+                        prop: "curValue",
+                        label: "本期能耗",
+                        sortable: false
                     },
                     {
-                        title: '本期最大值',
-                        icon: 'item-icon-max',
-                        title2: '同期最大值',
+                        prop: "cpValue",
+                        label: "对比期能耗",
+                        sortable: false
                     },
                     {
-                        title: '本期最小值 ',
-                        icon: 'item-icon-min',
-                        title2: '同期最小值',
-                    },
-                    {
-                        title: '本期同比',
-                        icon: 'item-icon-tb',
-                        title2: '同期同比',
+                        prop: "percentValue",
+                        label: "同比/环比",
+                        sortable: false
                     },
 
                 ],
-                // lists:[
-                //     {
-                //         f1:{
-                //             title:'本期汇总',
-                //             icon:'item-icon-hz',
-                //             number:166.56
-                //         },
-                //         f2:{
-                //             title:'同期汇总',
-                //             icon:'item-icon-hz',
-                //             number:166.56
-                //         },
-                //     },
-                //     {
-                //         f1:{
-                //             title:'本期平均',
-                //             icon:'item-icon-pjf',
-                //             number:166.56
-                //         },
-                //         f2:{
-                //             title:'同期平均',
-                //             icon:'item-icon-pjf',
-                //             number:166.56
-                //         },
-                //     },
-                //     {
-                //         f1:{
-                //             title:'本期最大值',
-                //             icon:'item-icon-max',
-                //             number:166.56
-                //         },
-                //         f2:{
-                //             title:'同期最大值',
-                //             icon:'item-icon-max',
-                //             number:166.56
-                //         },
-                //     },
-                //     {
-                //         f1:{
-                //             title:'本期最小值 ',
-                //             icon:'item-icon-min',
-                //             number:166.56
-                //         },
-                //         f2:{
-                //             title:'同期最小值 ',
-                //             icon:'item-icon-min',
-                //             number:166.56
-                //         },
-                //     },
-                //     {
-                //         f1:{
-                //             title:'本期同比',
-                //             icon:'item-icon-tb',
-                //             number:166.56
-                //         },
-                //         f2:{
-                //             title:'同期同比',
-                //             icon:'item-icon-tb',
-                //             number:166.56
-                //         },
-                //     }
-                // ],
-                option: '2',
-                tabTit: 0,
+                zNodes: [],
+                compareVal: "tongbi",
+                compareShow: false,
+                dataShow: false,
+                tableData6: [
+                    {
+                        id: "12987122",
+                        name: "王小虎",
+                        amount1: "234",
+                        amount2: "3.2",
+                        amount3: 10
+                    },
+                    {
+                        id: "12987123",
+                        name: "王小虎",
+                        amount1: "165",
+                        amount2: "4.43",
+                        amount3: 12
+                    },
+                    {
+                        id: "12987124",
+                        name: "王小虎",
+                        amount1: "324",
+                        amount2: "1.9",
+                        amount3: 9
+                    },
+                    {
+                        id: "12987125",
+                        name: "王小虎",
+                        amount1: "621",
+                        amount2: "2.2",
+                        amount3: 17
+                    },
+                    {
+                        id: "12987126",
+                        name: "王小虎",
+                        amount1: "539",
+                        amount2: "4.1",
+                        amount3: 15
+                    }
+                ],
+                tableData: [],
+                lists: [
+                    {
+                        title: "本期汇总",
+                        icon: "item-icon-hz",
+                        title2: "同期汇总"
+                    },
+                    {
+                        title: "本期平均",
+                        icon: "item-icon-pjf",
+                        title2: "同期平均"
+                    },
+                    {
+                        title: "本期最大值",
+                        icon: "item-icon-max",
+                        title2: "同期最大值"
+                    },
+                    {
+                        title: "本期最小值 ",
+                        icon: "item-icon-min",
+                        title2: "同期最小值"
+                    },
+                    {
+                        title: "本期同比",
+                        icon: "item-icon-tb",
+                        title2: "同期同比"
+                    }
+                ],
+                yls: [],
+                treeId: "",
+                option: "2",
+                tabTit: 1,
                 radio: 2,
                 leftShow: true,
                 filtrateShow: true,
                 btns: 0,
                 no2off: true,
-                value6: '',
+                value6: "",
                 days: 2,
                 checked5: true,
                 checked6: true,
@@ -330,74 +367,236 @@
                 checked8: false,
                 checked9: false,
                 checked10: false,
-                tableTitle: {
-                    title: '【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】',
-                    titArr: [
-                        {
-                            prop: "id",
-                            label: "日期",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIa",
-                            label: "电流Ia",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIb",
-                            label: "电流Ib",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIc",
-                            label: "电流Ic",
-                            sortable: false
-                        },
-                        {
-                            prop: "zhengDianNeng",
-                            label: "当前正向有功总电能",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUan",
-                            label: "粗电压Uan",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUbn",
-                            label: "粗电压Ubn",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUcn",
-                            label: "粗电压Ucn",
-                            sortable: false
-                        },
-                        {
-                            prop: "sum",
-                            label: "总有功功率W",
-                            sortable: false
-                        },
-                    ]
-                },
 
-            }
+            };
         },
         components: {
             TemplateTable
         },
+        //2018-12-23 00:00:00
         methods: {
+            bindQuery() {
+                this.getMainData();
+                this.btns = 0
+            },
+            bindAdd(date, part, value) {
+                value *= 1;
+                if (isNaN(value)) {
+                    value = 0;
+                }
+                switch (part) {
+                    case "y":
+                        date.setFullYear(date.getFullYear() + value);
+                        break;
+                    case "m":
+                        date.setMonth(date.getMonth() + value);
+                        break;
+                    case "d":
+                        date.setDate(date.getDate() + value);
+                        break;
+                    case "h":
+                        date.setHours(date.getHours() + value);
+                        break;
+                    case "n":
+                        date.setMinutes(date.getMinutes() + value);
+                        break;
+                    case "s":
+                        date.setSeconds(date.getSeconds() + value);
+                        break;
+                    default:
+
+                }
+
+            },
+            format(date) {
+                // 比如需要这样的格式 yyyy-MM-dd hh:mm:ss
+                date.getTime();
+                // var date = new Date(1398250549490);
+                let Y = date.getFullYear() + '-';
+                let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                let D = date.getDate() + ' ';
+                let h = date.getHours() + ':';
+                let m = date.getMinutes() + ':';
+                let s = date.getSeconds();
+
+                m = m.length == 2 ? '0' + m : m;
+                h = h.length == 2 ? '0' + h : h;
+                s = s.length == 2 ? '0' + s : s;
+
+                // console.log(m.length);
+                // console.log(Y+M+D+h+m+s); //呀麻碟
+                return Y + M + D + h + m + s;
+            },
+
+            bindTabTit(index) {
+                this.tabTit = index;
+                this.getTreeData();
+            },
+            zTreeOnCheck(event, treeId, setting) {
+                //   console.log("treeId", treeId);
+                // console.log("setting", setting);
+                this.treeId = setting.id;
+                this.getMainData();
+                this.getTableData();
+            },
+            treeDom() {
+                let treeUl = $("#treeDemo");
+                for (let i = 0; i < array.length; i++) {
+                }
+            },
+            messageErr() {
+                this.$message.error(' 该支路下没有绑定实体表 ');
+            },
+            getTableData() {
+                this.bindss();
+                let _this = this;
+                //树型导航
+                this.$axios
+                    .get("/xa_energy_analysis!queryTableData.action", {
+                        params: {
+                            treeType: _this.tabTit,
+                            treeId: _this.treeId,
+                            dateType: _this.dateType,
+                            beginTime: _this.startDate,
+                            endTime: _this.endDate,
+                            compareBeginTime: _this.cpStartDate,
+                            compareEndTime: _this.cpEndDate,
+                            pageStart: 0,
+                            pageSize: 10
+                            // buildingId: 1
+                        }
+                    })
+                    .then(function (response) {
+                        var data = response.data.data;
+                        console.log(data);
+                        if (data.message == " 该支路下没有绑定实体表 ") {
+                            // _this.messageErr();
+                        } else {
+                            _this.tableData = data;
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            bindss() {
+
+                this.startDate = this.format(new Date(this.value4[0]));
+                this.endDate = this.format(new Date(this.value4[1]));
+                var start = this.value4[0];
+                var end = this.value4[1];
+
+
+                if (this.compareVal == 'tongbi' || this.dateType == 'month') {
+                    let startdate = new Date(start);
+                    let enddate = new Date(end);
+                    this.bindAdd(startdate, 'y', -1);
+                    this.bindAdd(enddate, 'y', -1);
+                    this.cpStartDate = this.format(startdate);
+                    this.cpEndDate = this.format(enddate);
+
+
+                } else if (this.compareVal == 'huanbi') {
+                    let startdate = new Date(start);
+                    let enddate = new Date(end);
+                    this.bindAdd(startdate, 'd', -1);
+                    this.bindAdd(enddate, 'd', -1);
+                    this.cpStartDate = this.format(startdate);
+                    this.cpEndDate = this.format(enddate);
+
+
+                    if (this.dateType == 'day') {
+                        let startdate = new Date(start);
+                        let enddate = new Date(end);
+                        this.bindAdd(startdate, 'm', -1);
+                        this.bindAdd(enddate, 'm', -1);
+                        this.cpStartDate = this.format(startdate);
+                        this.cpEndDate = this.format(enddate);
+                    }
+                } else if (this.compareVal == 'zibi') {
+                    console.log(this.userDefined);
+                    this.cpStartDate = this.userDefined[0];
+                    this.cpEndDate = this.userDefined[1];
+                }
+            },
+            getMainData() {
+                this.bindss();
+                var _this = this;
+                console.log('_this.dateType', _this.dateType);
+                console.log('_this.startDate', _this.startDate);
+                console.log('_this.endDate', _this.endDate);
+                console.log('_this.cpStartDate', _this.cpStartDate);
+                console.log('_this.cpEndDate', _this.cpEndDate);
+                //树型导航
+                this.$axios
+                    .get("/xa_energy_analysis!queryOverData.action", {
+                        params: {
+                            treeType: _this.tabTit,
+                            treeId: _this.treeId,
+                            dateType: _this.dateType,
+                            beginTime: _this.startDate,
+                            endTime: _this.endDate,
+                            compareBeginTime: _this.cpStartDate,
+                            compareEndTime: _this.cpEndDate,
+                            pageStart: 0,
+                            pageSize: 10
+                            // buildingId: 1
+                        }
+                    })
+                    .then(function (response) {
+                        var data = response.data.data;
+                        console.log(data);
+                        if (data.message == " 该支路下没有绑定实体表 ") {
+                            _this.messageErr();
+                        } else {
+                            _this.dataShow = true;
+                            // console.log(data.yls);
+                            _this.yls = data.yls;
+                            _this.legend = data.legend;
+                            _this.xisDatas = data.xisDatas;
+                            _this.datas = data.datas;
+                            // console.log(_this.xisDatas);
+                            _this.SetEchart();
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            getTreeData() {
+                let _this = this;
+                //树型导航
+                this.$axios
+                    .get("/sep_tree!queryTreeByType.action", {
+                        params: {
+                            type: _this.tabTit,
+                            parentId: 0,
+                            buildingId: 1
+                        }
+                    })
+                    .then(function (response) {
+                        _this.zNodes = response.data.data;
+                        // console.log(_this.zNodes);
+                        _this.treeInit();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
             SetEchart() {
-                var chart = document.getElementById('chart');
+                let _this = this;
+                var chart = document.getElementById("chart");
                 var chartChart = echarts.init(chart);
                 var option = {
                     tooltip: {
-                        color: ['#FFF350', '#C09DFF', '#00FFFF'],
-                        trigger: 'axis',
+                        color: ["#FFF350", "#C09DFF", "#00FFFF"],
+                        trigger: "axis",
                         axisPointer: {
                             lineStyle: {
-                                type: 'shadow',
-                                color: '#778AA8'
+                                type: "shadow",
+                                color: "#778AA8"
                             }
                         }
                     },
@@ -409,35 +608,33 @@
                     },
                     legend: {
                         top: 0,
-                        data: ['电压Uan', '电压Ubn', '电压Ucn'],
+                        data: _this.legend,
                         textStyle: {
-                            color: 'rgb(91,227,224)'//示例标识文字颜色
+                            color: "rgb(91,227,224)" //示例标识文字颜色
                         }
                     },
                     xAxis: [
                         {
-                            type: 'category',
+                            type: "category",
                             axisLine: {
                                 lineStyle: {
-                                    color: 'rgb(91,227,224)'//x轴坐标颜色
+                                    color: "rgb(91,227,224)" //x轴坐标颜色
                                 }
                             },
                             boundaryGap: true,
-                            data: ['2018-10-26 00:00:00', '2018-10-26 00:10:00', '2018-10-26 00:20:00', '2018-10-26 00:30:00',
-                                '2018-10-26 00:40:00', '2018-10-26 00:50:00', '2018-10-26 00:60:00', '2018-10-26 01:00:00',
-                                '2018-10-26 01:02:00', '2018-10-26 01:03:00', '2018-10-26 01:04:00']
+                            data: _this.xisDatas
                         }
                     ],
                     yAxis: [
                         {
-                            type: 'value',
-                            name: '',
+                            type: "value",
+                            name: "",
                             axisTick: {
                                 show: false
                             },
                             axisLine: {
                                 lineStyle: {
-                                    color: 'rgb(110,131,162)'
+                                    color: "rgb(110,131,162)"
                                 }
                             },
                             axisLabel: {
@@ -448,246 +645,138 @@
                             },
                             splitLine: {
                                 lineStyle: {
-                                    color: 'rgb(42,81,125)'
+                                    color: "rgb(42,81,125)"
                                 }
                             }
                         }
                     ],
                     series: [
+
                         {
-                            name: '电压Uan',
-                            data: [21, 23, 20, 22, 21, 20, 20, 24, 20, 23, 22],
-                            type: 'bar',
-                            barWidth: '40%',
-                            // symbol: 'circle',
-                            // symbolSize: 8,
-                            // color: '#04B8CE',
-                            lineStyle: {
-                                color: "rgba(255, 243, 80, 1)"
-                            },
-                            itemStyle: {
-                                normal: {
-                                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                        offset: 0,
-                                        color: 'rgba(46, 160, 255, 1)'
-                                    }, {
-                                        offset: 0.8,
-                                        color: 'rgba(86, 213, 254, 1)'
-                                    }], false),
-                                    shadowColor: 'rgba(0, 0, 0, 0.1)',
-                                    shadowBlur: 10
-                                }
-                            },
-                        }, {
-                            name: '电压Ubn',
-                            data: [31, 33, 30, 32, 31, 30, 30, 34, 30, 33, 32, 31],
-                            type: 'line',
-                            symbol: 'circle',
+                            name: _this.legend[0],
+                            data: _this.datas[0],
+                            type: "line",
+                            symbol: "circle",
                             symbolSize: 8,
-                            color: '#04B8CE',
+                            color: "#04B8CE",
                             lineStyle: {
                                 color: "rgba(192, 157, 255, 1)"
                             },
                             itemStyle: {
                                 normal: {
-                                    color: 'rgba(192, 157, 255, 1)'// 描边线条上的圆圈颜色及示例指示标颜色
+                                    color: "rgba(192, 157, 255, 1)" // 描边线条上的圆圈颜色及示例指示标颜色
                                 }
                             }
-                        }, {
-                            name: '电压Ucn',
-                            data: [41, 43, 40, 42, 41, 40, 40, 44, 40, 43, 42, 41],
-                            type: 'line',
-                            symbol: 'circle',
+                        },
+                        {
+                            name: _this.legend[1],
+                            data: _this.datas[1],
+                            type: "line",
+                            symbol: "circle",
                             symbolSize: 8,
-                            color: '#04B8CE',
+                            color: "#04B8CE",
                             lineStyle: {
                                 color: "rgba(0, 255, 255, 1)"
                             },
                             itemStyle: {
                                 normal: {
-                                    color: 'rgba(0, 255, 255, 1)'// 描边线条上的圆圈颜色及示例指示标颜色
+                                    color: "rgba(0, 255, 255, 1)" // 描边线条上的圆圈颜色及示例指示标颜色
                                 }
                             }
                         }
                     ]
-                }
+                };
                 chartChart.setOption(option);
                 window.onresize = function () {
                     chartChart.resize();
+                };
+            },
+            treeInit() {
+                let _this = this;
+                var setting = {
+                    check: {
+                        enable: true,
+                        // enable: true,
+                        chkStyle: "radio",
+                        radioType: "all"
+                    },
+                    callback: {
+                        onCheck: _this.zTreeOnCheck
+                    },
+                    view: {
+                        nameIsHTML: true, //允许name支持html
+                        selectedMulti: false
+                    },
+                    edit: {
+                        enable: false,
+                        editNameSelectAll: false
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true
+                        }
+                    }
+                };
+
+                var code;
+
+                function setCheck() {
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                        py = $("#py").attr("checked") ? "p" : "",
+                        sy = $("#sy").attr("checked") ? "s" : "",
+                        pn = $("#pn").attr("checked") ? "p" : "",
+                        sn = $("#sn").attr("checked") ? "s" : "",
+                        type = {Y: py + sy, N: pn + sn};
+                    zTree.setting.check.chkboxType = type;
+                    showCode(
+                        'setting.check.chkboxType = { "Y" : "' +
+                        type.Y +
+                        '", "N" : "' +
+                        type.N +
+                        '" };'
+                    );
                 }
+
+                function showCode(str) {
+                    if (!code) code = $("#code");
+                    code.empty();
+                    code.append("<li>" + str + "</li>");
+                }
+
+                console.log("3", _this.zNodes);
+                $.fn.zTree.init($("#treeDemo"), setting, _this.zNodes);
+                fuzzySearch("treeDemo", "#key", null, true); //初始化模糊搜索方法
+                setCheck();
+                $("#py").bind("change", setCheck);
+                $("#sy").bind("change", setCheck);
+                $("#pn").bind("change", setCheck);
+                $("#sn").bind("change", setCheck);
             }
         },
         mounted() {
-            var setting = {
-                check: {
-                    enable: true,
-                    // enable: true,
-                    chkStyle: "radio",
-                    radioType: "level"
+            this.SetEchart();
 
-                },
-                view: {
-                    nameIsHTML: true, //允许name支持html
-                    selectedMulti: false
-                },
-                edit: {
-                    enable: false,
-                    editNameSelectAll: false
-                },
-                data: {
-                    simpleData: {
-                        enable: true
-                    }
-                }
-            };
+            // console.log();
+            var prev = new Date().setTime(new Date().getTime() - 3600 * 1000 * 1);
+            var now = new Date().getTime();
+            this.value4[0] = prev;
+            this.value4[1] = now;
 
-            // var zNodes = [
-            //     {
-            //         id: 1,
-            //         pId: 0,
-            //         name: "随意勾选 1",
-            //         open: true,
-            //         // iconSkin: "icon01"
-            //     },
-            //     {
-            //         id: 11,
-            //         pId: 1,
-            //         name: "随意勾选 1-1",
-            //         open: true,
-            //         // iconSkin: "icon01"
-            //     },
-            //     {
-            //         id: 111,
-            //         pId: 11,
-            //         name: "随意勾选 1-1-1"
-            //     },
-            //     {
-            //         id: 112,
-            //         pId: 11,
-            //         name: "随意勾选 1-1-2"
-            //     },
-            //     {
-            //         id: 12,
-            //         pId: 1,
-            //         name: "随意勾选 1-2",
-            //         open: true,
-            //         // iconSkin: "icon01"
-            //     },
-            //     {
-            //         id: 121,
-            //         pId: 12,
-            //         name: "随意勾选 1-2-1"
-            //     },
-            //     {
-            //         id: 122,
-            //         pId: 12,
-            //         name: "随意勾选 1-2-2"
-            //     },
-            //     {
-            //         id: 2,
-            //         pId: 0,
-            //         name: "随意勾选 2",
-            //         checked: true,
-            //         open: true,
-            //         // iconSkin: "icon01"
-            //     },
-            //     {
-            //         id: 21,
-            //         pId: 2,
-            //         name: "随意勾选 2-1"
-            //     },
-            //     {
-            //         id: 22,
-            //         pId: 2,
-            //         name: "随意勾选 2-2",
-            //         open: true,
-            //         // iconSkin: "icon01"
-            //     },
-            //     {
-            //         id: 221,
-            //         pId: 22,
-            //         name: "随意勾选 2-2-1",
-            //         // checked: true,
-            //     },
-            //     {
-            //         id: 222,
-            //         pId: 22,
-            //         name: "随意勾选 2-2-2"
-            //     },
-            //     {
-            //         id: 23,
-            //         pId: 2,
-            //         name: "随意勾选 2-3"
-            //     }
-            // ];
-            let zNodes = [{
-                "id": 1,
-                "parentId": 0,
-                "level": 0,
-                "name": "默认总节点",
-                "children": [{
-                    "id": 2,
-                    "parentId": 1,
-                    "level": 1,
-                    "name": "1545378009097sss",
-                    "children": [],
-                    "key": "1-"
-                }],
-                "key": ""
-            }]
+            // this.value4[0]=this.format(prev);
+            // this.value4[1]=this.format(now);
+            // console.log(this.value4);
 
-            var code;
-
-            function setCheck() {
-                var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-                    py = $("#py").attr("checked") ? "p" : "",
-                    sy = $("#sy").attr("checked") ? "s" : "",
-                    pn = $("#pn").attr("checked") ? "p" : "",
-                    sn = $("#sn").attr("checked") ? "s" : "",
-                    type = {"Y": py + sy, "N": pn + sn};
-                zTree.setting.check.chkboxType = type;
-                showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
-            }
-
-            function showCode(str) {
-                if (!code) code = $("#code");
-                code.empty();
-                code.append("<li>" + str + "</li>");
-            }
-
-
-            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-            fuzzySearch('treeDemo', '#key', null, true); //初始化模糊搜索方法
-            setCheck();
-            $("#py").bind("change", setCheck);
-            $("#sy").bind("change", setCheck);
-            $("#pn").bind("change", setCheck);
-            $("#sn").bind("change", setCheck);
-
-            this.SetEchart()
 
         },
         created() {
-            this.$axios.get('/sep_tree!queryTreeByType.action', {
-                params: {
-                    type: 1,
-                    parentId: 0
-                }
-            })
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
+            this.getTreeData();
         }
-
-    }
+    };
 </script>
 
 <style>
-    .ztree li span.button.ico_open, .ztree li span.button.ico_close {
+    .ztree li span.button.ico_open,
+    .ztree li span.button.ico_close {
         line-height: 0;
         margin: 0;
         width: 16px;
@@ -732,66 +821,83 @@
         color: rgba(254, 254, 254, 1);
     }
 
-    .ztree li span.button.chk.checkbox_false_full, .ztree li span.button.chk.checkbox_false_full_focus {
+    .ztree li span.button.chk.checkbox_false_full,
+    .ztree li span.button.chk.checkbox_false_full_focus {
         width: 16px;
         height: 16px;
         background: url("../../assets/PeiDianJianCe/icon_wxz.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.chk.checkbox_false_part, .ztree li span.button.chk.checkbox_false_part_focus, .ztree li span.button.chk.checkbox_true_full, .ztree li span.button.chk.checkbox_true_full_focus, .ztree li span.button.chk.checkbox_true_part, .ztree li span.button.chk.checkbox_true_part_focus {
+    .ztree li span.button.chk.checkbox_false_part,
+    .ztree li span.button.chk.checkbox_false_part_focus,
+    .ztree li span.button.chk.checkbox_true_full,
+    .ztree li span.button.chk.checkbox_true_full_focus,
+    .ztree li span.button.chk.checkbox_true_part,
+    .ztree li span.button.chk.checkbox_true_part_focus {
         width: 16px;
         height: 16px;
         background: url("../../assets/PeiDianJianCe/icon_xz.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.roots_open, .ztree li span.button.bottom_open, .ztree li span.button.center_open {
-
+    .ztree li span.button.roots_open,
+    .ztree li span.button.bottom_open,
+    .ztree li span.button.center_open {
         background: url("../../assets/PeiDianJianCe/icon_zk.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.bottom_close, .ztree li span.button.center_close, .ztree li span.button.roots_close {
+    .ztree li span.button.bottom_close,
+    .ztree li span.button.center_close,
+    .ztree li span.button.roots_close {
         background: url("../../assets/PeiDianJianCe/icon_dj.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.chk.radio_true_full, .ztree li span.button.chk.radio_true_full_focus {
+    .ztree li span.button.chk.radio_true_full,
+    .ztree li span.button.chk.radio_true_full_focus {
         background-position: 0 0;
     }
 
-    .ztree li span.button.radio_true_full, .ztree li span.button.radio_true_full_focus, .ztree li span.button.chk.radio_true_part, .ztree li span.button.chk.radio_true_part_focus {
+    .ztree li span.button.radio_true_full,
+    .ztree li span.button.radio_true_full_focus,
+    .ztree li span.button.chk.radio_true_part,
+    .ztree li span.button.chk.radio_true_part_focus {
         width: 16px;
         height: 16px;
         background: url("../../assets/NengHaoChaXun/icon_xz.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.radio_false_full, .ztree li span.button.radio_false_full_focus, .ztree li span.button.radio_false_part, .ztree li span.button.radio_false_part_focus {
+    .ztree li span.button.radio_false_full,
+    .ztree li span.button.radio_false_full_focus,
+    .ztree li span.button.radio_false_part,
+    .ztree li span.button.radio_false_part_focus {
         width: 14px;
         height: 14px;
         background: url("../../assets/NengHaoChaXun/椭圆 884.png") no-repeat;
         background-position: 0 0;
     }
 
-    .ztree li span.button.chk.radio_false_full, .ztree li span.button.chk.radio_false_full_focus, .ztree li span.button.radio_false_part, .ztree li span.button.radio_false_part_focus {
+    .ztree li span.button.chk.radio_false_full,
+    .ztree li span.button.chk.radio_false_full_focus,
+    .ztree li span.button.radio_false_part,
+    .ztree li span.button.radio_false_part_focus {
         background-position: 0 0;
         -webkit-background-size: 100% 100%;
         background-size: 100% 100%;
     }
 
-    .ztree li span.button.chk.radio_false_part, .ztree li span.button.chk.radio_false_part_focus {
+    .ztree li span.button.chk.radio_false_part,
+    .ztree li span.button.chk.radio_false_part_focus {
         background-position: 0 0;
     }
-
-
 </style>
 
 
 <style lang="scss" scoped>
     @media screen and (max-width: 1500px) {
-
     }
 
     .RTData {
@@ -814,11 +920,11 @@
             position: relative;
             /*border: 1px solid red;*/
 
-            background: #0A3E6E;
-            border: 1px solid #199AB7;
+            background: #0a3e6e;
+            border: 1px solid #199ab7;
             /*box-shadow:0px 0px 9px 0px rgba(1,16,31,1), 0px 0px 30px 0px rgba(42,244,255,0.84);*/
             /*opacity:0.51;*/
-            box-shadow: 0px 3px 9px 0px #01101f, 0px 3px 30px 2px #1A8EA0 inset;
+            box-shadow: 0px 3px 9px 0px #01101f, 0px 3px 30px 2px #1a8ea0 inset;
             border-radius: 3px;
             padding: 14px 13px;
             .tabTit {
@@ -838,7 +944,7 @@
                         font-weight: bold;
                         color: rgba(45, 243, 255, 1);
                         padding-bottom: 3px;
-                        border-bottom: 2px solid #2DF3FF;
+                        border-bottom: 2px solid #2df3ff;
                     }
                 }
             }
@@ -861,14 +967,13 @@
                 height: 28px;
                 border: 1px solid rgba(45, 243, 255, 1);
                 border-radius: 14px;
-                background-color: #0A3E6E;
+                background-color: #0a3e6e;
                 margin-top: 20px;
                 padding: 0 14px;
                 box-sizing: border-box;
                 position: relative;
                 &:before {
-                    content: '';
-
+                    content: "";
                 }
             }
             .ztree {
@@ -877,7 +982,7 @@
 
             .tit {
                 font-size: 18px;
-                font-family: 'HiraginoSansGB-W3';
+                font-family: "HiraginoSansGB-W3";
                 font-weight: bold;
                 /*font-weight: 500;*/
                 color: rgba(254, 254, 255, 1);
@@ -889,7 +994,7 @@
                 left: 0;
                 box-sizing: border-box;
                 padding: 9px 12px;
-                border-top: 1px solid #1A9BB8;
+                border-top: 1px solid #1a9bb8;
                 ul {
                     list-style: none;
                     margin-top: 5px;
@@ -917,7 +1022,6 @@
                 display: inline-block;
                 background: url("../../assets/PeiDianJianCe/椭圆 884.png") no-repeat;
             }
-
         }
         .btn {
             cursor: pointer;
@@ -961,7 +1065,6 @@
                     flex-direction: column;
                 }
                 .lists {
-
                     @media screen and (min-width: 1500px) {
                         &:not(:first-child) {
                             margin-left: 25px;
@@ -1018,7 +1121,8 @@
                         /*padding: 20px 0;*/
 
                         border: 1px solid rgba(42, 244, 255, 1);
-                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
+                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1),
+                        0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
                         /*opacity:0.5;*/
                         border-radius: 3px;
 
@@ -1032,11 +1136,10 @@
                             align-items: center;
                             justify-content: center;
                             text-align: center;
-                            background-color: #01A8F2;
+                            background-color: #01a8f2;
                             border-radius: 3px 3px 0px 0px;
                             margin-top: -1px;
                             margin-left: -1px;
-
                         }
                         .item-right {
                             box-sizing: border-box;
@@ -1067,7 +1170,6 @@
                                 font-weight: normal;
                                 color: rgba(223, 253, 255, 1);
                             }
-
                         }
                     }
                     .before {
@@ -1078,7 +1180,8 @@
                         /*padding: 20px 0;*/
 
                         border: 1px solid rgba(42, 244, 255, 1);
-                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
+                        box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1),
+                        0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
                         /*opacity:0.5;*/
                         border-radius: 3px;
                         .item-left {
@@ -1091,7 +1194,7 @@
                             align-items: center;
                             justify-content: center;
                             text-align: center;
-                            background-color: #5361DB;
+                            background-color: #5361db;
                             border-radius: 3px 3px 0px 0px;
                             margin-top: -1px;
                             margin-left: -1px;
@@ -1132,7 +1235,6 @@
                                 font-weight: normal;
                                 color: rgba(223, 253, 255, 1);
                             }
-
                         }
                     }
                 }
@@ -1145,7 +1247,8 @@
                 top: 0;
                 left: 0;
                 border: 1px solid rgba(42, 244, 255, 1);
-                box-shadow: 0px 3px 10px 0px rgba(23, 48, 80, 1), 0px 3px 30px 0px rgba(42, 244, 255, 0.84) inset;
+                box-shadow: 0px 3px 10px 0px rgba(23, 48, 80, 1),
+                0px 3px 30px 0px rgba(42, 244, 255, 0.84) inset;
                 opacity: 0.5;
                 border-radius: 3px;
                 z-index: 0;
@@ -1156,7 +1259,7 @@
                 position: relative;
                 box-sizing: border-box;
                 padding: 15px 20px 9px 20px;
-                background-color: #0B3F6F;
+                background-color: #0b3f6f;
                 .interval {
                     font-size: 14px;
                     font-family: HiraginoSansGB-W3;
@@ -1178,7 +1281,7 @@
                     height: 28px;
                     margin-left: 12px;
                     position: relative;
-                    border: 1px solid #29D1E5;
+                    border: 1px solid #29d1e5;
                     select {
                         border: 0px;
                         outline: none;
@@ -1193,7 +1296,7 @@
                         font-weight: bold;
                         color: rgba(219, 253, 255, 1);
                         option {
-                            background-color: #0B3F6F;
+                            background-color: #0b3f6f;
                         }
                     }
                 }
@@ -1277,10 +1380,10 @@
                     .item-row {
                         height: 60px;
                         width: 100%;
-                        background-color: #174B7B;
+                        background-color: #174b7b;
                         display: flex;
                         align-items: center;
-                        border-bottom: 2px solid #0B3F6F;
+                        border-bottom: 2px solid #0b3f6f;
                         box-sizing: border-box;
                         padding: 0 10px;
                         .icon-lx {
@@ -1317,7 +1420,7 @@
                                 color: rgba(223, 253, 255, 1);
                             }
                             input {
-                                background-color: #174B7B;
+                                background-color: #174b7b;
                                 width: 200px;
                                 height: 28px;
                                 border: 1px solid rgba(45, 243, 255, 1);
@@ -1387,31 +1490,34 @@
                                 cursor: pointer;
                             }
                             .cur {
-                                background: linear-gradient(180deg, rgba(6, 88, 110, 1), rgba(27, 138, 168, 1));
+                                background: linear-gradient(
+                                                180deg,
+                                                rgba(6, 88, 110, 1),
+                                                rgba(27, 138, 168, 1)
+                                );
                                 border: 1px solid rgba(153, 236, 241, 1);
                                 box-shadow: 0px 1px 1px 0px rgba(12, 28, 79, 0.2);
                                 border-radius: 2px;
-                                color: #2DF3FF;
+                                color: #2df3ff;
                             }
                         }
-
                     }
                     .item-row-br {
                         @media screen and (max-width: 1200px) {
                             height: auto;
                             justify-content: flex-start;
                             flex-direction: column;
-                            align-items: flex-start
+                            align-items: flex-start;
                         }
                     }
                     .item-row-2 {
                         height: auto;
                         width: 100%;
                         padding: 13px 10px;
-                        background-color: #174B7B;
+                        background-color: #174b7b;
                         display: block;
 
-                        border-bottom: 2px solid #0B3F6F;
+                        border-bottom: 2px solid #0b3f6f;
                         box-sizing: border-box;
                         /*padding: 0 10px;*/
                     }
@@ -1518,7 +1624,6 @@
                         background: url("../../assets/NengHaoChaXun/icon_yy.png") no-repeat;
                     }
                     .page-num {
-
                         width: 38px;
                         height: 26px;
                         margin-left: 20px;
@@ -1565,7 +1670,7 @@
                             font-weight: bold;
                             color: rgba(45, 243, 255, 1);
                             option {
-                                background-color: #0B3F6F;
+                                background-color: #0b3f6f;
                             }
                         }
                     }
@@ -1607,7 +1712,7 @@
                 .table-box {
                     position: relative;
                     z-index: 5;
-                    border: 1px solid #15759A;
+                    border: 1px solid #15759a;
                     /*padding-bottom: 60px;*/
                     .table-tit {
                         padding: 20px;
@@ -1619,7 +1724,6 @@
                         color: rgba(95, 251, 248, 1);
                         text-align: center;
                     }
-
                 }
                 .selector {
                     position: relative;
@@ -1658,7 +1762,6 @@
                         background: url("../../assets/NengHaoChaXun/icon_yy.png") no-repeat;
                     }
                     .page-num {
-
                         width: 38px;
                         height: 26px;
                         margin-left: 20px;
@@ -1705,13 +1808,12 @@
                             font-weight: bold;
                             color: rgba(45, 243, 255, 1);
                             option {
-                                background-color: #0B3F6F;
+                                background-color: #0b3f6f;
                             }
                         }
                     }
                 }
             }
-
         }
         .mainShow {
             width: calc(100% - 273px);
