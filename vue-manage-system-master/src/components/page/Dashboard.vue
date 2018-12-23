@@ -142,21 +142,21 @@
                                         <div class="cav-flex">
                                             <div>
                                                 <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
-                                                <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kWh</small>
+                                                <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kgce</small>
                                             </div>
                                             <div>
                                                 <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
-                                                <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kWh</small>
+                                                <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kgce</small>
                                             </div>
                                         </div>
                                         <div class="cav-flex">
                                             <div>
                                                 <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
-                                                <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kWh</small>
+                                                <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kgce</small>
                                             </div>
                                             <div>
-                                                <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.title}}</p>
-                                                <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kWh</small>
+                                                <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.name}}</p>
+                                                <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kgce</small>
                                             </div>
                                         </div>
 
@@ -229,17 +229,17 @@
                                         <div class="cav-flex">
                                             <div>
                                                 <p><span class="rec" v-bind:style="{background:color7}"></span> {{list9.name}}</p>
-                                                <span>{{list9.per}}</span><small>%</small> <span>{{list9.value}}</span><small>kWh</small>
+                                                <span>{{list9.per}}</span><small>%</small> <span>{{list9.value}}</span><small>kgce</small>
                                             </div>
                                             <div>
                                                 <p> <span class="rec" v-bind:style="{background:color8}"></span> {{list10.name}}</p>
-                                                <span>{{list10.per}}</span><small>%</small> <span>{{list10.value}}</span><small>kWh</small>
+                                                <span>{{list10.per}}</span><small>%</small> <span>{{list10.value}}</span><small>kgce</small>
                                             </div>
                                         </div>
                                         <div class="cav-flex" style="width:50%;">
                                             <div>
                                                 <p><span class="rec" v-bind:style="{background:color9}"></span> {{list11.name}}</p>
-                                                <span>{{list11.per}}</span><small>%</small> <span>{{list11.value}}</span><small>kWh</small>
+                                                <span>{{list11.per}}</span><small>%</small> <span>{{list11.value}}</span><small>kgce</small>
                                             </div>
                                             <!-- <div  v-for="v in list10">
                                                             <p> <span class="rec" v-bind:style="{background:color10}"></span> {{v.title}}</p>
@@ -491,8 +491,8 @@
         methods: {
             // 建筑id截取
             parseRouter() {
-                console.log(window.location.href);
-                console.log();  // true
+                // console.log(window.location.href);
+                // console.log();  // true
                 
                 if (window.location.href.indexOf("?") != -1 ) {
                     var buildingId = window.location.href.split("?")[1].split("=")[1];
@@ -536,8 +536,6 @@
                     }
                 )
                     .then(function (response) {
-
-                        console.log(response.data);
                         var data = response.data.theObj;
                         for (var key in data) {
 
@@ -567,7 +565,7 @@
                                 }
                             }
                         }
-                        console.log(response.data.theObj);
+                        
                         that.Data = response.data.theObj;
                         //   for(var i=0;i<response.data.theObj.length;i++){
                         //       if(response.data.theObj[i][i].class2=="+"){
