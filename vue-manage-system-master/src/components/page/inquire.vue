@@ -479,7 +479,7 @@
                     this.select3=[];
                     this.select4=[];
                     this.days=null;
-                    this.radio=""
+                    this.radio="1"
                 }else if(row==2){      //个性化按钮
                     this.btns=2;    //添加css颜色
                 }else{
@@ -687,7 +687,7 @@
         mounted() {
             this.buildingId=localStorage.getItem('buildingId');
             if(!this.buildingId){
-                 this.buildingId=1;
+                 this.buildingId=10;
             }
             this.checkedChange(1,1)
             this.newDatas(0,0);//当前天数
