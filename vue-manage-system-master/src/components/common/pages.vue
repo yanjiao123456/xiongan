@@ -96,7 +96,18 @@
         justify-content: flex-end;
         margin-top: 20px;
         align-items: center;
-
+        .bg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid rgba(42, 244, 255, 1);
+            box-shadow: 0px 3px 10px 0px rgba(23, 48, 80, 1), 0px 3px 30px 0px rgba(42, 244, 255, 0.84) inset;
+            opacity: 0.5;
+            border-radius: 3px;
+            z-index: 0;
+        }
         .icon-front {
             width: 10px;
             height: 14px;
