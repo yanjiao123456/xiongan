@@ -372,7 +372,7 @@
                     energyType:this.radio,      //水电冷热
                     branch:this.branchs,        //支路
                     // branch:'237,323,324',        //支路
-                    buildingId:1,       //后期改变
+                    buildingId:this.buildingId,       //后期改变
                     power:this.powers,         //分项
                     location:this.location,      //位置
                     beginTime:this.startTime,  //开始时间
@@ -427,7 +427,7 @@
                         energyType:this.radio,      //水电冷热
                         branch:this.branchs,        //支路
                         // branch:'237,323,324',        //支路
-                        buildingId:1,       //后期改变
+                        buildingId:this.buildingId,       //后期改变
                         power:this.powers,         //分项
                         location:this.location,      //位置
                         beginTime:this.startTime,  //开始时间
