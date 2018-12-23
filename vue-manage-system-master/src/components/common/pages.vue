@@ -31,17 +31,23 @@
             return {
                 pagesize:10,
                 activeNum:1,
-                pages:1,
+                // pages:1,
             };
         },
         props:['total'],
+        computed: {
+            pages: function () {
+                return Math.ceil(this.total / this.pagesize);
+            }
+        },
         methods: {
             //发送父组件需要的当前页和每页显示的条数
             sendPageNum(pageNum,pagesize){
                 this.$emit("returnPageNum",pageNum,pagesize);
             },
             getPages(){
-                this.pages = Math.ceil(this.total / this.pagesize);
+                // debugger
+
             },
             // 上一页
             onPrevClick () {
@@ -79,11 +85,11 @@
             setPageSize(){
                 this.activeNum=1;
                 this.sendPageNum(this.activeNum,this.pagesize);
-                this.getPages();
+                //this.getPages();
             }
         },
         mounted: function () {
-            this.getPages();
+            //this.getPages();
         }
     }
 </script>

@@ -183,27 +183,29 @@
                         sortable: false
                     </el-table>
                 </div>
-                <div class="selector">
-                    <i class="icon-front"></i>
-                    <i class="icon-prev"></i>
-                    <div class="page-num">
-                        <div class="bg"></div>
-                        <input type="text" value="1">
-                    </div>
+                <pages :total="totalSize" @returnPageNum="getDate"></pages>
+                <!--<div class="selector">-->
+                    <!--<i @click="pageA" class="icon-front"></i>-->
+                    <!--<i @click="pageB" class="icon-prev"></i>-->
+                    <!--<div class="page-num">-->
+                        <!--<div class="bg"></div>-->
+                        <!--<input type="text" v-model="pageNum">-->
+                    <!--</div>-->
 
-                    <span class="page-all">/共1页</span>
-                    <i class="icon-next"></i>
-                    <i class="icon-last"></i>
-                    <div class="count">
-                        <div class="bg"></div>
-                        <select>
-                            <option>10</option>
-                            <option>20</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                    </div>
-                </div>
+                    <!--<span v-show="!pageShow" class="page-all">/共1页</span>-->
+                    <!--<span v-show="pageShow" class="page-all">/共{{ pageAll }}页</span>-->
+                    <!--<i @click="nextB" class="icon-next"></i>-->
+                    <!--<i @click="nextA" class="icon-last"></i>-->
+                    <!--<div class="count">-->
+                        <!--<div class="bg"></div>-->
+                        <!--<select v-model="newPage">-->
+                            <!--<option>10</option>-->
+                            <!--<option>20</option>-->
+                            <!--<option>50</option>-->
+                            <!--<option>100</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
 
 
@@ -212,14 +214,21 @@
 </template>
 
 <script>
-    import TemplateTable from "../views/template-table";
+    import pages from "../common/pages";
 
     var echarts = require("echarts");
     export default {
         name: "nenghaoqushi",
         data() {
             return {
+                newPage:10,
+                pageNum:1,
+                pageShow:false,
+                page:0,
+                pageSize:10,
+
                 dateType: 'hour',
+                totalSize:1,
                 // pickerOptions2: {
                 //     shortcuts: [{
                 //         text: '最近一周',
@@ -371,12 +380,35 @@
             };
         },
         components: {
-            TemplateTable
+            pages
+        },
+        computed:{
+            pageAll(){
+                Math.ceil(this.totalSize/this.newPage)　　// 3
+            }
         },
         //2018-12-23 00:00:00
         methods: {
+            pageA(){
+
+            },
+            pageB(){
+
+            },
+            nextA(){
+
+            },
+            nextB(){
+
+            },
+            getDate(page,pageSize){
+                this.page=page;
+                this.pageSize=pageSize;
+                this.getTableData();
+            },
             bindQuery() {
                 this.getMainData();
+
                 this.btns = 0
             },
             bindAdd(date, part, value) {
@@ -461,8 +493,8 @@
                             endTime: _this.endDate,
                             compareBeginTime: _this.cpStartDate,
                             compareEndTime: _this.cpEndDate,
-                            pageStart: 0,
-                            pageSize: 10
+                            pageStart: (_this.page*_this.pageSize),
+                            pageSize: _this.pageSize
                             // buildingId: 1
                         }
                     })
@@ -546,10 +578,13 @@
                     })
                     .then(function (response) {
                         var data = response.data.data;
-                        console.log(data);
+                        // console.log(data);
                         if (data.message == " 该支路下没有绑定实体表 ") {
                             _this.messageErr();
                         } else {
+
+                            _this.totalSize=data.totalSize;
+
                             _this.dataShow = true;
                             // console.log(data.yls);
                             _this.yls = data.yls;
@@ -558,6 +593,7 @@
                             _this.datas = data.datas;
                             // console.log(_this.xisDatas);
                             _this.SetEchart();
+                            _this.getTableData();
 
                         }
                     })
@@ -1065,10 +1101,8 @@
                     flex-direction: column;
                 }
                 .lists {
-<<<<<<< HEAD
-=======
+
                     width: 100%;
->>>>>>> 555ee48a2e0a3e54fd6c6b3b55074018ac243d49
                     @media screen and (min-width: 1500px) {
                         &:not(:first-child) {
                             margin-left: 25px;
@@ -1081,7 +1115,7 @@
 
 
                     display: flex;
-                    //flex-direction: column;
+                    flex-direction: column;
                     .item-icon-hz {
                         /*line-height: 90px;*/
                         width: 43px;
@@ -1119,7 +1153,8 @@
                     }
                     .current-period {
                         /*width: calc(100% - 25px);*/
-                        width: 45%;
+                        width: 100%;
+                        /*width: 45%;*/
                         height: 90px;
                         box-sizing: border-box;
                         /*padding: 20px 0;*/
@@ -1177,11 +1212,12 @@
                         }
                     }
                     .before {
-                        width: 45%;
+                        width: 100%;
+                        /*width: 45%;*/
                         height: 90px;
-                        margin-left: 10%;
+                        /*margin-left: 10%;*/
                         box-sizing: border-box;
-                        //margin-top: 25px;
+                        margin-top: 25px;
                         /*padding: 20px 0;*/
 
                         border: 1px solid rgba(42, 244, 255, 1);
