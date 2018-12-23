@@ -12,7 +12,7 @@
                         <el-radio class="choice" v-model="radio" label="1">电</el-radio>
                         <el-radio class="choice" v-model="radio" label="2">水</el-radio>
                         <el-radio class="choice" v-model="radio" label="3">冷热</el-radio>
-                        <el-radio class="choice" v-model="radio" label="4">压缩空气</el-radio>
+                        <!-- <el-radio class="choice" v-model="radio" label="4">压缩空气</el-radio> -->
                     </div>
                     <div class="item-row item2">
                         <div class="more-box">
