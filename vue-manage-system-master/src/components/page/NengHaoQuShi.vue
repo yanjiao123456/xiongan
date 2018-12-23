@@ -1597,7 +1597,7 @@
                             font-size: 12px;
                             font-family: HiraginoSansGB-W3;
                             font-weight: bold;
-                            
+
                             color: rgba(45, 243, 255, 1);
                             option {
                                 background-color: #0b3f6f;
