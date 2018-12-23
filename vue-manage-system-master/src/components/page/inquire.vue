@@ -380,7 +380,7 @@
                     pageNum:this.page,  //分页
                     pageSize:this.pageSize//一页展示多少条
                 };
-                this.$axios.get('energy_query!queryTable.action', {params}).then((response)=> {
+                this.$axios.get('/energy_query!queryTable.action', {params}).then((response)=> {
                     let Do=response;
                     if(Do.status==200){
                         this.titArr=[];
@@ -433,7 +433,7 @@
                         beginTime:this.startTime,  //开始时间
                         endTime:this.endTime     //结束时间
                 };
-                this.$axios.get('energy_query!queryChart.action', {params}).then((response)=> {
+                this.$axios.get('/energy_query!queryChart.action', {params}).then((response)=> {
                     let Do=response;
                     if(Do.status==200){
                         this.consumptionData=Do.data.result.consumptionData;
