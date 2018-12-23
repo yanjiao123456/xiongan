@@ -458,8 +458,6 @@
                         for(var j=0;j<this.dataTli.length;j++){
                             this.dataTli[j]=this.dataTli[j].split(" ")[0];
                         };
-                        
-                       
                         this.SetEchart();
                     }
                 }).catch((error)=>{
@@ -689,7 +687,8 @@
         mounted() {
             this.checkedChange(1,1)
             this.newDatas(0,0);//当前天数
-            this.btnser(8)
+            this.btnser(8);
+            this.SetEchart()
             // =================================================
 
         }
