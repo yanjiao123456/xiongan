@@ -181,6 +181,7 @@
         name: "nenghaoqushi",
         data() {
             return {
+                buildingId: 1,
                 newPage: 10,
                 pageNum: 1,
                 pageShow: false,
@@ -497,7 +498,7 @@
                         params: {
                             type: _this.tabTit,
                             parentId: 0,
-                            buildingId: 1
+                            buildingId: _this.buildingId
                         }
                     })
                     .then(function (response) {
@@ -690,6 +691,14 @@
         },
         created() {
             this.getTreeData();
+
+            var buildingId = localStorage.getItem("buildingId");
+            if (buildingId) {
+                this.buildingId = buildingId;
+            } else {
+                this.buildingId = 1;
+            }
+
         }
     };
 </script>
@@ -1597,7 +1606,7 @@
                             font-size: 12px;
                             font-family: HiraginoSansGB-W3;
                             font-weight: bold;
-                            
+
                             color: rgba(45, 243, 255, 1);
                             option {
                                 background-color: #0b3f6f;
