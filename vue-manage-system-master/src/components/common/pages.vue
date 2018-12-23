@@ -109,12 +109,14 @@
             z-index: 0;
         }
         .icon-front {
+            cursor: pointer;
             width: 10px;
             height: 14px;
             display: inline-block;
             background: url("../../assets/NengHaoChaXun/icon_zz.png") no-repeat;
         }
         .icon-prev {
+            cursor: pointer;
             width: 8px;
             height: 14px;
             display: inline-block;
@@ -123,6 +125,7 @@
             background: url("../../assets/NengHaoChaXun/箭头2.png") no-repeat;
         }
         .icon-next {
+            cursor: pointer;
             width: 8px;
             height: 14px;
             display: inline-block;
@@ -130,6 +133,7 @@
             background: url("../../assets/NengHaoChaXun/箭头2.png") no-repeat;
         }
         .icon-last {
+            cursor: pointer;
             margin-left: 10px;
             width: 10px;
             height: 14px;
@@ -137,7 +141,6 @@
             background: url("../../assets/NengHaoChaXun/icon_yy.png") no-repeat;
         }
         .page-num {
-
             width: 38px;
             height: 26px;
             margin-left: 20px;
