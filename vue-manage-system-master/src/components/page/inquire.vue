@@ -19,12 +19,12 @@
                             <!-- <el-checkbox v-model="checked">支路:</el-checkbox> -->
                             <!-- 后期改为单选其他禁用就定义多个if  判断label其他禁用   selectData1 2 3 4  可以是一个  model不一样只是四个框赋值不一样 -->
                             <el-radio class="choice" @change="checkedChange(1,1)" v-model="checked" label="1">支路:</el-radio>
-                            <el-select class="select"  @change="selectChange(1)" multiple collapse-tags v-model="select1" placeholder="请选择支路">
+                            <el-select class="select select_ts"  @change="selectChange(1)" filterable multiple collapse-tags v-model="select1" placeholder="请选择支路">
                                 <el-option
                                         v-for="item in selectData1"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
+                                        :key="item.key"
+                                        :label="item.value"
+                                        :value="item.key">
                                 </el-option>
                             </el-select>
                         </div>
@@ -32,12 +32,12 @@
                         <div class="more-box">
                             <!-- <el-checkbox class="ml92" v-model="checked">分项:</el-checkbox> -->
                             <el-radio class="choice" @change="checkedChange(2,4)" v-model="checked" label="2">分项:</el-radio>
-                            <el-select class="select"  @change="selectChange(2)" multiple collapse-tags v-model="select2" placeholder="请选择分项">
+                            <el-select class="select select_ts" filterable @change="selectChange(2)" multiple collapse-tags v-model="select2" placeholder="请选择分项">
                                 <el-option
                                         v-for="item in selectData2"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
+                                        :key="item.key"
+                                        :label="item.value"
+                                        :value="item.key">
                                 </el-option>
                             </el-select>
                         </div>
@@ -56,12 +56,12 @@
                         <div v-show="sw" class="item-show more-box">
                             <!-- <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox> -->
                             <el-radio class="choice" @change="checkedChange(4,2)" v-model="checked" label="4">位置:</el-radio>
-                            <el-select class="select" @change="selectChange(4)" multiple collapse-tags v-model="select4" placeholder="请选择位置">
+                            <el-select class="select select_ts" filterable @change="selectChange(4)" multiple collapse-tags v-model="select4" placeholder="请选择位置">
                                 <el-option
                                         v-for="item in selectData4"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
+                                        :key="item.key"
+                                        :label="item.value"
+                                        :value="item.key">
                                 </el-option>
                             </el-select>
                         </div>
@@ -167,9 +167,21 @@
             <div class="title"><h3>数据列表</h3>
                 <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
             </div>
-
-            <template-table :data-tit="tableTitle"></template-table>
-            <div class="selector">
+            <div class="table-box">
+                    <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
+                    <el-table :data="tableData" border stripe style="width: 100%">
+                        <el-table-column
+                                :key="index"
+                                v-for="(v,index) in titArr"
+                                class="trs"
+                                :prop="v.prop"
+                                :label="v.label"
+                        ></el-table-column>
+                    </el-table>
+            </div>
+            <pages :total="totalSize" @returnPageNum="getDates"></pages>
+            <!-- <template-table :data-tit="tableTitle"></template-table> -->
+            <!-- <div class="selector">
                 <i class="icon-front"></i>
                 <i class="icon-prev"></i>
                 <div class="page-num">
@@ -191,7 +203,7 @@
                         <option>100</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -199,7 +211,7 @@
 
 <script>
     import TemplateTable from '../views/template-table'
-
+    import pages from "../common/pages";
     var echarts = require('echarts');
     export default {
         name: "inquire",
@@ -209,125 +221,61 @@
                 filtrateShow: true,         //筛选条件展示收缩
                 days: null,                    //快速查询label
                 daysnum:true,
-                count: '',  
+                count: '',
+                totalSize:1,  
                 btns: null,                    //查询重置按钮选中添加颜色
-                checked:'1',             //支路
+                checked:"1",             //支路
                 selectNum:[],             //筛选条件数据
                 indexData:"",             //筛选做处理
                 startTime:"",             //开始时间
                 endTime:"",               //结束时间
                 branchs:"",
+                dataTli:[],
                 powers:"",
+                tableData:[],
+                titArr: [
+                    // {
+                    //     prop: "dateTime",
+                    //     label: "日期",
+                    //     sortable: false
+                    // }
+                ],
                 location:"",
+                one:[],
+                two:[],
+                three:[],
+                four:[],
+                titles:[],
                 selectData1:[],           //支出初始框
                 selectData2:[],
                 selectData3:[],
                 selectData4:[],
                 select1: [],                //支路select
-                select2: [],                  
+                select2: [],
+                buildingId:1,                  
                 select3: [],
                 select4: [],
                 sw: true,
                 value6: '',
                 options: [],
-                consumptionData: [
-                    {
-                        tit: '2AAH101-1电源线_能耗',
-                        col: 'head col1',
-                        class: 'consumption-item',
-                        electricity: 1066.56,
-                        num1: 156345666.56,
-                        num2: 126065666.54,
-                        data1: '2018-10-01 10:02 30',
-                        data2: '2018-10-01 10:02 60',
-                    },
-                    {
-                        tit: '2AAH101-1电源线_能耗',
-                        col: 'head col2',
-                        class: 'consumption-item',
-                        electricity: 1066.56,
-                        num1: 156345666.56,
-                        num2: 126065666.54,
-                        data1: '2018-10-01 10:02 30',
-                        data2: '2018-10-01 10:02 60',
-                    },
-                    {
-                        tit: '2AAH101-1电源线_能耗',
-                        col: 'head col3',
-                        class: 'consumption-item',
-                        electricity: 1066.56,
-                        num1: 156345666.56,
-                        num2: 126065666.54,
-                        data1: '2018-10-01 10:02 30',
-                        data2: '2018-10-01 10:02 60',
-                    },
-                    {
-                        tit: '2AAH101-1电源线_能耗',
-                        col: 'head col4',
-                        class: 'consumption-item',
-                        electricity: 1066.56,
-                        num1: 156345666.56,
-                        num2: 126065666.54,
-                        data1: '2018-10-01 10:02 30',
-                        data2: '2018-10-01 10:02 60',
-                    }
-                ],
-                tableTitle: {
-                    title: '【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】',
-                    titArr: [
-                        {
-                            prop: "id",
-                            label: "日期",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIa",
-                            label: "电流Ia",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIb",
-                            label: "电流Ib",
-                            sortable: false
-                        },
-                        {
-                            prop: "dianliuIc",
-                            label: "电流Ic",
-                            sortable: false
-                        },
-                        {
-                            prop: "zhengDianNeng",
-                            label: "当前正向有功总电能",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUan",
-                            label: "粗电压Uan",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUbn",
-                            label: "粗电压Ubn",
-                            sortable: false
-                        },
-                        {
-                            prop: "cuUcn",
-                            label: "粗电压Ucn",
-                            sortable: false
-                        },
-                        {
-                            prop: "sum",
-                            label: "总有功功率W",
-                            sortable: false
-                        },
-                    ]
-                },
+                consumptionData: [],
+                page:1,
+                pageSize:10
             }
         },
         components: {
-            TemplateTable
+            TemplateTable,
+            pages
+        },
+        created() {
+            this.buildingId=localStorage.getItem('buildingId')
         },
         methods: {
+            getDates(page,pageSize){
+                this.page=page;
+                this.pageSize=pageSize;
+                this.labelData();
+            },
             pickerBtn(){
                 var preDate = new Date(this.value6[0]); //前一天
                     var Y = preDate.getFullYear() + '-';
@@ -348,19 +296,54 @@
                 this.select2=[];
                 this.select3=[];
                 this.select4=[];
+                this.selectData1=[];
+                this.selectData2=[];
+                this.selectData3=[];
+                this.selectData4=[];
                 this.selectNum=[];
+                this.indexData = '';
                 this.selectList(index,row)
+            },
+            alertMessage(){
+                this.$message({
+                    message: '最多选择 4 条数据',
+                    type: 'warning'
+                });
             },
             selectChange(row){
                 this.indexData = '';
+                this.selectNum=[];
                 if(row==1){    //支路
-                    this.selectNum=this.select1;
+                    if(this.select1.length>4){
+                       this.alertMessage()
+                       this.select1=[];
+                    }else{
+                        this.selectNum=this.select1;
+                    }
                 }else if(row==2){  //分项
-                    this.selectNum=this.select2;
+                 if(this.select2.length>4){
+                       this.alertMessage()
+                       this.select2=[];
+                    }else{
+                        this.selectNum=this.select2;
+                    }
+                    // this.selectNum=this.select2;
                 }else if(row==3){  //部门
-                    this.selectNum=this.select3;
+                 if(this.select3.length>4){
+                       this.alertMessage()
+                       this.select3=[];
+                    }else{
+                        this.selectNum=this.select3;
+                    }
+                    // this.selectNum=this.select3;
                 }else if(row==4){  //位置
-                    this.selectNum=this.select4;
+                 if(this.select4.length>4){
+                       this.alertMessage()
+                       this.select4=[];
+                    }else{
+                        this.selectNum=this.select4;
+                    }
+                    // this.selectNum=this.select4;
                 }else{
                     this.selectNum=[];
                 }
@@ -373,14 +356,59 @@
                 }
             },
             creatList(){
-                this.$axios.get('/sep_tree!queryTreeByType.action', {
-                    params: {
-                        type: 1,
-                        parentId: 0
+                // this.$axios.get('/sep_tree!queryTreeByType.action', {
+                //     params: {
+                //         type: 1,
+                //         parentId: 0
+                //     }
+                //  }).then(function (res) {
+                //     console.log(response);
+                // }).catch(function (error){
+                //     console.log(error);
+                // });
+            },
+            labelData(){
+                var params={
+                    energyType:this.radio,      //水电冷热
+                    branch:this.branchs,        //支路
+                    // branch:'237,323,324',        //支路
+                    buildingId:1,       //后期改变
+                    power:this.powers,         //分项
+                    location:this.location,      //位置
+                    beginTime:this.startTime,  //开始时间
+                    endTime:this.endTime,     //结束时间
+                    pageNum:this.page,  //分页
+                    pageSize:this.pageSize//一页展示多少条
+                };
+                this.$axios.get('energy_query!queryTable.action', {params}).then((response)=> {
+                    let Do=response;
+                    if(Do.status==200){
+                        this.titArr=[];
+                        this.tableData=Do.data.result.page.list;
+                        this.totalSize=Do.data.result.page.total;
+                        for(var i=0;i<this.tableData.length;i++){
+                            this.tableData.dateTime=this.tableData[i].dateTime.split(".")[0];
+                        }
+                        for(var i=0;i<Do.data.result.page.titleList.length;i++){
+                            var json={
+                                prop:"",
+                                label:"",
+                                sortable: false
+                            }; 
+                            json.prop=Do.data.result.page.titleList[i];
+                            json.label=Do.data.result.page.titleList[i];
+                            this.titArr.push(json)
+                        }
+                        for(var i=0;i<this.titArr.length;i++){
+                            if(this.titArr[i].prop=="时间"){
+                                this.titArr[i].prop="dateTime"
+                            }else if(this.titArr[i].prop=="汇总"){
+                                this.titArr[i].prop="total"
+                            }
+                        }
+                        console.log(this.titArr)
                     }
-                 }).then(function (res) {
-                    console.log(response);
-                }).catch(function (error){
+                }).catch((error)=>{
                     console.log(error);
                 });
             },
@@ -395,18 +423,45 @@
                 }else{
                     this.location=this.indexData;
                 };
-                console.log(typeof this.endTime)
                 var params={
                         energyType:this.radio,      //水电冷热
                         branch:this.branchs,        //支路
+                        // branch:'237,323,324',        //支路
+                        buildingId:1,       //后期改变
                         power:this.powers,         //分项
                         location:this.location,      //位置
                         beginTime:this.startTime,  //开始时间
                         endTime:this.endTime     //结束时间
                 };
-                console.log(params)
                 this.$axios.get('energy_query!queryChart.action', {params}).then((response)=> {
-                    console.log(response,"inquLre")
+                    let Do=response;
+                    if(Do.status==200){
+                        this.consumptionData=Do.data.result.consumptionData;
+                        for(var i=0;i<this.consumptionData.length;i++){
+                            this.consumptionData[i].class='consumption-item';
+                            if(i==0){
+                                this.consumptionData[0].col='head col1';
+                            }else if(i==1){
+                                this.consumptionData[1].col='head col2';
+                            }else if(i==2){
+                                this.consumptionData[2].col='head col3';
+                            }else{
+                                this.consumptionData[3].col='head col4';
+                            }
+                        }
+                        this.one = Do.data.result.energyChart.one;
+                        this.two = Do.data.result.energyChart.two;
+                        this.three = Do.data.result.energyChart.three;
+                        this.titles =Do.data.result.energyChart.title;
+                        // this.four=Do.data.result.energyChart.four;
+                        this.dataTli=Do.data.result.energyChart.date;
+                        for(var j=0;j<this.dataTli.length;j++){
+                            this.dataTli[j]=this.dataTli[j].split(" ")[0];
+                        };
+                        
+                       
+                        this.SetEchart();
+                    }
                 }).catch((error)=>{
                     console.log(error);
                 });
@@ -416,6 +471,7 @@
                 if(row==0){ //查询按钮
                     this.btns=0;    //添加css颜色
                     this.inquLre();
+                    this.labelData();
                 }else if(row==1){   //重置按钮
                     this.btns=1;  
                     this.selectNum=[];
@@ -426,9 +482,11 @@
                     this.select4=[];
                     this.days=null;
                     this.radio=""
-
-                }else{      //个性化按钮
+                }else if(row==2){      //个性化按钮
                     this.btns=2;    //添加css颜色
+                }else{
+                    this.inquLre();
+                    this.labelData();
                 }
             },
             newDatas(news,ends){
@@ -445,6 +503,7 @@
                     var M = (endDates.getMonth()+1 < 10 ? '0'+(endDates.getMonth()+1) : endDates.getMonth()+1) + '-';
                     var D = endDates.getDate();
                     this.endTime=Y+M+D;//结束时间
+                    console.log(this.startTime,this.endTime)
             },
             newMonth(){
                 var nowdays = new Date();
@@ -485,10 +544,6 @@
 
                 var growRanking = document.getElementById('myChart');
                 var growRankingChart = echarts.init(growRanking);
-                var one = [224, 220, 335, 188, 350, 230, 354, 261];
-                var two = [110, 220, 115, 300, 188, 120, 241, 321];
-                var three = [300, 150, 215, 200, 108, 160, 223, 241];
-                var four = [200, 100, 315, 100, 168, 220, 330, 210];
                 var color = "#fff";
                 // 指定图表的配置项和数据
 
@@ -496,7 +551,7 @@
                 var option = {
                     color: ['#637EF9', '#1C97FF', '#38E68D', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                     legend: {
-                        data: ['2AA101-1号电源线_能耗', '2AA102-1号电源线_能耗', '2AA103-1号电源线_能耗', '2AA104-1号电源线_能耗'],
+                        data: this.titles,
                         align: 'left',
                         top:'5%',
                         x: 'center',
@@ -524,7 +579,7 @@
                         }
                     },
                     xAxis: [{
-                        data: ['2018年10月16日', '2018年10月17日', '2018年10月18日', '2018年10月19日', '2018年10月20日', '2018年10月21日', '2018年10月22日', '2018年10月23日'],
+                        data: this.dataTli,
                         type: 'category',
                         axisLine: {
                             lineStyle: {
@@ -559,27 +614,18 @@
                         }
                     ],
                     series: [{
-                        name: '2AA101-1号电源线_能耗',
+                        name: this.titles[0],
                         type: 'bar',
-                        stack: '2AA101-1号电源线_能耗',
-                        data: one
+                        data: this.one
                     }, {
-                        name: '2AA102-1号电源线_能耗',
+                        name: this.titles[1],
                         type: 'bar',
-                        stack: '2AA102-1号电源线_能耗',
-                        data: two
+                        data: this.two
                     }, {
-                        name: '2AA103-1号电源线_能耗',
+                        name: this.titles[2],
                         type: 'bar',
-                        stack: '2AA103-1号电源线_能耗',
-                        data: three
-                    }, {
-                        name: '2AA104-1号电源线_能耗',
-                        type: 'bar',
-                        stack: '2AA104-1号电源线_能耗',
-                        data: four
-                    }
-                    ]
+                        data: this.three
+                    }]
                 }
 
 
@@ -616,23 +662,23 @@
                 return sums;
             },
             selectList(index,row){
-                this.$axios.get('/jinfeng/sep_tree!queryTreeByType.action', {
+                this.$axios.get('/jinfeng/sep_tree!queryListByType.action?', {
                     params: {
                         parentId:0,
-                        buildingId:1,       //后期改变
+                        buildingId:this.buildingId,       //后期改变
                         type:row
                     }
                 }).then((response)=> {
                     let Do=response;
                     if(Do.status==200){
                         if(index==1){
-                            this.selectData1=Do.data.data[0].children
+                            this.selectData1=Do.data.data
                         }else if(index==2){
-                            this.selectData2=Do.data.data[0].children
+                            this.selectData2=Do.data.data
                         }else if(index==3){
-                            this.selectData3=Do.data.data[0].children
+                            this.selectData3=Do.data.data
                         }else{
-                            this.selectData4=Do.data.data[0].children
+                            this.selectData4=Do.data.data
                         }
                     }
                 }).catch((error)=>{
@@ -641,8 +687,9 @@
             }
         },
         mounted() {
-            this.SetEchart();
             this.checkedChange(1,1)
+            this.newDatas(0,0);//当前天数
+            this.btnser(8)
             // =================================================
 
         }
@@ -1151,5 +1198,8 @@
     }
     .select /deep/ .el-tag{
         background: none;
+    }
+    .select_ts{
+        width: 230px;
     }
 </style>
