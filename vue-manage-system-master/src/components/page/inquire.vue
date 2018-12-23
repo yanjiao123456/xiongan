@@ -268,7 +268,7 @@
             pages
         },
         created() {
-            this.buildingId=localStorage.getItem('buildingId')
+            
         },
         methods: {
             getDates(page,pageSize){
@@ -685,6 +685,10 @@
             }
         },
         mounted() {
+            this.buildingId=localStorage.getItem('buildingId');
+            if(!this.buildingId){
+                 this.buildingId=1;
+            }
             this.checkedChange(1,1)
             this.newDatas(0,0);//当前天数
             this.btnser(8);
