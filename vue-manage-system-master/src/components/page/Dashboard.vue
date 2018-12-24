@@ -497,7 +497,6 @@
                 var buildingId;
                 // 如果找到ip里有buildingId
                 if (window.location.href.indexOf("?") != -1 ) {
-                    console.log(window.location.href.split("?")[1].split("=")[1]);
                     // 截取字符串
                     buildingId = window.location.href.split("?")[1].split("=")[1];
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
@@ -556,10 +555,10 @@
                 )
                     .then(function (response) {
                         var data = response.data.theObj;
-                        console.log(data);
+                        // console.log(data);
                         data.sliderData1[0].dw="kWh";
                         data.sliderData1[1].dw="kWh";
-                        data.sliderData1[2].dw="m³";
+                        data.sliderData1[2].dw="kWh";
                         data.sliderData2[0].dw="m³";
                         data.sliderData2[1].dw="m³";
                         data.sliderData2[2].dw="m³";
@@ -812,6 +811,7 @@
                             response.data.theObj.dataList[2].type = "line";
                             response.data.theObj.dataList[2].symbolSize = 8;
                             response.data.theObj.dataList[2].smooth = 'true';
+                            
                         }
                         var qushi = document.getElementById('qushi');
                         var qushiChart = echarts.init(qushi);
@@ -848,7 +848,7 @@
                                 }
                             },
                             xAxis: [{
-                                data: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+                                data: response.data.theObj.xData,
                                 type: 'category',
                                 // boundaryGap: false,
                                 axisLine: {
@@ -990,7 +990,7 @@
                         that.list6 = response.data.theObj[1];
                         that.list7 = response.data.theObj[2];
                         that.list8 = response.data.theObj[3];
-                        console.log(response.data.theObj[0]);
+                        
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
