@@ -687,7 +687,7 @@
         mounted() {
             this.buildingId=localStorage.getItem('buildingId');
             if(!this.buildingId){
-                 this.buildingId=10;
+                 this.buildingId=1;
             }
             this.checkedChange(1,1)
             this.newDatas(0,0);//当前天数
