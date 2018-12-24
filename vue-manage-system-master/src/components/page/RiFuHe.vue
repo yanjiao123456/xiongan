@@ -902,7 +902,7 @@
                     &:last-child {
                         margin-bottom: 0;
                     }
-                    @media screen and (max-width: 1366px) {
+                    @media screen and (max-width: 1200px) {
                         margin-bottom: 0;
                     }
                 }
@@ -987,7 +987,7 @@
                     box-shadow: 0px 0px 10px 0px rgba(23, 48, 80, 1), 0px 0px 30px 0px rgba(42, 244, 255, 0.84) inset;
                     /*opacity:0.5;*/
                     border-radius: 3px;
-                    @media screen and (max-width: 1366px) {
+                    @media screen and (max-width: 1200px) {
                         margin-top: 24px;
                     }
 
@@ -1020,6 +1020,9 @@
                             color: rgba(223, 253, 255, 1);
                             display: flex;
                             justify-content: space-between;
+                            .time{
+                                font-size: 12px;
+                            }
                         }
                         .kwh {
                             margin-top: 6px;

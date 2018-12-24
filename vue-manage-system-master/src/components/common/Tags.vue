@@ -20,8 +20,8 @@
         <i class="icon icon-right"></i>
     </div> -->
 
-    <div class="tags-close-box">
-       <div @click="yqczShow = !yqczShow" class="yqcz">页签操作<i class="icon-xl"></i></div>
+    <div ref="searchMain1" class="tags-close-box">
+       <div @click="togglePanel" class="yqcz">页签操作<i class="icon-xl"></i></div>
        <el-collapse-transition>
        <ul v-show="yqczShow" class="xl-ul">
            <li @click="$router.push(item.path)" v-for="(item,index) in tagsList">{{item.title}}
@@ -49,6 +49,26 @@ export default {
     };
   },
   methods: {
+      // 点击空白区域关闭某个div图层
+      togglePanel() {
+          this.yqczShow ? this.hide() : this.show()
+      },
+      show() {
+          this.yqczShow = true
+          document.addEventListener('click', this.hidePanel, false)
+      },
+
+      hide() {
+          this.yqczShow = false
+          document.removeEventListener('click', this.hidePanel, false)
+      },
+
+      hidePanel(e) {
+          console.log(1);
+          if (!this.$refs.searchMain1.contains(e.target)) {
+              this.hide();
+          }
+      },
     // 全屏事件
     handleFullScreen() {
       let element = document.documentElement;
@@ -73,7 +93,7 @@ export default {
           // IE11
           element.msRequestFullscreen();
         }
-          
+
       }
       this.fullscreen = !this.fullscreen;
     },

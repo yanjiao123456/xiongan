@@ -497,6 +497,7 @@
                 var buildingId;
                 // 如果找到ip里有buildingId
                 if (window.location.href.indexOf("?") != -1 ) {
+                    console.log(window.location.href.split("?")[1].split("=")[1]);
                     // 截取字符串
                     buildingId = window.location.href.split("?")[1].split("=")[1];
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
@@ -508,6 +509,7 @@
                         this.buildingId=1
                     }
                 }else{
+                    console.log('meiyou');
                     // 如果没有buildingId，就取本地赋值的id
                     buildingId=localStorage.getItem('buildingId');
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
