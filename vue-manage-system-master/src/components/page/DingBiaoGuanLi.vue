@@ -108,18 +108,7 @@
             <div class="tit">
                 【 XX部门 2018-09至2018-09产量能耗相关性分析 】
             </div>
-
-            <div class="charts-left">
-                <div class="charts1"></div>
-                <div class="charts2"></div>
-            </div>
-            <div class="charts-right">
-                <div class="charts3"></div>
-            </div>
-
-
-
-
+            <div class="charts"></div>
 
         </div>
 
@@ -1251,50 +1240,14 @@
                 font-weight:normal;
                 color:rgba(95,251,248,1);
             }
-            .charts-left{
+            .charts{
                 position: relative;
                 float: left;
                 width: calc(100% - 515px);
                 min-width: 600px;
                 height: 530px;
                 overflow: hidden;
-                @media screen and (max-width: 1600px) {
-                    width: 100%;
-                }
-                .charts1{
-                    width: 100%;
-                    height: 265px;
-                    background-color: #72ff94;
-                }
-                .charts2{
-                    width: 100%;
-                    height: 265px;
-                    background-color: #ff9c99;
-                }
-            }
-            .charts-right{
-                overflow: hidden;
-                float: left;
-                width: 514px;
-                height: 530px;
-                /*height: 265px;*/
-                position: relative;
-                @media screen and (max-width: 1600px) {
-                    width: 100%;
-                    height: auto;
-                }
-                display: flex;
-                align-items:flex-end;
-                /*overflow: hidden;*/
-                .charts3{
-                    overflow: hidden;
-                    width: 100%;
-                    height: 265px;
-                    background-color: #fff;
-                    /*position: absolute;*/
-                    /*bottom: 0;*/
-                    /*left: 0;*/
-                }
+               
             }
 
             .content-table {

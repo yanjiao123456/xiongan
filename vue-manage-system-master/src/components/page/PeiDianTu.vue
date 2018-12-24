@@ -392,7 +392,7 @@
                     width: 1612px;
                     height: 711px;
                     margin-top: 10px;
-                    background: #072042;
+                    /* background: #072042; */
                 }
             }
         }

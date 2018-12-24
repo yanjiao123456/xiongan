@@ -14,7 +14,7 @@
                                     <div class="see-blank">
                                         <p>{{d.title}}</p>
                                         <span class="led-text">{{d.data}}</span>
-                                        <small>T</small>
+                                        <small>{{d.dw}}</small>
                                     </div>
                                     <div class="tong-huan-bi hidden-md-and-down">
                                         <p class="tongbi">
@@ -418,6 +418,7 @@
                             title: '今日用热',
                             name1: '同比',
                             name2: '环比',
+                            dw:'kgce',
                             view: 3,
                             data: 62.86,
                             tongbi: 32.12,
@@ -542,6 +543,19 @@
                 )
                     .then(function (response) {
                         var data = response.data.theObj;
+                        console.log(data);
+                        data.sliderData1[0].dw="kWh";
+                        data.sliderData1[1].dw="kWh";
+                        data.sliderData1[2].dw="kWh";
+                        data.sliderData2[0].dw="m³";
+                        data.sliderData2[1].dw="m³";
+                        data.sliderData2[2].dw="m³";
+                        data.sliderData3[0].dw="kw";
+                        data.sliderData3[1].dw="kw";
+                        data.sliderData3[2].dw="kw";
+                        data.sliderData4[0].dw="GJ";
+                        data.sliderData4[1].dw="GJ";
+                        data.sliderData4[2].dw="GJ";
                         for (var key in data) {
 
                             var temp = data[key];
@@ -1446,6 +1460,7 @@
         color: #2CF4F2;
         font-size: 16px;
         margin-top: 15px;
+        font-family: "microsoft yahei";
     }
 
     .led-text {
