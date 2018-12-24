@@ -136,7 +136,7 @@
                                 </div>
                                 <el-container>
                                     <!-- <div class="cav">
-                                        
+
                                     </div> -->
                                     <div class="cav">
                                         <div class="cav-flex">
@@ -522,9 +522,9 @@
                 }
             },
 
-            
 
-          
+
+
 
             getDate() {
                 // var date=this.selectVal
@@ -596,7 +596,7 @@
                                 }
                             }
                         }
-                        
+
                         that.Data = response.data.theObj;
                         //   for(var i=0;i<response.data.theObj.length;i++){
                         //       if(response.data.theObj[i][i].class2=="+"){
@@ -780,7 +780,7 @@
                         //   console.log(response.data.theObj);
                         that.buildingDetail = response.data.theObj.buildingDetail;
                         that.buildingTitle = response.data.theObj.buildingTitle;
-                        that.buildingImg = response.data.theObj.buildingImg.replace('../..','').replace('assets','static/img');
+                        that.buildingImg = response.data.theObj.buildingImg.replace('../..','').replace('assets','single_web/static/img');
                         // console.log(that.buildingImg);
                         //     /static/img/ShouYe/shq.png
                         // that.Data=response.data.theObj[0];
@@ -811,7 +811,7 @@
                             response.data.theObj.dataList[2].type = "line";
                             response.data.theObj.dataList[2].symbolSize = 8;
                             response.data.theObj.dataList[2].smooth = 'true';
-                            
+
                         }
                         var qushi = document.getElementById('qushi');
                         var qushiChart = echarts.init(qushi);
@@ -990,7 +990,7 @@
                         that.list6 = response.data.theObj[1];
                         that.list7 = response.data.theObj[2];
                         that.list8 = response.data.theObj[3];
-                        
+
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
