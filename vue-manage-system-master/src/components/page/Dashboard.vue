@@ -494,25 +494,21 @@
                 // console.log(window.location.href);
                 // console.log();  // true
                 var buildingId;
+                // 如果找到ip里有buildingId 
                 if (window.location.href.indexOf("?") != -1 ) {
-                    buildingId = window.location.href.split("?")[1].split("=")[1];
+                    // 截取字符串
+                    this.buildingId = window.location.href.split("?")[1].split("=")[1];
+                    // 如果有buildingId，将截取后的buildingId赋值给localStorage
                     if (buildingId) {
-                        localStorage.setItem('buildingId', buildingId);
+                        localStorage.setItem('buildingId',buildingId);
+                        // 如果没有buildingId，就取本地赋值的id
                     }else{
-                        buildingId=localStorage.getItem('buildingId');
+                        this.buildingId=1
                     }
                 }else{
-                    buildingId=localStorage.getItem('buildingId');
+                    // 如果没有buildingId，就取本地赋值的id
+                    this.buildingId=localStorage.getItem('buildingId');
                 }
-
-            //     this.buildingId=localStorage.getItem('buildingId');
-            //     if(!this.buildingId){
-            //      this.buildingId=1;
-            // }
-            // // 如果找到ip里有buildingId 
-            // // 截取id字符串将id赋值给本地
-            // // 如果找不到id将buildingId赋值为1
-            // // 
 
             },
 
