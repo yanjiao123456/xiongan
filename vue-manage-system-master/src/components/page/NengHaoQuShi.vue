@@ -791,7 +791,7 @@
             // console.log();
             var prev = new Date().setTime(new Date().getTime() - 3600 * 1000 * 1);
             var now = new Date().getTime();
-            
+
             console.log(prev);
             this.value4[0] = prev;
             this.value4[1] = now;
