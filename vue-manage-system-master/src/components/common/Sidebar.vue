@@ -93,46 +93,46 @@
                                     }
                                 ]
                             },
-                            {
-                                icon: "ml5 icon-all icon-jsjc",
-                                index: "geishuijiance",
-                                title: "给水检测",
-                                subs: [
-                                    {
-                                        index: "editor",
-                                        title: "富文本编辑器"
-                                    },
-                                    {
-                                        index: "markdown",
-                                        title: "markdown编辑器"
-                                    }
-                                ]
-                            },
-                            {
-                                icon: "ml5 icon-all icon-lrjc",
-                                index: "lengrejiance",
-                                title: "冷热检测"
-                            },
-                            {
-                                icon: "ml5 icon-all icon-yskqzl",
-                                index: "yskqjc",
-                                title: "压缩空气监测"
-                            },
-                            {
-                                icon: "ml5 icon-all icon-wsd",
-                                index: "wsd",
-                                title: "温湿度监测"
-                            },
-                            {
-                                icon: "ml5 icon-all icon-gf",
-                                index: "gf",
-                                title: "光伏监测"
-                            },
-                            {
-                                icon: "ml5 icon-all icon-bdsjk",
-                                index: "bdsjk",
-                                title: "变电所监控"
-                            }
+                            // {
+                            //     icon: "ml5 icon-all icon-jsjc",
+                            //     index: "geishuijiance",
+                            //     title: "给水检测",
+                            //     subs: [
+                            //         {
+                            //             index: "editor",
+                            //             title: "富文本编辑器"
+                            //         },
+                            //         {
+                            //             index: "markdown",
+                            //             title: "markdown编辑器"
+                            //         }
+                            //     ]
+                            // },
+                            // {
+                            //     icon: "ml5 icon-all icon-lrjc",
+                            //     index: "lengrejiance",
+                            //     title: "冷热检测"
+                            // },
+                            // {
+                            //     icon: "ml5 icon-all icon-yskqzl",
+                            //     index: "yskqjc",
+                            //     title: "压缩空气监测"
+                            // },
+                            // {
+                            //     icon: "ml5 icon-all icon-wsd",
+                            //     index: "wsd",
+                            //     title: "温湿度监测"
+                            // },
+                            // {
+                            //     icon: "ml5 icon-all icon-gf",
+                            //     index: "gf",
+                            //     title: "光伏监测"
+                            // },
+                            // {
+                            //     icon: "ml5 icon-all icon-bdsjk",
+                            //     index: "bdsjk",
+                            //     title: "变电所监控"
+                            // }
                         ]
                     },
                     {
@@ -267,36 +267,36 @@
                             }
                         ]
                     },
-                    {
-                        icon: "ml5 icon-all icon-bbsc",
-                        index: "bbsc",
-                        title: "报表输出"
-                    },
-                    {
-                        icon: "ml5 icon-all icon-rgtb",
-                        index: "rgtb",
-                        title: "人工填报"
-                    },
-                    {
-                        icon: "ml5 icon-all icon-nhbg",
-                        index: "nhbg",
-                        title: "能耗报告"
-                    },
-                    {
-                        icon: "ml5 icon-all icon-jlwl",
-                        index: "jlwl",
-                        title: "计量网络"
-                    },
-                    {
-                        icon: "ml5 icon-all icon-gjyy",
-                        index: "gjyy",
-                        title: "高级应用"
-                    },
-                    {
-                        icon: "ml5 icon-all icon-xtgl",
-                        index: "xtgl",
-                        title: "系统管理"
-                    }
+                    // {
+                    //     icon: "ml5 icon-all icon-bbsc",
+                    //     index: "bbsc",
+                    //     title: "报表输出"
+                    // },
+                    // {
+                    //     icon: "ml5 icon-all icon-rgtb",
+                    //     index: "rgtb",
+                    //     title: "人工填报"
+                    // },
+                    // {
+                    //     icon: "ml5 icon-all icon-nhbg",
+                    //     index: "nhbg",
+                    //     title: "能耗报告"
+                    // },
+                    // {
+                    //     icon: "ml5 icon-all icon-jlwl",
+                    //     index: "jlwl",
+                    //     title: "计量网络"
+                    // },
+                    // {
+                    //     icon: "ml5 icon-all icon-gjyy",
+                    //     index: "gjyy",
+                    //     title: "高级应用"
+                    // },
+                    // {
+                    //     icon: "ml5 icon-all icon-xtgl",
+                    //     index: "xtgl",
+                    //     title: "系统管理"
+                    // }
                     // {
                     //   icon: "el-icon-lx-emoji",
                     //   index: "icon",

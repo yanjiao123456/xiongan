@@ -818,7 +818,7 @@
     color: #2DF3FF;
 }
 .left-branch .el-menu {
-    border-right: 0;
+    border-right: none;
     list-style: none;
     position: relative;
     margin: 0;

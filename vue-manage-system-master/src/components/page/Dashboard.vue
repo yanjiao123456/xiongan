@@ -493,17 +493,26 @@
             parseRouter() {
                 // console.log(window.location.href);
                 // console.log();  // true
-                
+                var buildingId;
                 if (window.location.href.indexOf("?") != -1 ) {
-                    var buildingId = window.location.href.split("?")[1].split("=")[1];
+                    buildingId = window.location.href.split("?")[1].split("=")[1];
                     if (buildingId) {
                         localStorage.setItem('buildingId', buildingId);
+                    }else{
+                        buildingId=localStorage.getItem('buildingId');
                     }
+                }else{
+                    buildingId=localStorage.getItem('buildingId');
                 }
 
-
-
-
+            //     this.buildingId=localStorage.getItem('buildingId');
+            //     if(!this.buildingId){
+            //      this.buildingId=1;
+            // }
+            // // 如果找到ip里有buildingId 
+            // // 截取id字符串将id赋值给本地
+            // // 如果找不到id将buildingId赋值为1
+            // // 
 
             },
 
@@ -956,7 +965,7 @@
                         that.list6 = response.data.theObj[1];
                         that.list7 = response.data.theObj[2];
                         that.list8 = response.data.theObj[3];
-                        // console.log(response.data.theObj);
+                        console.log(response.data.theObj[0]);
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
