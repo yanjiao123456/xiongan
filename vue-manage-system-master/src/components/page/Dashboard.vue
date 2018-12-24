@@ -47,8 +47,8 @@
                                 <h3>企业信息</h3>
                                 <el-container style="padding-left:30px;padding-top:27px;">
                                     <el-aside width="300px" class="hidden-sm-and-down">
-                                        <!-- <img :src="buildingImg" alt=""> -->
-                                        <img src="../../assets/ShouYe/pp.jpg" alt="">
+                                        <img :src="buildingImg"/>
+                                        <!-- <img src="../../assets/ShouYe/xajt.png" alt=""> -->
                                     </el-aside>
                                     <el-main>
                                         <div class="b-descrip">
@@ -477,7 +477,7 @@
                 },
 
 
-                img: '../../assets/ShouYe/pp.jpg',
+                // img: '../../assets/ShouYe/pp.jpg',
             };
         },
         components: {
@@ -520,6 +520,8 @@
                     }
                 }
             },
+
+            
 
           
 
@@ -777,7 +779,9 @@
                         //   console.log(response.data.theObj);
                         that.buildingDetail = response.data.theObj.buildingDetail;
                         that.buildingTitle = response.data.theObj.buildingTitle;
-                        that.buildingImg = response.data.theObj.buildingImg;
+                        that.buildingImg = response.data.theObj.buildingImg.replace('../..','').replace('assets','static/img');
+                        // console.log(that.buildingImg);
+                        //     /static/img/ShouYe/shq.png
                         // that.Data=response.data.theObj[0];
                         // console.log(that.Data);
                     })
