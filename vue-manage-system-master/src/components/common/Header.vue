@@ -12,7 +12,7 @@
         <div class="title">
             金风智慧能效平台
         </div>
-        
+
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示
@@ -23,12 +23,12 @@
                 </div> -->
                 <!-- 消息中心 -->
                 <div class="btn-bell">
-                    <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                        <router-link to="/tabs">
+                    <!--<el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">-->
+                        <!--<router-link to="/tabs">-->
                             <i class="icon-notice"></i>
-                        </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message">1</span>
+                        <!--</router-link>-->
+                    <!--</el-tooltip>-->
+                    <!--<span class="btn-bell-badge" v-if="message">1</span>-->
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator"><img src="static/img/img.jpg"></div>
@@ -84,7 +84,7 @@ export default {
       this.collapse = !this.collapse;
       bus.$emit("collapse", this.collapse);
     },
-    
+
   },
   mounted() {
     if (document.body.clientWidth < 1500) {

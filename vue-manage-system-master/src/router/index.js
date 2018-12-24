@@ -32,7 +32,7 @@ export default new Router({
                 {
                     path: '/PeiDianInquire',
                     component: resolve => require(['../components/page/PeiDianInquire.vue'], resolve),
-                    meta: {title: '数据查询2'}
+                    meta: {title: '数据查询'}
 
                 },
                 {

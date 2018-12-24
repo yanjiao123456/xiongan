@@ -242,12 +242,12 @@
                                 title: "重点设备",
                                 subs: [
                                     {
-                                        icon: "ml5 icon-all icon-sjcx",
+                                        icon: "ml20",
                                         index: "shebeizonglan",
                                         title: "设备总览",
                                     },
                                     {
-                                        icon: "ml5 icon-all icon-sjcx",
+                                        icon: "ml20",
                                         index: "shebeidangan",
                                         title: "设备档案",
                                     }

@@ -136,7 +136,7 @@
                                 </div>
                                 <el-container>
                                     <!-- <div class="cav">
-                                        
+
                                     </div> -->
                                     <div class="cav">
                                         <div class="cav-flex">
@@ -495,12 +495,14 @@
                 // console.log(window.location.href);
                 // console.log();  // true
                 var buildingId;
-                // 如果找到ip里有buildingId 
+                // 如果找到ip里有buildingId
                 if (window.location.href.indexOf("?") != -1 ) {
                     // 截取字符串
-                    this.buildingId = window.location.href.split("?")[1].split("=")[1];
+                    buildingId = window.location.href.split("?")[1].split("=")[1];
+
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
                     if (buildingId) {
+                        this.buildingId=buildingId;
                         localStorage.setItem('buildingId',buildingId);
                         // 如果没有buildingId，就取本地赋值的id
                     }else{
@@ -508,7 +510,15 @@
                     }
                 }else{
                     // 如果没有buildingId，就取本地赋值的id
-                    this.buildingId=localStorage.getItem('buildingId');
+                    buildingId=localStorage.getItem('buildingId');
+                    // 如果有buildingId，将截取后的buildingId赋值给localStorage
+                    if (buildingId) {
+                        this.buildingId=buildingId;
+                        // localStorage.setItem('buildingId',buildingId);
+                        // 如果没有buildingId，就取本地赋值的id
+                    }else{
+                        this.buildingId=1
+                    }
                 }
 
             },
@@ -584,7 +594,7 @@
                                 }
                             }
                         }
-                        
+
                         that.Data = response.data.theObj;
                         //   for(var i=0;i<response.data.theObj.length;i++){
                         //       if(response.data.theObj[i][i].class2=="+"){

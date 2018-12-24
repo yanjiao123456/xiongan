@@ -796,14 +796,16 @@
 
         },
         created() {
-            this.getTreeData();
+
 
             var buildingId = localStorage.getItem("buildingId");
             if (buildingId) {
                 this.buildingId = buildingId;
+
             } else {
                 this.buildingId = 1;
             }
+            this.getTreeData();
 
         }
     };
