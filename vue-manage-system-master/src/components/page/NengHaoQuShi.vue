@@ -56,8 +56,9 @@
                                         class
                                         v-model="userDefined"
                                         type="datetimerange"
+                                        value-format="timestamp"
                                         range-separator="—"
-                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                        :picker-options="pickerOptions0"
                                         start-placeholder="开始日期"
                                         end-placeholder="结束日期"
                                 ></el-date-picker>
@@ -81,6 +82,7 @@
                                         type="datetimerange"
                                         value-format="timestamp"
                                         range-separator="—"
+                                        :picker-options="pickerOptions0"
                                         start-placeholder="开始日期"
                                         end-placeholder="结束日期"
                                 ></el-date-picker>
@@ -108,7 +110,7 @@
                             <div class="kwh">
                                 <span v-if="dataShow" class="number">{{ yls[index].key1 }}</span>
                                 <span v-if="!dataShow" class="number">0</span>
-                                <span class="unit">kWh</span>
+                                <span v-show="index!=4" class="unit">{{ unit }}</span>
                             </div>
                         </div>
                     </div>
@@ -121,7 +123,7 @@
                             <div class="kwh">
                                 <span v-if="dataShow" class="number">{{ yls[index].key2 }}</span>
                                 <span v-if="!dataShow" class="number">0</span>
-                                <span class="unit">kWh</span>
+                                <span v-show="index!=4" class="unit">{{ unit }}</span>
                             </div>
                         </div>
                     </div>
@@ -131,7 +133,7 @@
             <div class="data-box">
                 <div class="bg"></div>
                 <div class="title">
-                    <h3>光伏发电量监测</h3>
+                    <h3>能耗趋势</h3>
                 </div>
                 <div class="my-charts">
                     <div id="chart" style="width:100%;height:100%;"></div>
@@ -150,7 +152,10 @@
 
                 <!--<template-table :data-tit="tableTitle"></template-table>-->
                 <div class="table-box">
-                    <div class="table-tit">【 {{ startDate }} 至 {{ endDate }} 能耗数据 】</div>
+                    <div class="table-tit" v-if="titShow">【 {{ tableData[0].dateTime }} 至 {{
+                        tableData[tableData.length-1].dateTime }} 能耗数据 】
+                    </div>
+                    <div class="table-tit" v-if="!titShow">【 0 至 0 能耗数据 】</div>
                     <el-table :data="tableData" border stripe style="width: 100%">
                         <el-table-column
                                 :key="index"
@@ -165,6 +170,30 @@
                     </el-table>
                 </div>
                 <pages :total="totalSize" @returnPageNum="getDate"></pages>
+
+                <!--<div class="selector">-->
+                <!--<i @click="pageA" class="icon-front"></i>-->
+                <!--<i @click="pageB" class="icon-prev"></i>-->
+                <!--<div class="page-num">-->
+                <!--<div class="bg"></div>-->
+                <!--<input type="text" v-model="pageNum">-->
+                <!--</div>-->
+
+                <!--<span class="page-all">-->
+                <!--/共1页-->
+                <!--</span>-->
+                <!--<i @click="nextB" class="icon-next"></i>-->
+                <!--<i @click="nextA" class="icon-last"></i>-->
+                <!--<div class="count">-->
+                <!--<div class="bg"></div>-->
+                <!--<select v-model="pagesize" @change="setPageSize">-->
+                <!--<option>10</option>-->
+                <!--<option>20</option>-->
+                <!--<option>50</option>-->
+                <!--<option>100</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
 
             </div>
 
@@ -182,11 +211,14 @@
         data() {
             return {
                 buildingId: 1,
+                pagesize: 10,
+                titShow: false,
                 newPage: 10,
-                pageNum: 1,
+                // pageNum: 1,
                 pageShow: false,
-                page: 0,
+                page: 1,
                 pageSize: 10,
+                unit: '',
 
 
                 dateType: 'hour',
@@ -201,12 +233,12 @@
                 datas: [],
                 xisDatas: [],
                 userDefined: '',
-                tabTitleArr: ["分项", "部门", "位置", "支路"],
+                tabTitleArr: ["支路", "位置", "组织", "分项"],
                 titArr: [
                     {
                         prop: "dateTime",
                         label: "日期",
-                        sortable: false
+                        sortable: false,
                     },
                     {
                         prop: "curValue",
@@ -235,29 +267,39 @@
                     {
                         title: "本期汇总",
                         icon: "item-icon-hz",
-                        title2: "同期汇总"
+                        title2: "同期汇总",
+                        unit: ''
                     },
                     {
                         title: "本期平均",
                         icon: "item-icon-pjf",
-                        title2: "同期平均"
+                        title2: "同期平均",
+                        unit: ''
                     },
                     {
                         title: "本期最大值",
                         icon: "item-icon-max",
-                        title2: "同期最大值"
+                        title2: "同期最大值",
+                        unit: ''
                     },
                     {
                         title: "本期最小值 ",
                         icon: "item-icon-min",
-                        title2: "同期最小值"
+                        title2: "同期最小值",
+                        unit: ''
                     },
                     {
-                        title: "本期同比",
+                        title: "同比/环比",
                         icon: "item-icon-tb",
-                        title2: "同期同比"
+                        title2: "增长幅",
+                        unit: ''
                     }
                 ],
+                pickerOptions0: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now() - 8.64e6
+                    }
+                },
                 yls: [],
                 treeId: "",
                 option: "2",
@@ -281,23 +323,78 @@
         components: {
             pages
         },
-        computed: {},
+        computed: {
+            pageNum() {
+                return 1;
+            }
+        },
         //2018-12-23 00:00:00
         methods: {
+
+            // //最前
+            // pageA() {
+            //     this.page = 1;
+            // },
+            // //前
+            // pageB() {
+            //     // 当前页是否为当前最小页码
+            //     if (this.page > 1) {
+            //         this.page = this.page - 1;
+            //     } else {
+            //         this.page = 1;
+            //     }
+            //
+            // },
+            // //最后
+            // nextA() {
+            //     this.page = this.pages;
+            // },
+            // //后
+            // nextB() {
+            //     // 当前页是否为当前最大页码
+            //     if (this.page < this.pages) {
+            //         this.page = this.page + 1
+            //     } else {
+            //         this.page = this.pages;
+            //     }
+            //     // this.sendPageNum(this.activeNum,this.pagesize);
+            // },
 
             reset() {
                 this.value4 = '';
                 this.userDefined = '';
             },
             getDate(page, pageSize) {
+                console.log('page', page);
                 this.page = page;
                 this.pageSize = pageSize;
-                this.getTableData();
+                this.getMainData();
             },
             bindQuery() {
                 if (this.value4) {
                     // console.log('有数据');
-                    this.getMainData();
+                    // this.page=1;
+                    if (this.compareVal == 'zibi') {
+                        if (this.userDefined) {
+                            // console.log(this.userDefined);
+                            let userDefined = this.userDefined[1] - this.userDefined[0];
+                            let nowValue = this.value4[1] - this.value4[0];
+                            if (userDefined == nowValue) {
+                                this.getDate(1, this.pageSize);
+                                this.getMainData();
+                            } else {
+                                this.$message.error(' 对比时间不一致 ');
+                            }
+                        } else {
+                            this.$message.error(' 请选择对比日期 ');
+                        }
+
+                    }else{
+                        // this.getDate(1, this.pageSize);
+                        this.page=1;
+                        this.getMainData();
+                    }
+
                 } else {
                     // console.log('没有数据');
                     this.$message.error(' 请选择日期 ');
@@ -344,10 +441,16 @@
                 let h = date.getHours() + ':';
                 let m = date.getMinutes() + ':';
                 let s = date.getSeconds();
+                // console.log(s);
+                // console.log(m);
+                // console.log(m.toString().length);
+                M = M.toString().length == 2 ? '0' + M : M;
+                D = D.toString().length == 2 ? '0' + D : D;
+                m = m.toString().length == 2 ? '0' + m : m;
+                h = h.toString().length == 2 ? '0' + h : h;
+                s = s.toString().length == 1 ? '0' + s : s;
+                // console.log(s);
 
-                m = m.length == 2 ? '0' + m : m;
-                h = h.length == 2 ? '0' + h : h;
-                s = s.length == 2 ? '0' + s : s;
 
                 // console.log(m.length);
                 // console.log(Y+M+D+h+m+s); //呀麻碟
@@ -362,7 +465,7 @@
 
                 this.treeId = setting.id;
                 this.getMainData();
-                this.getTableData();
+                // this.getTableData();
             },
 
             messageErr() {
@@ -382,7 +485,7 @@
                             endTime: _this.endDate,
                             compareBeginTime: _this.cpStartDate,
                             compareEndTime: _this.cpEndDate,
-                            pageStart: (_this.page * _this.pageSize) > 10 ? (_this.page * _this.pageSize) - _this.pageSize : (_this.page * _this.pageSize),
+                            pageStart: _this.page,
                             pageSize: _this.pageSize
                             // buildingId: 1
                         }
@@ -393,6 +496,7 @@
                         if (data.message == " 该支路下没有绑定实体表 ") {
                             // _this.messageErr();
                         } else {
+                            _this.titShow = true;
                             _this.tableData = data;
 
                         }
@@ -437,8 +541,8 @@
                     }
                 } else if (this.compareVal == 'zibi') {
                     // console.log(this.userDefined);
-                    this.cpStartDate = this.userDefined[0];
-                    this.cpEndDate = this.userDefined[1];
+                    this.cpStartDate = this.format(new Date(this.userDefined[0]));
+                    this.cpEndDate = this.format(new Date(this.userDefined[1]));
                 }
             },
             getMainData() {
@@ -449,6 +553,7 @@
                 console.log('_this.endDate', _this.endDate);
                 console.log('_this.cpStartDate', _this.cpStartDate);
                 console.log('_this.cpEndDate', _this.cpEndDate);
+
                 //树型导航
                 this.$axios
                     .get("/xa_energy_analysis!queryOverData.action", {
@@ -471,7 +576,8 @@
                         if (data.message == " 该支路下没有绑定实体表 ") {
                             _this.messageErr();
                         } else {
-
+                            _this.unit = data.unit;
+                            // _this.lists[4].unit='';
                             _this.totalSize = data.totalSize;
 
                             _this.dataShow = true;

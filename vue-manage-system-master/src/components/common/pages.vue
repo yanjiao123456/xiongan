@@ -37,8 +37,15 @@
         props:['total'],
         computed: {
             pages: function () {
+                console.log(this.total);
+                this.activeNum=1;
+
                 return Math.ceil(this.total / this.pagesize);
-            }
+
+                this.sendPageNum(this.activeNum,this.pagesize);
+
+            },
+
         },
         methods: {
             //发送父组件需要的当前页和每页显示的条数
