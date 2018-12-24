@@ -136,7 +136,7 @@
                                 </div>
                                 <el-container>
                                     <!-- <div class="cav">
-
+                                        
                                     </div> -->
                                     <div class="cav">
                                         <div class="cav-flex">
@@ -500,7 +500,6 @@
                     console.log(window.location.href.split("?")[1].split("=")[1]);
                     // 截取字符串
                     buildingId = window.location.href.split("?")[1].split("=")[1];
-
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
                     if (buildingId) {
                         this.buildingId=buildingId;
@@ -522,9 +521,9 @@
                         this.buildingId=1
                     }
                 }
-
             },
 
+          
 
             getDate() {
                 // var date=this.selectVal
@@ -558,7 +557,7 @@
                         console.log(data);
                         data.sliderData1[0].dw="kWh";
                         data.sliderData1[1].dw="kWh";
-                        data.sliderData1[2].dw="kWh";
+                        data.sliderData1[2].dw="m³";
                         data.sliderData2[0].dw="m³";
                         data.sliderData2[1].dw="m³";
                         data.sliderData2[2].dw="m³";
@@ -596,7 +595,7 @@
                                 }
                             }
                         }
-
+                        
                         that.Data = response.data.theObj;
                         //   for(var i=0;i<response.data.theObj.length;i++){
                         //       if(response.data.theObj[i][i].class2=="+"){
@@ -857,7 +856,7 @@
                             yAxis: [
                                 {
                                     type: 'value',
-                                    name: '',
+                                    name: '单位（kw）',
                                     axisTick: {
                                         show: false
                                     },
