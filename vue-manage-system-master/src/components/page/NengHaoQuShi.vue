@@ -511,6 +511,7 @@
                 this.endDate = this.format(new Date(this.value4[1]));
                 var start = this.value4[0];
                 var end = this.value4[1];
+                console.log(this.value4);
 
 
                 if (this.compareVal == 'tongbi' || this.dateType == 'month') {
@@ -790,6 +791,8 @@
             // console.log();
             var prev = new Date().setTime(new Date().getTime() - 3600 * 1000 * 1);
             var now = new Date().getTime();
+            
+            console.log(prev);
             this.value4[0] = prev;
             this.value4[1] = now;
 
@@ -951,6 +954,7 @@
             height: 100%;
             min-height: 500px;
             box-sizing: border-box;
+            overflow: auto;
             /*margin-bottom: 40px;*/
             /*float: left;*/
             /*margin-right: 24px;*/
