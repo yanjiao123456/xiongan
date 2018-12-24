@@ -1,8 +1,8 @@
 <template>
 <div class="tags-box">
-    <div class="on-left">
+    <!-- <div class="on-left">
         <i class="icon icon-left"></i>
-    </div>
+    </div> -->
     <div class="tags" v-if="showTags">
         <ul>
             <li @click="$router.push(item.path)" class="tags-li" v-for="(item,index) in tagsList" :class="{'active': isActive(item.path)}" :key="index">
@@ -16,9 +16,9 @@
     </div>
 
 
-    <div class="on-right">
+    <!-- <div class="on-right">
         <i class="icon icon-right"></i>
-    </div>
+    </div> -->
 
     <div class="tags-close-box">
        <div @click="yqczShow = !yqczShow" class="yqcz">页签操作<i class="icon-xl"></i></div>
@@ -217,6 +217,7 @@ export default {
 
 .tags-li {
   float: left;
+  border-right: 1px solid #1a3459;
   width: 110px;
   text-align: center;
   overflow: hidden;
@@ -267,7 +268,7 @@ export default {
   width: 100px;
   height: 40px;
   line-height: 40px;
-  z-index: 10;
+  z-index: 100;
   .yqcz {
     color: #d5f8ff;
     font-size: 14px;
