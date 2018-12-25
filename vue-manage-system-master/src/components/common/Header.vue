@@ -31,12 +31,12 @@
                     <!--<span class="btn-bell-badge" v-if="message">1</span>-->
                 </div>
                 <!-- 用户头像 -->
-                <div class="user-avator"><img src="static/img/img.jpg"></div>
+                <!-- <div class="user-avator"><img src="static/img/img.jpg"></div> -->
                 <!-- 用户名下拉菜单 -->
-                <div class="user-name">
+                <!-- <div class="user-name">
                     <span class="el-dropdown-link">
                         {{username}}
-                    </span>
+                    </span> -->
                     <!-- <el-dropdown-menu slot="dropdown">
                         <a href="http://blog.gdfengshuo.com/about/" target="_blank">
                             <el-dropdown-item>关于作者</el-dropdown-item>
@@ -46,7 +46,7 @@
                         </a>
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu> -->
-                </div>
+                <!-- </div> -->
                 <div class="set">
                     <i class="icon-set"></i>
                 </div>
