@@ -63,7 +63,7 @@
             <div class="data-box">
                 <div class="bg"></div>
                 <div class="title"><h3>数据列表</h3>
-                    <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
+                    <!-- <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div> -->
                 </div>
                 <div class="content-table">
                     <div class="tit">【2018-10-18 16:05:30】</div>
