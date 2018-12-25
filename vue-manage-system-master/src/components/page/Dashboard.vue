@@ -804,6 +804,7 @@
 
                         // 能耗趋势与对比
                         var LegendName = [];
+                        var dw='';
                         for (var i = 0; i < response.data.theObj.dataList.length; i++) {
                             LegendName.push(response.data.theObj.dataList[i].name);
                             response.data.theObj.dataList[0].type = "bar";
@@ -813,6 +814,18 @@
                             response.data.theObj.dataList[2].smooth = 'true';
 
                         }
+                        if(that.btns=='all'){
+                            dw="kgce";
+                        }else if(that.btns=='A'){
+                            dw='kWh'
+                        }else if(that.btns=='B'){
+                            dw='m³'
+                        }else if(that.btns=='D1'){
+                            dw='kw'
+                        }else if(that.btns=='D2'){
+                            dw='Gj'
+                        }
+                        // console.log(dw);
                         var qushi = document.getElementById('qushi');
                         var qushiChart = echarts.init(qushi);
                         var option1 = {
@@ -860,7 +873,7 @@
                             yAxis: [
                                 {
                                     type: 'value',
-                                    name: '',
+                                    name: '单位'+'('+dw+')',
                                     axisTick: {
                                         show: false
                                     },
@@ -921,11 +934,21 @@
                         }
                     })
                     .then(function (response) {
-                        that.list1 = response.data.theObj[0];
-                        that.list2 = response.data.theObj[1];
-                        that.list3 = response.data.theObj[2];
-                        that.list4 = response.data.theObj[3];
-                        // console.log(response.data.theObj[0]);
+                        // if(response.data==="false"){
+                        //     console.log("=======");
+                        //     that.list1=[{name:'',per:0,value:0}];
+                        //     // {name:' ',per:'',value:'',energyType:'',itemType:''};
+                        //     that.list2=[{name:' ',per:0,value:'0'}];
+                        //     that.list3=[{name:' ',per:0,value:'0'}];
+                        //     that.list4=[{name:' ',per:0,value:'0'}];
+                        // }else{
+                            that.list1 = response.data.theObj[0];
+                            that.list2 = response.data.theObj[1];
+                            that.list3 = response.data.theObj[2];
+                            that.list4 = response.data.theObj[3];
+                        // }
+                        // console.log(that.list1);
+                        // console.log(response.data);
                         // 用能种类占比
                         var yongneng = document.getElementById('yongneng');
                         var yongnengChart = echarts.init(yongneng);
@@ -990,7 +1013,13 @@
                         that.list6 = response.data.theObj[1];
                         that.list7 = response.data.theObj[2];
                         that.list8 = response.data.theObj[3];
-
+                        // for(key in response.data.theObj){
+                        //     var demo=key;
+                        //     for(var i=0;i<demo.length;i++){
+                        //         demo.
+                        //     }
+                        // }
+                        console.log(response.data.theObj);
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
