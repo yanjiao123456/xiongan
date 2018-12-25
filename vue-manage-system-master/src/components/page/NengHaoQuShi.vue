@@ -222,7 +222,6 @@
 
                 dateType: 'hour',
                 totalSize: 1,
-<<<<<<< HEAD
                 // value4() {
                 //     var prev = new Date().getTime();
                 //     var now = new Date().getTime();
@@ -237,10 +236,6 @@
                 // prev:new Date().getTime()
                 // value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
                 value4: [],
-=======
-
-                // value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
->>>>>>> 30b4ca5f5155bf40cce4a31cdac1117809d4006d
                 startDate: '',
                 endDate: '',
                 cpStartDate: '',
@@ -340,7 +335,6 @@
             pages
         },
         computed: {
-<<<<<<< HEAD
             // time1() {
             //     var prev = new Date().getTime();
             //     var now = new Date().getTime();
@@ -352,19 +346,6 @@
             //     console.log(prev);
             //     return [prev,now];
             // }
-=======
-            value4() {
-                var prev = new Date().getTime();
-                var now = new Date().getTime();
-
-
-                prev=new Date().setMinutes('00');
-                prev=new Date(prev).setSeconds('00');
-                prev=new Date(prev).setHours('00');
-                console.log(prev);
-                return [prev,now];
-            }
->>>>>>> 30b4ca5f5155bf40cce4a31cdac1117809d4006d
         },
         //2018-12-23 00:00:00
         methods: {
