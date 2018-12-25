@@ -860,7 +860,7 @@
                             yAxis: [
                                 {
                                     type: 'value',
-                                    name: '单位（kw）',
+                                    name: '',
                                     axisTick: {
                                         show: false
                                     },
