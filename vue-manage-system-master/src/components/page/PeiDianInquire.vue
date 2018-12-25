@@ -194,7 +194,7 @@
         <div class="Table">
             <div class="bg"></div>
             <div class="title"><h3>数据列表</h3>
-                <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
+                <!-- <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div> -->
             </div>
 
 

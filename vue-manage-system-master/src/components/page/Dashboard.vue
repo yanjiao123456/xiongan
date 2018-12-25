@@ -47,8 +47,8 @@
                                 <h3>企业信息</h3>
                                 <el-container style="padding-left:30px;padding-top:27px;">
                                     <el-aside width="300px" class="hidden-sm-and-down">
-                                        <!-- <img :src="buildingImg" alt=""> -->
-                                        <img src="../../assets/ShouYe/pp.jpg" alt="">
+                                        <img :src="buildingImg"/>
+                                        <!-- <img src="../../assets/ShouYe/xajt.png" alt=""> -->
                                     </el-aside>
                                     <el-main>
                                         <div class="b-descrip">
@@ -68,14 +68,14 @@
                             <div class="title">
                                 <h3>单位面积能耗</h3>
                                 <el-container>
-                                    <div class="cav" style="font-size:14px;width:95%;bottom:-16px;">
+                                    <!-- <div class="cav" style="font-size:14px;width:95%;bottom:-16px;">
                                         <div class="cav-flex">
                                             <div v-for="kpi in kpiList">
                                                 <p> <span>{{kpi.gbt}}：</span> <span>{{kpi.gb}}</span></p>
                                                 <p> <span>{{kpi.qwt}}：</span> <span>{{kpi.qw}}</span></p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div id="gonglv" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -136,7 +136,7 @@
                                 </div>
                                 <el-container>
                                     <!-- <div class="cav">
-                                        
+
                                     </div> -->
                                     <div class="cav">
                                         <div class="cav-flex">
@@ -477,7 +477,7 @@
                 },
 
 
-                img: '../../assets/ShouYe/pp.jpg',
+                // img: '../../assets/ShouYe/pp.jpg',
             };
         },
         components: {
@@ -497,7 +497,6 @@
                 var buildingId;
                 // 如果找到ip里有buildingId
                 if (window.location.href.indexOf("?") != -1 ) {
-                    console.log(window.location.href.split("?")[1].split("=")[1]);
                     // 截取字符串
                     buildingId = window.location.href.split("?")[1].split("=")[1];
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
@@ -509,7 +508,7 @@
                         this.buildingId=1
                     }
                 }else{
-                    console.log('meiyou');
+                    // console.log('meiyou');
                     // 如果没有buildingId，就取本地赋值的id
                     buildingId=localStorage.getItem('buildingId');
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
@@ -523,7 +522,9 @@
                 }
             },
 
-          
+
+
+
 
             getDate() {
                 // var date=this.selectVal
@@ -554,10 +555,10 @@
                 )
                     .then(function (response) {
                         var data = response.data.theObj;
-                        console.log(data);
+                        // console.log(data);
                         data.sliderData1[0].dw="kWh";
                         data.sliderData1[1].dw="kWh";
-                        data.sliderData1[2].dw="m³";
+                        data.sliderData1[2].dw="kWh";
                         data.sliderData2[0].dw="m³";
                         data.sliderData2[1].dw="m³";
                         data.sliderData2[2].dw="m³";
@@ -595,7 +596,7 @@
                                 }
                             }
                         }
-                        
+
                         that.Data = response.data.theObj;
                         //   for(var i=0;i<response.data.theObj.length;i++){
                         //       if(response.data.theObj[i][i].class2=="+"){
@@ -627,10 +628,9 @@
                         var highlight = '#03b7c9';
 
                         var demoData = [
-                            { name: '单位面积综合能耗\n(kgce.a)', value: response.data.theObj.echarts['0'], pos: ['16.6%', '35%'], range: [0, 50] },
-                            { name: '单位面积电耗\n(kWh.a)', value: response.data.theObj.echarts['A'], pos: ['49.8%', '35%'], range: [0, 100] },
-                            { name: '单位面积热能耗\n(Gj/m².a)', value: response.data.theObj.echarts['D2'], pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
-
+                            { name: '单位面积综合能耗\n(kgce/m².a)\n\n国际标准：20.1\n期望值：19', value: response.data.theObj.echarts['0'], pos: ['16.6%', '35%'], range: [0, 50] },
+                            { name: '单位面积电耗\n(kWh/m².a)\n\n国际标准：70\n期望值：65', value: response.data.theObj.echarts['A'], pos: ['49.8%', '35%'], range: [0, 100] },
+                            { name: '单位面积热能耗\n(Gj/m².a)\n\n国际标准：0.25\n期望值：0.21', value: response.data.theObj.echarts['D2'], pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
                         ];
                         var option = {
                             series: (function () {
@@ -724,7 +724,7 @@
                                             },
                                             detail: {
                                                 show: true,
-                                                offsetCenter: [0, '130%'],
+                                                offsetCenter: [0, '180%'],
                                                 textStyle: {
                                                     fontSize: 18,
                                                     color: '#2DF3FF'
@@ -779,7 +779,9 @@
                         //   console.log(response.data.theObj);
                         that.buildingDetail = response.data.theObj.buildingDetail;
                         that.buildingTitle = response.data.theObj.buildingTitle;
-                        that.buildingImg = response.data.theObj.buildingImg;
+                        that.buildingImg = response.data.theObj.buildingImg.replace('../..','').replace('assets','single_web/static/img');
+                        // console.log(that.buildingImg);
+                        //     /static/img/ShouYe/shq.png
                         // that.Data=response.data.theObj[0];
                         // console.log(that.Data);
                     })
@@ -801,6 +803,7 @@
 
                         // 能耗趋势与对比
                         var LegendName = [];
+                        var dw='';
                         for (var i = 0; i < response.data.theObj.dataList.length; i++) {
                             LegendName.push(response.data.theObj.dataList[i].name);
                             response.data.theObj.dataList[0].type = "bar";
@@ -808,7 +811,20 @@
                             response.data.theObj.dataList[2].type = "line";
                             response.data.theObj.dataList[2].symbolSize = 8;
                             response.data.theObj.dataList[2].smooth = 'true';
+
                         }
+                        if(that.btns=='all'){
+                            dw="kgce";
+                        }else if(that.btns=='A'){
+                            dw='kWh'
+                        }else if(that.btns=='B'){
+                            dw='m³'
+                        }else if(that.btns=='D1'){
+                            dw='kw'
+                        }else if(that.btns=='D2'){
+                            dw='Gj'
+                        }
+                        // console.log(dw);
                         var qushi = document.getElementById('qushi');
                         var qushiChart = echarts.init(qushi);
                         var option1 = {
@@ -844,7 +860,7 @@
                                 }
                             },
                             xAxis: [{
-                                data: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+                                data: response.data.theObj.xData,
                                 type: 'category',
                                 // boundaryGap: false,
                                 axisLine: {
@@ -856,7 +872,7 @@
                             yAxis: [
                                 {
                                     type: 'value',
-                                    name: '单位（kw）',
+                                    name: '单位'+'('+dw+')',
                                     axisTick: {
                                         show: false
                                     },
@@ -917,11 +933,21 @@
                         }
                     })
                     .then(function (response) {
-                        that.list1 = response.data.theObj[0];
-                        that.list2 = response.data.theObj[1];
-                        that.list3 = response.data.theObj[2];
-                        that.list4 = response.data.theObj[3];
-                        // console.log(response.data.theObj[0]);
+                        // if(response.data==="false"){
+                        //     console.log("=======");
+                        //     that.list1=[{name:'',per:0,value:0}];
+                        //     // {name:' ',per:'',value:'',energyType:'',itemType:''};
+                        //     that.list2=[{name:' ',per:0,value:'0'}];
+                        //     that.list3=[{name:' ',per:0,value:'0'}];
+                        //     that.list4=[{name:' ',per:0,value:'0'}];
+                        // }else{
+                            that.list1 = response.data.theObj[0];
+                            that.list2 = response.data.theObj[1];
+                            that.list3 = response.data.theObj[2];
+                            that.list4 = response.data.theObj[3];
+                        // }
+                        // console.log(that.list1);
+                        // console.log(response.data);
                         // 用能种类占比
                         var yongneng = document.getElementById('yongneng');
                         var yongnengChart = echarts.init(yongneng);
@@ -986,7 +1012,13 @@
                         that.list6 = response.data.theObj[1];
                         that.list7 = response.data.theObj[2];
                         that.list8 = response.data.theObj[3];
-                        console.log(response.data.theObj[0]);
+                        // for(key in response.data.theObj){
+                        //     var demo=key;
+                        //     for(var i=0;i<demo.length;i++){
+                        //         demo.
+                        //     }
+                        // }
+                        // console.log(response.data.theObj);
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
@@ -1121,10 +1153,21 @@
                         var Ydata = [];
                         var zhilu = document.getElementById('zhilu');
                         var zhiluChart = echarts.init(zhilu);
-                        for (var i = 0; i < response.data.theObj.length; i++) {
+                        if(response.data.theObj.length>3){
+                            for (var i = 0; i < 3; i++) {
+                            datas.push(response.data.theObj[i].value);
+                            Ydata.push(response.data.theObj[i].treeName);
+                            }
+                        }else{
+                            for (var i = 0; i < response.data.theObj.length; i++) {
                             datas.push(response.data.theObj[i].value);
                             Ydata.push(response.data.theObj[i].treeName);
                         }
+                        }
+                        // for (var i = 0; i < response.data.theObj.length; i++) {
+                        //     datas.push(response.data.theObj[i].value);
+                        //     Ydata.push(response.data.theObj[i].treeName);
+                        // }
                         var option5 = {
                             color: ['#75C8F0', '#3E62AC', '#52A991', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             tooltip: {
@@ -1174,7 +1217,7 @@
                                     yAxisIndex: 0,
                                     barWidth: '40%',
                                     label: { normal: { show: true, position: "right", textStyle: { fontWeight: "bold" } } },
-                                    data: datas.sort()
+                                    data: datas
                                 }
                             ]
                         }
@@ -1206,7 +1249,8 @@
         },
         mounted() {
             // this.parseRouter();this.parseRouter();
-            this.SetEchart();
+            // this.SetEchart();
+            this.KPI()
 
         },
         created() {

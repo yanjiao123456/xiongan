@@ -3,7 +3,7 @@
         <div v-show="!collapse" class="seek-box">
             <el-input class="seek" v-model="input" placeholder="请输入内容" suffix-icon="el-icon-search"></el-input>
         </div>
-        <el-menu class="sidebar-el-menu ul-box" :default-active="onRoutes" :collapse="collapse"
+        <el-menu style="border-right:none;" class="sidebar-el-menu ul-box" :default-active="onRoutes" :collapse="collapse"
                  active-text-color="#2DF3FF" unique-opened router>
 
             <template v-for="item in screet">

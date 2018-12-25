@@ -165,7 +165,7 @@
         <div class="Table">
             <div class="bg"></div>
             <div class="title"><h3>数据列表</h3>
-                <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div>
+                <!-- <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div> -->
             </div>
             <div class="table-box">
                     <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
