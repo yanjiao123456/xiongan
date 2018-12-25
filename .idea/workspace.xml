@@ -199,7 +199,7 @@
       <path value="$PROJECT_DIR$/vue-manage-system-master/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="566" />
     <option name="y" value="114" />
     <option name="width" value="1378" />
@@ -336,15 +336,15 @@
       <workItem from="1545460520231" duration="474000" />
       <workItem from="1545461667062" duration="715000" />
       <workItem from="1545463401552" duration="81598000" />
-      <workItem from="1545699790781" duration="16407000" />
+      <workItem from="1545699790781" duration="16979000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99194000" />
+    <option name="totallyTimeSpent" value="99766000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49837133" visible="true" weight="0.0" />
