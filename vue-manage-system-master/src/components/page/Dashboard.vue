@@ -68,14 +68,14 @@
                             <div class="title">
                                 <h3>单位面积能耗</h3>
                                 <el-container>
-                                    <div class="cav" style="font-size:14px;width:95%;bottom:-16px;">
+                                    <!-- <div class="cav" style="font-size:14px;width:95%;bottom:-16px;">
                                         <div class="cav-flex">
                                             <div v-for="kpi in kpiList">
                                                 <p> <span>{{kpi.gbt}}：</span> <span>{{kpi.gb}}</span></p>
                                                 <p> <span>{{kpi.qwt}}：</span> <span>{{kpi.qw}}</span></p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div id="gonglv" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -508,7 +508,7 @@
                         this.buildingId=1
                     }
                 }else{
-                    console.log('meiyou');
+                    // console.log('meiyou');
                     // 如果没有buildingId，就取本地赋值的id
                     buildingId=localStorage.getItem('buildingId');
                     // 如果有buildingId，将截取后的buildingId赋值给localStorage
@@ -628,10 +628,9 @@
                         var highlight = '#03b7c9';
 
                         var demoData = [
-                            { name: '单位面积综合能耗\n(kgce.a)', value: response.data.theObj.echarts['0'], pos: ['16.6%', '35%'], range: [0, 50] },
-                            { name: '单位面积电耗\n(kWh.a)', value: response.data.theObj.echarts['A'], pos: ['49.8%', '35%'], range: [0, 100] },
-                            { name: '单位面积热能耗\n(Gj/m².a)', value: response.data.theObj.echarts['D2'], pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
-
+                            { name: '单位面积综合能耗\n(kgce/m².a)\n\n国际标准：20.1\n期望值：19', value: response.data.theObj.echarts['0'], pos: ['16.6%', '35%'], range: [0, 50] },
+                            { name: '单位面积电耗\n(kWh/m².a)\n\n国际标准：70\n期望值：65', value: response.data.theObj.echarts['A'], pos: ['49.8%', '35%'], range: [0, 100] },
+                            { name: '单位面积热能耗\n(Gj/m².a)\n\n国际标准：0.25\n期望值：0.21', value: response.data.theObj.echarts['D2'], pos: ['83%', '35%'], range: [0.1, 1.0], splitNum: 9 }
                         ];
                         var option = {
                             series: (function () {
@@ -725,7 +724,7 @@
                                             },
                                             detail: {
                                                 show: true,
-                                                offsetCenter: [0, '130%'],
+                                                offsetCenter: [0, '180%'],
                                                 textStyle: {
                                                     fontSize: 18,
                                                     color: '#2DF3FF'
@@ -1019,7 +1018,7 @@
                         //         demo.
                         //     }
                         // }
-                        console.log(response.data.theObj);
+                        // console.log(response.data.theObj);
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
@@ -1154,10 +1153,21 @@
                         var Ydata = [];
                         var zhilu = document.getElementById('zhilu');
                         var zhiluChart = echarts.init(zhilu);
-                        for (var i = 0; i < response.data.theObj.length; i++) {
+                        if(response.data.theObj.length>3){
+                            for (var i = 0; i < 3; i++) {
+                            datas.push(response.data.theObj[i].value);
+                            Ydata.push(response.data.theObj[i].treeName);
+                            }
+                        }else{
+                            for (var i = 0; i < response.data.theObj.length; i++) {
                             datas.push(response.data.theObj[i].value);
                             Ydata.push(response.data.theObj[i].treeName);
                         }
+                        }
+                        // for (var i = 0; i < response.data.theObj.length; i++) {
+                        //     datas.push(response.data.theObj[i].value);
+                        //     Ydata.push(response.data.theObj[i].treeName);
+                        // }
                         var option5 = {
                             color: ['#75C8F0', '#3E62AC', '#52A991', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             tooltip: {
@@ -1207,7 +1217,7 @@
                                     yAxisIndex: 0,
                                     barWidth: '40%',
                                     label: { normal: { show: true, position: "right", textStyle: { fontWeight: "bold" } } },
-                                    data: datas.sort()
+                                    data: datas
                                 }
                             ]
                         }
@@ -1239,7 +1249,8 @@
         },
         mounted() {
             // this.parseRouter();this.parseRouter();
-            this.SetEchart();
+            // this.SetEchart();
+            this.KPI()
 
         },
         created() {
