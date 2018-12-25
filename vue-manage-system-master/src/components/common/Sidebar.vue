@@ -153,54 +153,54 @@
                         title: "能效分析",
                         subs: [
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-nhqs",
                                 index: "nenghaoqushi",
                                 title: "能耗趋势"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-nhcb",
                                 index: "nenghaochengben",
                                 title: "能耗成本"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-dbfx",
                                 index: "duibifenxi",
                                 title: "对比分析"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-nyjh",
                                 index: "nengyuanjihua",
                                 title: "能源计划"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-fhfx",
                                 index: "fuhefenxi",
                                 title: "负荷分析",
                                 subs: [
                                     {
-                                        icon: "ml5 icon-all icon-sjcx",
+                                        icon: "ml5 icon-all",
                                         index: "rifuhe",
                                         title: "日负荷"
                                     }
                                 ]
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-fgyd",
                                 index: "fengguyongdian",
                                 title: "峰谷用电"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-kpigl",
                                 index: "kpiguanli",
                                 title: "KPI管理",
                                 subs: [
                                     {
-                                        icon: "ml5 icon-all icon-sjcx",
+                                        icon: "ml5 icon-all",
                                         index: "dingbiaoguanli",
                                         title: "定标管理"
                                     },
                                     {
-                                        icon: "ml5 icon-all icon-sjcx",
+                                        icon: "ml5 icon-all",
                                         index: "kpifenxi",
                                         title: "KPI分析"
                                     }
@@ -214,12 +214,12 @@
                         title: "报警管理",
                         subs: [
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-bjgl1",
                                 index: "baojingguanli",
                                 title: "报警管理"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-bjdy",
                                 index: "baojingdingyi",
                                 title: "报警定义"
                             },
@@ -232,12 +232,12 @@
                         title: "设备管理",
                         subs: [
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-ybtz",
                                 index: "yibiaotaizhang",
                                 title: "仪表台账"
                             },
                             {
-                                icon: "ml5 icon-all icon-sjcx",
+                                icon: "ml5 icon-all icon-zdsb",
                                 index: "zhongdianshebei",
                                 title: "重点设备",
                                 subs: [
@@ -261,7 +261,7 @@
                         title: "电能质量",
                         subs: [
                             {
-                                icon: "ml5 icon-all icon-dnzl",
+                                icon: "ml5 icon-all icon-glys",
                                 index: "gonglvyinshu",
                                 title: "功率因数",
                             }
@@ -479,10 +479,10 @@
                 background: url("../../assets/PeiDianJianCe/home8.png") no-repeat;
             }
             .icon-ssjc {
-                background: url("../../assets/PeiDianJianCe/icon_ssjc.png") no-repeat;
+                background: url("../../assets/PeiDianJianCe/icon_ssjc1.png") no-repeat;
             }
             .icon-pdjc {
-                background: url("../../assets/PeiDianJianCe/icon_pdjc.png") no-repeat;
+                background: url("../../assets/PeiDianJianCe/icon_pdjc-1.png") no-repeat;
             }
             .icon-jsjc {
                 background: url("../../assets/PeiDianJianCe/icon_jsjc.png") no-repeat;
@@ -505,9 +505,9 @@
             .icon-nhcx {
                 background: url("../../assets/PeiDianJianCe/icon_nhcx.png") no-repeat;
             }
-            .is-active i.icon-nhcx {
-                background: url("../../assets/NengHaoChaXun/icon_nhcx.png") no-repeat;
-            }
+            /*.icon-nhcx {*/
+            /*background: url("../../assets/NengHaoChaXun/icon_nhcx.png") no-repeat;*/
+            /*}*/
             .icon-nxfx {
                 background: url("../../assets/PeiDianJianCe/icon_nxfx.png") no-repeat;
             }
@@ -539,7 +539,154 @@
                 background: url("../../assets/PeiDianJianCe/icon_xtgl.png") no-repeat;
             }
             .icon-sjcx {
-                background: url("../../assets/NengHaoChaXun/icon_sjcx.png") no-repeat;
+                background: url("../../assets/PeiDianJianCe/icon_sjcx-1.png") no-repeat;
+            }
+            /*---------------*/
+            .icon-nhqs {
+                background: url("../../assets/PeiDianJianCe/icon_nhqs-xz-1.png") no-repeat;
+            }
+            .icon-nhcb {
+                background: url("../../assets/NengHaoChaXun/icon_nhcb.png") no-repeat;
+            }
+            .icon-dbfx {
+                background: url("../../assets/NengHaoChaXun/icon_db.png") no-repeat;
+            }
+            .icon-nyjh {
+                background: url("../../assets/NengHaoChaXun/icon_nyjh.png") no-repeat;
+            }
+            .icon-fhfx {
+                background: url("../../assets/NengHaoChaXun/icon_fhfx.png") no-repeat;
+            }
+            .icon-fgyd {
+                background: url("../../assets/NengHaoChaXun/icon_fgyd.png") no-repeat;
+            }
+            .icon-kpigl {
+                background: url("../../assets/NengHaoChaXun/icon_kpi.png") no-repeat;
+            }
+            .icon-bjgl1 {
+                background: url("../../assets/PeiDianJianCe/icon_bjgl1.png") no-repeat;
+            }
+            .icon-bjdy {
+                background: url("../../assets/PeiDianJianCe/icon_bjdy.png") no-repeat;
+            }
+            .icon-ybtz {
+                background: url("../../assets/PeiDianJianCe/icon_ybtz1.png") no-repeat;
+            }
+            .icon-zdsb {
+                background: url("../../assets/PeiDianJianCe/icon_sb.png") no-repeat;
+            }
+            .icon-glys {
+                background: url("../../assets/PeiDianJianCe/icon_glys-xz-1.png") no-repeat;
+            }
+
+            /*------------------------------------------------------------------------------*/
+
+            .is-active>.el-submenu__title, .is-active>{
+
+                .icon-home {
+                    background: url("../../assets/PeiDianJianCe/home－xz.png") no-repeat;
+                }
+                .icon-ssjc {
+                    background: url("../../assets/PeiDianJianCe/icon_ssjc.png") no-repeat;
+                }
+                .icon-pdjc {
+                    background: url("../../assets/PeiDianJianCe/icon_pdjc.png") no-repeat;
+                }
+                .icon-jsjc {
+                    background: url("../../assets/PeiDianJianCe/icon_jsjc.png") no-repeat;
+                }
+                .icon-lrjc {
+                    background: url("../../assets/PeiDianJianCe/icon_lr.png") no-repeat;
+                }
+                .icon-yskqzl {
+                    background: url("../../assets/PeiDianJianCe/icon_yskqzl.png") no-repeat;
+                }
+                .icon-wsd {
+                    background: url("../../assets/PeiDianJianCe/icon_wsd.png") no-repeat;
+                }
+                .icon-gf {
+                    background: url("../../assets/PeiDianJianCe/icon_gf.png") no-repeat;
+                }
+                .icon-bdsjk {
+                    background: url("../../assets/PeiDianJianCe/icon_bdsjk.png") no-repeat;
+                }
+                /*.icon-nhcx {*/
+                /*background: url("../../assets/PeiDianJianCe/icon_nhcx.png") no-repeat;*/
+                /*}*/
+                .icon-nhcx {
+                    background: url("../../assets/NengHaoChaXun/icon_nhcx.png") no-repeat;
+                }
+                .icon-nxfx {
+                    background: url("../../assets/PeiDianJianCe/icon_nxfx-xz.png") no-repeat;
+                }
+                .icon-bjgl {
+                    background: url("../../assets/PeiDianJianCe/icon_bjgl-xz.png") no-repeat;
+                }
+                .icon-sbgl {
+                    background: url("../../assets/PeiDianJianCe/icon_sbgl.png") no-repeat;
+                }
+                .icon-dnzl {
+                    background: url("../../assets/PeiDianJianCe/icon_dnzl-xz.png") no-repeat;
+                }
+                .icon-bbsc {
+                    background: url("../../assets/PeiDianJianCe/icon_bb.png") no-repeat;
+                }
+                .icon-rgtb {
+                    background: url("../../assets/PeiDianJianCe/icon_qb.png") no-repeat;
+                }
+                .icon-nhbg {
+                    background: url("../../assets/PeiDianJianCe/icon_nhbg.png") no-repeat;
+                }
+                .icon-jlwl {
+                    background: url("../../assets/PeiDianJianCe/icon_jlwl.png") no-repeat;
+                }
+                .icon-gjyy {
+                    background: url("../../assets/PeiDianJianCe/icon_yy.png") no-repeat;
+                }
+                .icon-xtgl {
+                    background: url("../../assets/PeiDianJianCe/icon_xtgl.png") no-repeat;
+                }
+                .icon-sjcx {
+                    background: url("../../assets/NengHaoChaXun/icon_sjcx.png") no-repeat;
+                }
+                /*---------------*/
+                .icon-nhqs {
+                    background: url("../../assets/PeiDianJianCe/icon_nhqs-xz.png") no-repeat;
+                }
+                .icon-nhcb {
+                    background: url("../../assets/PeiDianJianCe/icon_nhcb-xz.png") no-repeat;
+                }
+                .icon-dbfx {
+                    background: url("../../assets/PeiDianJianCe/icon_db-xz.png") no-repeat;
+                }
+                .icon-nyjh {
+                    background: url("../../assets/PeiDianJianCe/icon_nyjh-xz.png") no-repeat;
+                }
+                .icon-fhfx {
+                    background: url("../../assets/PeiDianJianCe/icon_fhfx-xz.png") no-repeat;
+                }
+                .icon-fgyd {
+                    background: url("../../assets/PeiDianJianCe/icon_fgyd-xz.png") no-repeat;
+                }
+                .icon-kpigl {
+                    background: url("../../assets/PeiDianJianCe/icon_kpi-xz.png") no-repeat;
+                }
+                .icon-bjgl1 {
+                    background: url("../../assets/PeiDianJianCe/icon_bjgl-xz-1.png") no-repeat;
+                }
+                .icon-bjdy {
+                    background: url("../../assets/PeiDianJianCe/icon_bjdy1.png") no-repeat;
+                }
+                .icon-ybtz {
+                    background: url("../../assets/PeiDianJianCe/icon_ybtz.png") no-repeat;
+                }
+                .icon-zdsb {
+                    background: url("../../assets/PeiDianJianCe/icon_zdsb.png") no-repeat;
+                }
+                .icon-glys {
+                    background: url("../../assets/PeiDianJianCe/icon_glys-xz.png") no-repeat;
+                }
+
             }
         }
     }
