@@ -42,7 +42,7 @@
                                 <select v-model="compareVal">
                                     <option value="tongbi">同比</option>
                                     <option value="huanbi">环比</option>
-                                    <option value="zibi">自比</option>
+                                    <option value="zibi">定比</option>
                                 </select>
                             </div>
 
@@ -224,7 +224,7 @@
                 dateType: 'hour',
                 totalSize: 1,
 
-                value4: [],
+                // value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
                 startDate: '',
                 endDate: '',
                 cpStartDate: '',
@@ -324,8 +324,16 @@
             pages
         },
         computed: {
-            pageNum() {
-                return 1;
+            value4() {
+                var prev = new Date().getTime();
+                var now = new Date().getTime();
+
+
+                prev=new Date().setMinutes('00');
+                prev=new Date(prev).setSeconds('00');
+                prev=new Date(prev).setHours('00');
+                console.log(prev);
+                return [prev,now];
             }
         },
         //2018-12-23 00:00:00
@@ -792,9 +800,9 @@
             var prev = new Date().setTime(new Date().getTime() - 3600 * 1000 * 1);
             var now = new Date().getTime();
 
-            console.log(prev);
-            this.value4[0] = prev;
-            this.value4[1] = now;
+            console.log(prev,now);
+            // this.value4[0] = prev;
+            // this.value4[1] = now;
 
 
         },
