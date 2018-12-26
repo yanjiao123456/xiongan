@@ -20,7 +20,7 @@
 
             </div>
         </transition>
-        <div @click="leftShow=!leftShow" :class="{btn:true,shrinkBtn:!leftShow}">支 路 选 择</div>
+        <div @click="leftShow=!leftShow" id="treeButton" :class="{btn:true,shrinkBtn:!leftShow}">支 路 选 择</div>
         <div :class="{main:true,mainShow:leftShow}">
             <div class="filtrate-box">
                 <div class="bg"></div>
@@ -827,12 +827,8 @@
             console.log(prev, now);
             // this.value4[0] = prev;
             // this.value4[1] = now;
-
-
         },
         created() {
-
-
             var buildingId = localStorage.getItem("buildingId");
             if (buildingId) {
                 this.buildingId = buildingId;

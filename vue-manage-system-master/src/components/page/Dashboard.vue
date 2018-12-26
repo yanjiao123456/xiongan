@@ -134,7 +134,28 @@
                                         <option value="year">年</option>
                                     </select>
                                 </div>
-                                <el-container>
+                                <el-container  v-if="pie1==='img'">
+                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                    <ul class='ttt'>
+                                        <li>
+                                            <p><span class="rec" style="background:#1C97FF;"></span> 电</p>
+                                            <span>0</span>
+                                        </li>
+                                         <li>
+                                            <p><span class="rec" style="background:#00E099;"></span> 蒸汽量</p>
+                                             <span>0</span>
+                                        </li>
+                                        <li>
+                                            <p><span class="rec" style="background:#8F97FF;"></span> 水</p>
+                                            <span>0</span>
+                                        </li>
+                                        <li>
+                                            <p><span class="rec"style="background:#E6A94E;}"></span> 压缩空气质量</p>
+                                            <span>0</span>
+                                        </li>
+                                    </ul>
+                                </el-container>
+                                <el-container v-if="pie1==='echarts'">
                                         <ul class='ttt'>
                                                 <li v-if="look1">
                                                         <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
@@ -175,7 +196,28 @@
                                         <option value="year">年</option>
                                     </select>
                                 </div>
-                                <el-container>
+                                <el-container  v-if="pie2==='img'">
+                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                    <ul class='ttt'>
+                                            <li>
+                                                    <p><span class="rec" style="background:#00CFDF;"></span> 区插电用电</p>
+                                                    <span>0</span>
+                                            </li>
+                                            <li>
+                                                    <p><span class="rec" style="background:#20C0F4;"></span> 温室</p>
+                                                    <span>0</span>
+                                            </li>
+                                            <li>
+                                                    <p><span class="rec" style="background:#1A9BFF;"></span> 用电</p>
+                                                    <span>0</span>
+                                            </li>
+                                            <li>
+                                                    <p><span class="rec"style="background:#00E099;}"></span> 发电</p>
+                                                    <span>0</span>
+                                            </li>
+                                        </ul>
+                                </el-container>
+                                <el-container v-if="pie2==='echarts'">
                                     <ul class='ttt'>
                                         <li v-if="look5">
                                                 <p><span class="rec" v-bind:style="{background:color3}"></span> {{list5.name}}</p>
@@ -236,7 +278,28 @@
                                         <option value="year">年</option>
                                     </select>
                                 </div>
-                                <el-container>
+                                <el-container  v-if="pie3==='img'">
+                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                    <ul class='ttt'>
+                                        <li>
+                                            <p><span class="rec" style="background:#00CFDF;"></span> 温帘风机</p>
+                                            <span>0</span>
+                                        </li>
+                                            <li>
+                                            <p><span class="rec" style="background:#1A9BFF;"></span> 风机</p>
+                                            <span>0</span>
+                                        </li>
+                                        <li>
+                                            <p><span class="rec" style="background:#B791F7;"></span> 木屋</p>
+                                            <span>0</span>
+                                        </li>
+                                        <li>
+                                            <p><span class="rec"style="background:#00E099;}"></span> 息息插座</p>
+                                            <span>0</span>
+                                        </li>
+                                    </ul>
+                                </el-container>
+                                <el-container v-if="pie3==='echarts'">
                                         <ul class='ttt'>
                                                 <li v-if="look9">
                                                         <p><span class="rec" v-bind:style="{background:color7}"></span> {{list9.name}}</p>
@@ -320,7 +383,9 @@
         name: "dashboard",
         data() {
             return {
-               
+                pie1:'echarts',
+                pie2:'echarts',
+                pie3:'echarts',
                 look1:true,
                 look2:true,
                 look3:true,
@@ -982,6 +1047,7 @@
                         var yongnengdata;
                         // 如果请求成功
                         if(response.data.success===true){
+                            that.pie1='echarts';
                             yongnengdata = response.data.theObj;
                             // 判断饼图分项为几项，控制页面图例的个数
                             if(response.data.theObj.length==1){
@@ -1012,23 +1078,24 @@
                             that.list3 = response.data.theObj[2];
                             that.list4 = response.data.theObj[3];
                             // console.log(response.data.theObj);
-                        // 如果没获取到就前端自己填假的数据
+                        // 如果没获取到就用图片
                         }else{
+                            that.pie1='img';
                             // 让所有的图例都显示
-                            that.look1=true;
-                            that.look2=true;
-                            that.look3=true;
-                            that.look4=true;
-                            // 给饼图分项填入假数据
-                            yongnengdata=[
-                                {name: '无分项1',value: 0},
-                                {name: '无分项2',value: 0},
-                                {name: '无分项3',value: 0},
-                                {name: '无分项4',value: 0}];
-                                that.list1 ={name: '无分项1',value: 0,per:0};
-                                that.list2 = {name: '无分项2',value: 0,per:0};
-                                that.list3 = {name: '无分项3',value: 0,per:0};
-                                that.list4 = {name: '无分项4',value: 0,per:0};
+                            // that.look1=true;
+                            // that.look2=true;
+                            // that.look3=true;
+                            // that.look4=true;
+                            // // 给饼图分项填入假数据
+                            // yongnengdata=[
+                            //     {name: '无分项1',value: 0},
+                            //     {name: '无分项2',value: 0},
+                            //     {name: '无分项3',value: 0},
+                            //     {name: '无分项4',value: 0}];
+                            //     that.list1 ={name: '无分项1',value: 0,per:0};
+                            //     that.list2 = {name: '无分项2',value: 0,per:0};
+                            //     that.list3 = {name: '无分项3',value: 0,per:0};
+                            //     that.list4 = {name: '无分项4',value: 0,per:0};
                         }  
 
                         // 用能种类占比
@@ -1111,6 +1178,7 @@
                         var fenxiangdata;
                         // 如果请求成功
                             if(response.data.success===true){
+                                that.pie2='echarts';
                                 fenxiangdata = response.data.theObj;
                                 // 判断饼图分项为几项，控制页面图例的个数
                                 if(response.data.theObj.length==1){
@@ -1141,24 +1209,25 @@
                             that.list7 = response.data.theObj[2];
                             that.list8 = response.data.theObj[3];
                             // console.log(response.data.theObj);
-                        // 如果没获取到就前端自己填假的数据
+                        // 如果没获取到就替换成图片
                         }else{
                             // 让所有的图例都显示
-                            that.look5=true;
-                            that.look6=true;
-                            that.look7=true;
-                            that.look8=true;
-                            // 给饼图分项填入假数据
-                            fenxiangdata=[
-                                {name: '无分项1',value: 0},
-                                {name: '无分项2',value: 0},
-                                {name: '无分项3',value: 0},
-                                {name: '无分项4',value: 0}];
-                                that.list5 ={name: '无分项1',value: 0,per:0};
-                                that.list6 = {name: '无分项2',value: 0,per:0};
-                                that.list7 = {name: '无分项3',value: 0,per:0};
-                                that.list8 = {name: '无分项4',value: 0,per:0};
+                            that.pie2='img';
+                            // that.look6=true;
+                            // that.look7=true;
+                            // that.look8=true;
+                            // // 给饼图分项填入假数据
+                            // fenxiangdata=[
+                            //     {name: '无分项1',value: 0},
+                            //     {name: '无分项2',value: 0},
+                            //     {name: '无分项3',value: 0},
+                            //     {name: '无分项4',value: 0}];
+                            //     that.list5 ={name: '无分项1',value: 0,per:0};
+                            //     that.list6 = {name: '无分项2',value: 0,per:0};
+                            //     that.list7 = {name: '无分项3',value: 0,per:0};
+                            //     that.list8 = {name: '无分项4',value: 0,per:0};
                         }  
+                        // console.log(response.data.theObj);
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
@@ -1218,6 +1287,7 @@
                         var quyudata;
                         // 如果请求成功
                         if(response.data.success===true){
+                            that.pie3='echarts';
                             quyudata = response.data.theObj;
                                 // 判断饼图分项为几项，控制页面图例的个数
                                 if(response.data.theObj.length==1){
@@ -1248,23 +1318,24 @@
                             that.list11 = response.data.theObj[2];
                             that.list12 = response.data.theObj[3];
                             // console.log(response.data.theObj);
-                        // 如果没获取到就前端自己填假的数据
+                        // 如果没获取到就用图片
                         }else{
+                            that.pie3='img';
                             // 让所有的图例都显示
-                            that.look5=true;
-                            that.look6=true;
-                            that.look7=true;
-                            that.look8=true;
+                            // that.look5=true;
+                            // that.look6=true;
+                            // that.look7=true;
+                            // that.look8=true;
                             // 给饼图分项填入假数据
-                            quyudata=[
-                                {name: '无分项1',value: 0},
-                                {name: '无分项2',value: 0},
-                                {name: '无分项3',value: 0},
-                                {name: '无分项4',value: 0}];
-                                that.list5 ={name: '无分项1',value: 0,per:0};
-                                that.list6 = {name: '无分项2',value: 0,per:0};
-                                that.list7 = {name: '无分项3',value: 0,per:0};
-                                that.list8 = {name: '无分项4',value: 0,per:0};
+                            // quyudata=[
+                            //     {name: '无分项1',value: 0},
+                            //     {name: '无分项2',value: 0},
+                            //     {name: '无分项3',value: 0},
+                            //     {name: '无分项4',value: 0}];
+                            //     that.list5 ={name: '无分项1',value: 0,per:0};
+                            //     that.list6 = {name: '无分项2',value: 0,per:0};
+                            //     that.list7 = {name: '无分项3',value: 0,per:0};
+                            //     that.list8 = {name: '无分项4',value: 0,per:0};
                         }  
                         // 楼层能耗占比
                         var quyu = document.getElementById('quyu');
