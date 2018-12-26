@@ -135,7 +135,7 @@
                                     </select>
                                 </div>
                                 <el-container  v-if="pie1==='img'">
-                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                    <img src="../../assets/ShouYe/test.png">
                                     <ul class='ttt'>
                                         <li>
                                             <p><span class="rec" style="background:#1C97FF;"></span> 电</p>
@@ -150,32 +150,30 @@
                                             <span>0</span>
                                         </li>
                                         <li>
-                                            <p><span class="rec"style="background:#E6A94E;}"></span> 压缩空气质量</p>
+                                            <p><span class="rec" style="background:#E6A94E;"></span> 压缩空气质量</p>
                                             <span>0</span>
                                         </li>
                                     </ul>
                                 </el-container>
                                 <el-container v-if="pie1==='echarts'">
-                                        <ul class='ttt'>
-                                                <li v-if="look1">
-                                                        <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
-                                                <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kgce</small>
-                                                </li>
-                                                <li v-if="look2">
-                                                        <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
-                                                        <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kgce</small>
-                                                </li>
-                                                <li v-if="look3">
-                                                        <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
-                                                <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kgce</small>
-                                                </li>
-                                                <li v-if="look4">
-                                                        <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.name}}</p>
-                                                        <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kgce</small>
-                                                </li>
-                                            </ul>
-                                  
-                                  
+                                    <ul class='ttt'>
+                                        <li v-if="look1">
+                                            <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
+                                            <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kgce</small>
+                                        </li>
+                                        <li v-if="look2">
+                                            <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
+                                            <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kgce</small>
+                                        </li>
+                                        <li v-if="look3">
+                                            <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
+                                            <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kgce</small>
+                                        </li>
+                                        <li v-if="look4">
+                                            <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.name}}</p>
+                                            <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kgce</small>
+                                            </li>
+                                        </ul>
                                     <div id="yongneng" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -197,7 +195,7 @@
                                     </select>
                                 </div>
                                 <el-container  v-if="pie2==='img'">
-                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                        <img src="../../assets/ShouYe/test.png">
                                     <ul class='ttt'>
                                             <li>
                                                     <p><span class="rec" style="background:#00CFDF;"></span> 区插电用电</p>
@@ -212,7 +210,7 @@
                                                     <span>0</span>
                                             </li>
                                             <li>
-                                                    <p><span class="rec"style="background:#00E099;}"></span> 发电</p>
+                                                    <p><span class="rec" style="background:#00E099;"></span> 发电</p>
                                                     <span>0</span>
                                             </li>
                                         </ul>
@@ -236,28 +234,6 @@
                                                 <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
                                         </li>
                                     </ul>
-                                    <!-- <div class="cav">
-                                        <div class="cav-flex">
-                                            <div>
-                                                <p><span class="rec" v-bind:style="{background:color3}"></span> {{list5.name}}</p>
-                                                <span>{{list5.per}}</span><small>%</small> <span>{{list5.value}}</span><small>kWh</small>
-                                            </div>
-                                            <div>
-                                                <p><span class="rec" v-bind:style="{background:color4}"></span> {{list6.name}}</p>
-                                                <span>{{list6.per}}</span><small>%</small> <span>{{list6.value}}</span><small>kWh</small>
-                                            </div>
-                                        </div>
-                                        <div class="cav-flex">
-                                            <div style="width:50%;">
-                                                <p><span class="rec" v-bind:style="{background:color5}"></span> {{list7.name}}</p>
-                                                <span>{{list7.per}}</span><small>%</small> <span>{{list7.value}}</span><small>kWh</small>
-                                            </div>
-                                            <div style="width:50%;">
-                                                <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.name}}</p>
-                                                <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
-                                            </div>
-                                        </div>
-                                    </div> -->
                                     <div id="fenxiang" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -278,8 +254,8 @@
                                         <option value="year">年</option>
                                     </select>
                                 </div>
-                                <el-container  v-if="pie3==='img'">
-                                    <img src="../../assets/ShouYe/empery.png" style="height:78%;">
+                                <el-container v-if="pie3==='img'">
+                                        <img src="../../assets/ShouYe/test.png">
                                     <ul class='ttt'>
                                         <li>
                                             <p><span class="rec" style="background:#00CFDF;"></span> 温帘风机</p>
@@ -294,7 +270,7 @@
                                             <span>0</span>
                                         </li>
                                         <li>
-                                            <p><span class="rec"style="background:#00E099;}"></span> 息息插座</p>
+                                            <p><span class="rec" style="background:#00E099;"></span> 息息插座</p>
                                             <span>0</span>
                                         </li>
                                     </ul>
@@ -1522,7 +1498,7 @@
         height: 70px;
         color: #2af4ff;
         font-size: 12px;
-        margin-left: 10%;
+        margin-left: 7%;
     }
     .ttt>li{
         float:left;
@@ -1639,11 +1615,15 @@
         padding: 15px;
     }
 
-    img {
+    .second-line img {
         width: 100%;
         height: 95%;
     }
-
+    .five-line img{
+        height: 198px;
+        width: 189px;
+        padding-left: 25%;
+    }
     .Dashboard .title>h3 {
         padding-bottom: 10px;
         color: #FEFEFF;

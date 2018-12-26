@@ -7,6 +7,6 @@ $(window).load(function(){
     $('#treeButton').click(function(){
         setTimeout(function(){
             window.onresize();
-        },300);
+        },800);
     })
 });
