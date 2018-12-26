@@ -40,6 +40,7 @@
                 console.log(this.total);
                 this.activeNum=1;
 
+
                 return Math.ceil(this.total / this.pagesize);
 
                 this.sendPageNum(this.activeNum,this.pagesize);

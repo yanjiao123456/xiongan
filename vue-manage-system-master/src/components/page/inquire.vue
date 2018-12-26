@@ -162,7 +162,7 @@
                 <!-- <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div> -->
             </div>
             <div class="table-box">
-                <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
+                <div class="table-tit">【 {{ startTime }} 至 {{ endTime }} 能耗数据 】</div>
                 <el-table :data="tableData" border stripe style="width: 100%">
                     <el-table-column
                             :key="index"
@@ -272,6 +272,7 @@
                 this.labelData();
             },
             pickerBtn() {
+                console.log(this.value6);
                 var preDate = new Date(this.value6[0]); //前一天
                 var Y = preDate.getFullYear() + '-';
                 var M = (preDate.getMonth() + 1 < 10 ? '0' + (preDate.getMonth() + 1) : preDate.getMonth() + 1) + '-';
@@ -380,7 +381,13 @@
                     if (Do.status == 200) {
                         this.titArr = [];
                         this.tableData = Do.data.result.page.list;
-                        this.totalSize = Do.data.result.page.total;
+                        if (Do.data.result.page.total <= 0){
+                            this.totalSize = 1;
+                        } else{
+                            this.totalSize = Do.data.result.page.total;
+                        }
+
+                        // console.log(Do.data.result.page.list);
                         for (var i = 0; i < this.tableData.length; i++) {
                             this.tableData.dateTime = this.tableData[i].dateTime.split(".")[0];
                         }
@@ -490,6 +497,7 @@
                 var Y = preDate.getFullYear() + '-';
                 var M = (preDate.getMonth() + 1 < 10 ? '0' + (preDate.getMonth() + 1) : preDate.getMonth() + 1) + '-';
                 var D = preDate.getDate();
+
                 this.startTime = Y + M + D;   //开始时间
 
                 var endDate = new Date();
@@ -686,7 +694,7 @@
 
 
             this.newDatas(0, 0);//当前天数
-            this.btnser(8);
+            // this.btnser(8);
             this.SetEchart()
             // =================================================
         },
