@@ -755,6 +755,11 @@
                     chartChart.resize();
                 };
             },
+            zTreeOnClick(e, treeId, treeNode){
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.checkNode(treeNode, !treeNode.checked, null, true);
+                return false;
+            },
             treeInit() {
                 let _this = this;
                 var setting = {
@@ -765,7 +770,8 @@
                         radioType: "all"
                     },
                     callback: {
-                        onCheck: _this.zTreeOnCheck
+                        onCheck: _this.zTreeOnCheck,
+                        onClick:_this.zTreeOnClick
                     },
                     view: {
                         nameIsHTML: true, //允许name支持html
@@ -900,6 +906,13 @@
         font-family: HiraginoSansGB-W3;
         font-weight: normal;
         color: rgba(254, 254, 254, 1);
+    }
+.ztree li .curSelectedNode span.node_name {
+        margin-left: 4px;
+        font-size: 12px;
+        font-family: HiraginoSansGB-W3;
+        font-weight: normal;
+        color: #2df3ff;
     }
 
     .ztree li span.button.chk.checkbox_false_full,
@@ -1059,6 +1072,10 @@
                 &:before {
                     content: "";
                 }
+                &::-webkit-input-placeholder { color:#BECDDE; }
+                &::-moz-placeholder { color:#BECDDE; } /* firefox 19+ */
+                &:-ms-input-placeholder { color:#BECDDE; } /* Internet Explorer 10+ */
+                &:-moz-placeholder { color:#BECDDE; } /* firefox 14-18 */
             }
             .ztree {
                 margin-top: 20px;
