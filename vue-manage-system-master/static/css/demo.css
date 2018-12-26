@@ -328,6 +328,7 @@
 
 .Inquire .el-date-editor .el-range__icon {
     color: #2DF3FF;
+    margin-right:15px;
 }
 
 .Inquire .el-date-editor--daterange.el-input, .el-date-editor--daterange.el-input__inner, .el-date-editor--timerange.el-input, .el-date-editor--timerange.el-input__inner {

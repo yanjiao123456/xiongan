@@ -135,32 +135,26 @@
                                     </select>
                                 </div>
                                 <el-container>
-                                    <!-- <div class="cav">
-
-                                    </div> -->
-                                    <div class="cav">
-                                        <div class="cav-flex">
-                                            <div>
-                                                <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
+                                        <ul class='ttt'>
+                                                <li v-if="look1">
+                                                        <p><span class="rec" v-bind:style="{background:color1}"></span> {{list1.name}}</p>
                                                 <span>{{list1.per}}</span><small>%</small> <span>{{list1.value}}</span><small>kgce</small>
-                                            </div>
-                                            <div>
-                                                <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
-                                                <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kgce</small>
-                                            </div>
-                                        </div>
-                                        <div class="cav-flex">
-                                            <div>
-                                                <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
+                                                </li>
+                                                <li v-if="look2">
+                                                        <p> <span class="rec" v-bind:style="{background:color2}"></span> {{list2.name}}</p>
+                                                        <span>{{list2.per}}</span><small>%</small> <span>{{list2.value}}</span><small>kgce</small>
+                                                </li>
+                                                <li v-if="look3">
+                                                        <p><span class="rec" v-bind:style="{background:color9}"></span> {{list3.name}}</p>
                                                 <span>{{list3.per}}</span><small>%</small> <span>{{list3.value}}</span><small>kgce</small>
-                                            </div>
-                                            <div>
-                                                <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.name}}</p>
-                                                <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kgce</small>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                                </li>
+                                                <li v-if="look4">
+                                                        <p><span class="rec" v-bind:style="{background:color6}"></span> {{list4.name}}</p>
+                                                        <span>{{list4.per}}</span><small>%</small> <span>{{list4.value}}</span><small>kgce</small>
+                                                </li>
+                                            </ul>
+                                  
+                                  
                                     <div id="yongneng" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -182,28 +176,46 @@
                                     </select>
                                 </div>
                                 <el-container>
-                                    <div class="cav">
+                                    <ul class='ttt'>
+                                        <li v-if="look5">
+                                                <p><span class="rec" v-bind:style="{background:color3}"></span> {{list5.name}}</p>
+                                                <p><span>{{list5.per}}</span><small>%</small> <span>{{list5.value}}</span><small>kWh</small></p>
+                                        </li>
+                                        <li v-if="look5">
+                                                <p><span class="rec" v-bind:style="{background:color4}"></span> {{list6.name}}</p>
+                                                <span>{{list5.per}}</span><small>%</small> <span>{{list5.value}}</span><small>kWh</small>
+                                        </li>
+                                        <li v-if="look5">
+                                                <p><span class="rec" v-bind:style="{background:color5}"></span> {{list7.name}}</p>
+                                                <span>{{list7.per}}</span><small>%</small> <span>{{list7.value}}</span><small>kWh</small>
+                                        </li>
+                                        <li v-if="look5">
+                                                <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.name}}</p>
+                                                <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
+                                        </li>
+                                    </ul>
+                                    <!-- <div class="cav">
                                         <div class="cav-flex">
                                             <div>
                                                 <p><span class="rec" v-bind:style="{background:color3}"></span> {{list5.name}}</p>
                                                 <span>{{list5.per}}</span><small>%</small> <span>{{list5.value}}</span><small>kWh</small>
                                             </div>
                                             <div>
-                                                <p> <span class="rec" v-bind:style="{background:color4}"></span> {{list6.name}}</p>
+                                                <p><span class="rec" v-bind:style="{background:color4}"></span> {{list6.name}}</p>
                                                 <span>{{list6.per}}</span><small>%</small> <span>{{list6.value}}</span><small>kWh</small>
                                             </div>
                                         </div>
                                         <div class="cav-flex">
-                                            <div>
+                                            <div style="width:50%;">
                                                 <p><span class="rec" v-bind:style="{background:color5}"></span> {{list7.name}}</p>
                                                 <span>{{list7.per}}</span><small>%</small> <span>{{list7.value}}</span><small>kWh</small>
                                             </div>
-                                            <div>
+                                            <div style="width:50%;">
                                                 <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.name}}</p>
                                                 <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div id="fenxiang" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -225,28 +237,46 @@
                                     </select>
                                 </div>
                                 <el-container>
-                                    <div class="cav">
+                                        <ul class='ttt'>
+                                                <li v-if="look9">
+                                                        <p><span class="rec" v-bind:style="{background:color7}"></span> {{list9.name}}</p>
+                                                        <span>{{list9.per}}</span><small>%</small> <span>{{list9.value}}</span><small>kgce</small>
+                                                </li>
+                                                <li v-if="look10">
+                                                        <p> <span class="rec" v-bind:style="{background:color8}"></span> {{list10.name}}</p>
+                                                        <span>{{list10.per}}</span><small>%</small> <span>{{list10.value}}</span><small>kgce</small>
+                                                </li>
+                                                <li v-if="look11">
+                                                        <p><span class="rec" v-bind:style="{background:color9}"></span> {{list11.name}}</p>
+                                                        <span>{{list11.per}}</span><small>%</small> <span>{{list11.value}}</span><small>kgce</small>
+                                                </li>
+                                                <li v-if="look12">
+                                                        <p> <span class="rec" v-bind:style="{background:color10}"></span> {{list12.name}}</p>
+                                                        <span>{{list12.per}}</span><small>%</small> <span>{{list12.value}}</span><small>kWh</small>
+                                                </li>
+                                            </ul>
+                                    <!-- <div class="cav">
                                         <div class="cav-flex">
-                                            <div>
+                                            <div v-if="look9">
                                                 <p><span class="rec" v-bind:style="{background:color7}"></span> {{list9.name}}</p>
                                                 <span>{{list9.per}}</span><small>%</small> <span>{{list9.value}}</span><small>kgce</small>
                                             </div>
-                                            <div>
+                                            <div v-if="look10">
                                                 <p> <span class="rec" v-bind:style="{background:color8}"></span> {{list10.name}}</p>
                                                 <span>{{list10.per}}</span><small>%</small> <span>{{list10.value}}</span><small>kgce</small>
                                             </div>
                                         </div>
-                                        <div class="cav-flex" style="width:50%;">
-                                            <div>
+                                        <div class="cav-flex">
+                                            <div v-if="look10">
                                                 <p><span class="rec" v-bind:style="{background:color9}"></span> {{list11.name}}</p>
                                                 <span>{{list11.per}}</span><small>%</small> <span>{{list11.value}}</span><small>kgce</small>
                                             </div>
-                                            <!-- <div  v-for="v in list10">
-                                                            <p> <span class="rec" v-bind:style="{background:color10}"></span> {{v.title}}</p>
-                                                            <span>{{v.per}}</span><small>%</small> <span>{{v.val}}</span><small>kWh</small>
-                                                        </div> -->
+                                            <div  v-if="look12">
+                                                            <p> <span class="rec" v-bind:style="{background:color10}"></span> {{list12.name}}</p>
+                                                            <span>{{list12.per}}</span><small>%</small> <span>{{list12.value}}</span><small>kWh</small>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div id="quyu" style="width:100%;height:100%;"></div>
                                 </el-container>
                             </div>
@@ -290,6 +320,19 @@
         name: "dashboard",
         data() {
             return {
+               
+                look1:true,
+                look2:true,
+                look3:true,
+                look4:true,
+                look5:true,
+                look6:true,
+                look7:true,
+                look8:true,
+                look9:true,
+                look10:true,
+                look11:true,
+                look12:true,
                 isActiv: true,
                 show: true,
                 selectValbar: 'hour',
@@ -625,6 +668,7 @@
                         // KPI
                         var gonglv = document.getElementById('gonglv');
                         var gonglvChart = echarts.init(gonglv);
+                        
                         var highlight = '#03b7c9';
 
                         var demoData = [
@@ -757,6 +801,7 @@
                             })()
                         };
                         gonglvChart.setOption(option);
+                        
                         window.onresize = function () {
                             gonglvChart.resize();
                         }
@@ -915,6 +960,7 @@
                             // ]
                         }
                         qushiChart.setOption(option1);
+                        qushiChart.hideLoading();
                         window.onresize = function () {
                             qushiChart.resize();
                         }
@@ -933,27 +979,81 @@
                         }
                     })
                     .then(function (response) {
-                        // if(response.data==="false"){
-                        //     console.log("=======");
-                        //     that.list1=[{name:'',per:0,value:0}];
-                        //     // {name:' ',per:'',value:'',energyType:'',itemType:''};
-                        //     that.list2=[{name:' ',per:0,value:'0'}];
-                        //     that.list3=[{name:' ',per:0,value:'0'}];
-                        //     that.list4=[{name:' ',per:0,value:'0'}];
-                        // }else{
+                        var yongnengdata;
+                        // 如果请求成功
+                        if(response.data.success===true){
+                            yongnengdata = response.data.theObj;
+                            // 判断饼图分项为几项，控制页面图例的个数
+                            if(response.data.theObj.length==1){
+                                    that.look1=true;
+                                    that.look2=false;
+                                    that.look3=false;
+                                    that.look4=false;
+                                }else if(response.data.theObj.length==2){
+                                    that.look1=true;
+                                    that.look2=true;
+                                    that.look3=false;
+                                    that.look4=false;
+
+                                }else if(response.data.theObj.length==3){
+                                    that.look1=true;
+                                    that.look2=true;
+                                    that.look3=true;
+                                    that.look4=false;
+                                }else if(response.data.theObj.length==4){
+                                    that.look1=true;
+                                    that.look2=true;
+                                    that.look3=true;
+                                    that.look4=true;
+                                }
+                            // 将获取到的图例数据展示出来
                             that.list1 = response.data.theObj[0];
                             that.list2 = response.data.theObj[1];
                             that.list3 = response.data.theObj[2];
                             that.list4 = response.data.theObj[3];
-                        // }
-                        // console.log(that.list1);
-                        // console.log(response.data);
+                            // console.log(response.data.theObj);
+                        // 如果没获取到就前端自己填假的数据
+                        }else{
+                            // 让所有的图例都显示
+                            that.look1=true;
+                            that.look2=true;
+                            that.look3=true;
+                            that.look4=true;
+                            // 给饼图分项填入假数据
+                            yongnengdata=[
+                                {name: '无分项1',value: 0},
+                                {name: '无分项2',value: 0},
+                                {name: '无分项3',value: 0},
+                                {name: '无分项4',value: 0}];
+                                that.list1 ={name: '无分项1',value: 0,per:0};
+                                that.list2 = {name: '无分项2',value: 0,per:0};
+                                that.list3 = {name: '无分项3',value: 0,per:0};
+                                that.list4 = {name: '无分项4',value: 0,per:0};
+                        }  
+
                         // 用能种类占比
                         var yongneng = document.getElementById('yongneng');
+                        var yongneng = document.getElementById('yongneng');
                         var yongnengChart = echarts.init(yongneng);
-                        var yongnengdata = response.data.theObj;
+                        
                         var option2 = {
                             // color: ['#2EA0FF', '#FA4133', '#FFF350', '#CFDB48', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
+                            // legend: {
+                            //     align: 'left',
+                            //     bottom: '15%',
+                            //     x: 'left',
+                            //     // left:'15%',
+                            //     padding:[10, 80],
+                            //     // right: '20%',
+                            //     icon: 'rect',
+                            //     itemWidth: 10, // 图例图形宽度
+                            //     itemHeight: 10, // 图例图形高度
+                            //     itemGap: 60,
+                            //     textStyle: {
+                            //         color: 'rgb(91,227,224)',
+                            //         fontSize: 12
+                            //     }
+                            // },
                             grid: {
                                 left: '2%',
                                 right: '2%',
@@ -971,7 +1071,7 @@
                                 selectedMode: 'single',
                                 radius: ['0', '60%'],
                                 center: ['50%', '40%'],
-                                color: ['#1a9bff', '#00e099', '#FF9602', '#74C936'],
+                                color: ['#00e099','#1a9bff',  '#FF9602', '#74C936'],
                                 label: {
                                     normal: {
                                         show: false
@@ -1008,21 +1108,61 @@
                         }
                     })
                     .then(function (response) {
-                        that.list5 = response.data.theObj[0];
-                        that.list6 = response.data.theObj[1];
-                        that.list7 = response.data.theObj[2];
-                        that.list8 = response.data.theObj[3];
-                        // for(key in response.data.theObj){
-                        //     var demo=key;
-                        //     for(var i=0;i<demo.length;i++){
-                        //         demo.
-                        //     }
-                        // }
-                        // console.log(response.data.theObj);
+                        var fenxiangdata;
+                        // 如果请求成功
+                            if(response.data.success===true){
+                                fenxiangdata = response.data.theObj;
+                                // 判断饼图分项为几项，控制页面图例的个数
+                                if(response.data.theObj.length==1){
+                                that.look5=true;
+                                that.look6=false;
+                                that.look7=false;
+                                that.look8=false;
+                            }else if(response.data.theObj.length==2){
+                                that.look5=true;
+                                that.look6=true;
+                                that.look7=false;
+                                that.look8=false;
+
+                            }else if(response.data.theObj.length==3){
+                                that.look5=true;
+                                that.look6=true;
+                                that.look7=true;
+                                that.look8=false;
+                            }else if(response.data.theObj.length==4){
+                                that.look5=true;
+                                that.look6=true;
+                                that.look7=true;
+                                that.look8=true;
+                            }
+                            // 将获取到的图例数据展示出来
+                            that.list5 = response.data.theObj[0];
+                            that.list6 = response.data.theObj[1];
+                            that.list7 = response.data.theObj[2];
+                            that.list8 = response.data.theObj[3];
+                            // console.log(response.data.theObj);
+                        // 如果没获取到就前端自己填假的数据
+                        }else{
+                            // 让所有的图例都显示
+                            that.look5=true;
+                            that.look6=true;
+                            that.look7=true;
+                            that.look8=true;
+                            // 给饼图分项填入假数据
+                            fenxiangdata=[
+                                {name: '无分项1',value: 0},
+                                {name: '无分项2',value: 0},
+                                {name: '无分项3',value: 0},
+                                {name: '无分项4',value: 0}];
+                                that.list5 ={name: '无分项1',value: 0,per:0};
+                                that.list6 = {name: '无分项2',value: 0,per:0};
+                                that.list7 = {name: '无分项3',value: 0,per:0};
+                                that.list8 = {name: '无分项4',value: 0,per:0};
+                        }  
                         // 用电分项
                         var fenxiang = document.getElementById('fenxiang');
                         var fenxiangChart = echarts.init(fenxiang);
-                        var fenxiangdata = response.data.theObj;
+                        // var fenxiangdata = response.data.theObj;
                         var option3 = {
                             color: ['#20C0F4', '#B791F7', '#1A9BFF', '#74C936', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             grid: {
@@ -1075,26 +1215,60 @@
                         }
                     })
                     .then(function (response) {
-                        that.list9 = response.data.theObj[0];
-                        that.list10 = response.data.theObj[1];
-                        that.list11 = response.data.theObj[2];
-                        // console.log(response.data.theObj);
+                        var quyudata;
+                        // 如果请求成功
+                        if(response.data.success===true){
+                            quyudata = response.data.theObj;
+                                // 判断饼图分项为几项，控制页面图例的个数
+                                if(response.data.theObj.length==1){
+                                that.look9=true;
+                                that.look10=false;
+                                that.look11=false;
+                                that.look12=false;
+                            }else if(response.data.theObj.length==2){
+                                that.look9=true;
+                                that.look10=true;
+                                that.look11=false;
+                                that.look12=false;
+
+                            }else if(response.data.theObj.length==3){
+                                that.look9=true;
+                                that.look10=true;
+                                that.look11=true;
+                                that.look12=false;
+                            }else if(response.data.theObj.length==4){
+                                that.look9=true;
+                                that.look10=true;
+                                that.look11=true;
+                                that.look12=true;
+                            }
+                            // 将获取到的图例数据展示出来
+                            that.list9 = response.data.theObj[0];
+                            that.list10 = response.data.theObj[1];
+                            that.list11 = response.data.theObj[2];
+                            that.list12 = response.data.theObj[3];
+                            // console.log(response.data.theObj);
+                        // 如果没获取到就前端自己填假的数据
+                        }else{
+                            // 让所有的图例都显示
+                            that.look5=true;
+                            that.look6=true;
+                            that.look7=true;
+                            that.look8=true;
+                            // 给饼图分项填入假数据
+                            quyudata=[
+                                {name: '无分项1',value: 0},
+                                {name: '无分项2',value: 0},
+                                {name: '无分项3',value: 0},
+                                {name: '无分项4',value: 0}];
+                                that.list5 ={name: '无分项1',value: 0,per:0};
+                                that.list6 = {name: '无分项2',value: 0,per:0};
+                                that.list7 = {name: '无分项3',value: 0,per:0};
+                                that.list8 = {name: '无分项4',value: 0,per:0};
+                        }  
                         // 楼层能耗占比
                         var quyu = document.getElementById('quyu');
                         var quyuChart = echarts.init(quyu);
-                        var quyudata = response.data.theObj;
-                        //  [{
-                        //     value: 2061,
-                        //     name: '一层'
-                        //     },
-                        //     {
-                        //         value: 610,
-                        //         name: '二层'
-                        //     },
-                        //     {
-                        //         value: 1039,
-                        //         name: '三层'
-                        //     }];
                         var option4 = {
                             color: ['#00CFDF', '#1A9BFF', '#FF9602', '#B791F7', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             grid: {
@@ -1164,12 +1338,7 @@
                             Ydata.push(response.data.theObj[i].name);
                         }
                         }
-                        // for (var i = 0; i < response.data.theObj.length; i++) {
-                        //     datas.push(response.data.theObj[i].value);
-                        //     Ydata.push(response.data.theObj[i].treeName);
-                        // }
-                        console.log(response.data.theObj)
-                        console.log(Ydata);
+
                         var option5 = {
                             color: ['#75C8F0', '#3E62AC', '#52A991', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             tooltip: {
@@ -1269,6 +1438,30 @@
     };
 </script>
 <style>
+    ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+    .ttt{
+        position: absolute;
+        bottom: 10px;
+        left: 10%;
+        width: 98%;
+        height: 70px;
+        color: #2af4ff;
+        font-size: 12px;
+        margin-left: 10%;
+    }
+    .ttt>li{
+        float:left;
+        padding-bottom:10px;
+        width:50%;
+        text-align: left;
+        /* background:yellow; */
+        height:30px;
+    }
+    
     .cav-flex {
         display: flex;
         justify-content: space-around;

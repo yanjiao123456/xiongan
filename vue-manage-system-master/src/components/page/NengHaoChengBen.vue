@@ -79,7 +79,7 @@
                             <el-radio class="choice" v-model="radio" label="3">月</el-radio>
                         </div>
                         <div class="item-row item-row-br">
-                            <div class="fl">
+                            <div class="fl"  style="margin-right:15%;">
                                 <span class="date-select">时间选择</span>
                                 <el-date-picker
                                         class=""
