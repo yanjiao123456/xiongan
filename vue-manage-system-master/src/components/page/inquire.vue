@@ -70,7 +70,7 @@
                     </div>
                     <div class="item-row-2 item-row">
                         <!--<el-col :xs="24" :sm="24" :lg="8">-->
-                        <div class="fl">
+                        <div class="fl" style="margin-right:15%;">
                             <span class="date-select">时间选择</span>
                             <el-date-picker
                                     class=""

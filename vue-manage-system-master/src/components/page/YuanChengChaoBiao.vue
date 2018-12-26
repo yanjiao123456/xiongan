@@ -37,7 +37,7 @@
                 <el-collapse-transition>
                     <div v-show="filtrateShow" class="filtrate-show">
                         <div class="item-row">
-                            <div class="fl">
+                            <div class="fl" style="margin-right:15%;">
                             <span class="date-select">时间选择</span>
                             <el-date-picker
                                     class=""
