@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5b11c48-593f-49a9-8bec-e02d71d7dfe7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/vue-manage-system-master/src/components/common/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-manage-system-master/src/components/common/Header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-manage-system-master/src/components/page/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-manage-system-master/src/components/page/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vue-manage-system-master/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/vue-manage-system-master/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue" beforeDir="false" afterPath="$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,14 +26,14 @@
         <counts>
           <entry key="css" value="34" />
           <entry key="js" value="5" />
-          <entry key="vue" value="4268" />
+          <entry key="vue" value="4295" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="34" />
           <entry key="JavaScript" value="5" />
-          <entry key="Vue.js" value="4268" />
+          <entry key="Vue.js" value="4295" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -60,11 +58,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="45" lean-forward="true" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
+            <state relative-caret-position="170">
+              <caret line="394" column="49" selection-start-line="394" selection-start-column="49" selection-end-line="394" selection-end-column="49" />
               <folding>
                 <element signature="e#10037#10725#0" />
                 <element signature="e#10917#11958#0" />
@@ -98,18 +96,6 @@
                 <element signature="n#div#3;n#div#0;n#template#0;n#!!top" />
                 <element signature="e#24005#27573#0" />
                 <element signature="e#24371#27361#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/Dashboard.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8053">
-              <caret line="498" column="48" selection-start-line="498" selection-start-column="48" selection-end-line="498" selection-end-column="48" />
-              <folding>
-                <element signature="n#style#0;n#el-container#0;n#div#0;n#div#1;n#div#0;n#el-col#0;n#el-row#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,9 +139,9 @@
       <find>checkedChange</find>
       <find>indexData</find>
       <find>selectList</find>
-      <find>radio</find>
       <find>value4</find>
       <find>dateType</find>
+      <find>radio</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,8 +166,8 @@
         <option value="$PROJECT_DIR$/vue-manage-system-master/src/components/common/Tags.vue" />
         <option value="$PROJECT_DIR$/vue-manage-system-master/src/components/common/Sidebar.vue" />
         <option value="$PROJECT_DIR$/vue-manage-system-master/src/components/page/inquire.vue" />
-        <option value="$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue" />
         <option value="$PROJECT_DIR$/vue-manage-system-master/src/main.js" />
+        <option value="$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue" />
       </list>
     </option>
   </component>
@@ -336,12 +322,12 @@
       <workItem from="1545460520231" duration="474000" />
       <workItem from="1545461667062" duration="715000" />
       <workItem from="1545463401552" duration="81598000" />
-      <workItem from="1545699790781" duration="23628000" />
+      <workItem from="1545699790781" duration="23945000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106415000" />
+    <option name="totallyTimeSpent" value="106732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -515,30 +501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/inquire.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#div#3;n#div#0;n#template#0;n#!!top" />
-            <element signature="e#24005#27573#0" />
-            <element signature="e#24371#27361#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="45" lean-forward="true" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-          <folding>
-            <element signature="e#10037#10725#0" />
-            <element signature="e#10917#11958#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-273">
@@ -554,10 +516,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/Dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8053">
-          <caret line="498" column="48" selection-start-line="498" selection-start-column="48" selection-end-line="498" selection-end-column="48" />
+        <state relative-caret-position="-1">
+          <caret line="791" column="21" selection-start-line="791" selection-start-column="12" selection-end-line="791" selection-end-column="21" />
           <folding>
             <element signature="n#style#0;n#el-container#0;n#div#0;n#div#1;n#div#0;n#el-col#0;n#el-row#0;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/inquire.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="39" column="42" lean-forward="true" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#3;n#div#0;n#template#0;n#!!top" />
+            <element signature="e#24005#27573#0" />
+            <element signature="e#24371#27361#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vue-manage-system-master/src/components/page/NengHaoQuShi.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="394" column="49" selection-start-line="394" selection-start-column="49" selection-end-line="394" selection-end-column="49" />
+          <folding>
+            <element signature="e#10037#10725#0" />
+            <element signature="e#10917#11958#0" />
           </folding>
         </state>
       </provider>

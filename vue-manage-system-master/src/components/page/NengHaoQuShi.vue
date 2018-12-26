@@ -54,7 +54,7 @@
                                 <el-date-picker
                                         class
                                         v-model="userDefined"
-                                        type="datetimerange"
+                                        :type="datePickerType"
                                         value-format="timestamp"
                                         range-separator="—"
                                         :picker-options="pickerOptions0"
@@ -391,35 +391,41 @@
                 this.getMainData();
             },
             bindQuery() {
-                if (this.value4) {
-                    // console.log('有数据');
-                    // this.page=1;
-                    if (this.compareVal == 'zdy') {
-                        if (this.userDefined) {
-                            // console.log(this.userDefined);
-                            let userDefined = this.userDefined[1] - this.userDefined[0];
-                            let nowValue = this.value4[1] - this.value4[0];
-                            if (userDefined == nowValue) {
-                                this.getDate(1, this.pageSize);
-                                this.getMainData();
+                if(this.treeId == ''){
+                    this.$message.error(' 请选择支路 ');
+                }else{
+                    if (this.value4) {
+                        // console.log('有数据');
+                        // this.page=1;
+                        if (this.compareVal == 'zdy') {
+                            if (this.userDefined) {
+                                // console.log(this.userDefined);
+                                let userDefined = this.userDefined[1] - this.userDefined[0];
+                                let nowValue = this.value4[1] - this.value4[0];
+                                if (userDefined == nowValue) {
+                                    this.getDate(1, this.pageSize);
+                                    this.getMainData();
+                                } else {
+                                    this.$message.error(' 对比时间不一致 ');
+                                }
                             } else {
-                                this.$message.error(' 对比时间不一致 ');
+                                this.$message.error(' 请选择对比日期 ');
                             }
-                        } else {
-                            this.$message.error(' 请选择对比日期 ');
+
+                        }else{
+                            // this.getDate(1, this.pageSize);
+                            this.page=1;
+                            this.getMainData();
                         }
 
-                    }else{
-                        // this.getDate(1, this.pageSize);
-                        this.page=1;
-                        this.getMainData();
+                    } else {
+                        // console.log('没有数据');
+                        this.$message.error(' 请选择日期 ');
+
                     }
-
-                } else {
-                    // console.log('没有数据');
-                    this.$message.error(' 请选择日期 ');
-
                 }
+
+
 
             },
             bindAdd(date, part, value) {
