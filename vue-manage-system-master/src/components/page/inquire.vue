@@ -448,7 +448,9 @@
                         this.one = Do.data.result.energyChart.one;
                         this.two = Do.data.result.energyChart.two;
                         this.three = Do.data.result.energyChart.three;
+                        this.four = Do.data.result.energyChart.four;
                         this.titles = Do.data.result.energyChart.title;
+                        console.log(this.one);
                         // this.four=Do.data.result.energyChart.four;
                         this.dataTli = Do.data.result.energyChart.date;
                         for (var j = 0; j < this.dataTli.length; j++) {
@@ -456,6 +458,7 @@
                         }
                         ;
                         this.SetEchart();
+                        console.log()
                     }
                 }).catch((error) => {
                     console.log(error);
@@ -619,7 +622,12 @@
                         name: this.titles[2],
                         type: 'bar',
                         data: this.three
-                    }]
+                    },{
+                        name: this.titles[3],
+                        type: 'bar',
+                        data: this.four
+                    }
+                ]
                 }
 
 
