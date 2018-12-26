@@ -66,9 +66,15 @@
                         <div class="item-row">
                             <i class="icon-wd"></i>
                             <span class="checkbox-tit">维度:</span>
-                            <el-radio class="choice" @change="datePickerType = 'datetimerange'" v-model="dateType" label="hour">时</el-radio>
-                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType" label="day">天</el-radio>
-                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType" label="month">月</el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'datetimerange'" v-model="dateType"
+                                      label="hour">时
+                            </el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType"
+                                      label="day">天
+                            </el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType"
+                                      label="month">月
+                            </el-radio>
                         </div>
                         <!--value-format="yyyy-MM-dd HH:mm:ss"-->
                         <!--value-format="timestamp"-->
@@ -218,7 +224,7 @@
                 page: 1,
                 pageSize: 10,
                 unit: '',
-                datePickerType:'datetimerange',
+                datePickerType: 'datetimerange',
 
 
                 dateType: 'hour',
@@ -391,9 +397,9 @@
                 this.getMainData();
             },
             bindQuery() {
-                if(this.treeId == ''){
+                if (this.treeId == '') {
                     this.$message.error(' 请选择支路 ');
-                }else{
+                } else {
                     if (this.value4) {
                         // console.log('有数据');
                         // this.page=1;
@@ -404,7 +410,7 @@
                                 let nowValue = this.value4[1] - this.value4[0];
                                 if (userDefined == nowValue) {
                                     this.getDate(1, this.pageSize);
-                                    this.getMainData();
+                                    // this.getMainData();
                                 } else {
                                     this.$message.error(' 对比时间不一致 ');
                                 }
@@ -412,9 +418,9 @@
                                 this.$message.error(' 请选择对比日期 ');
                             }
 
-                        }else{
+                        } else {
                             // this.getDate(1, this.pageSize);
-                            this.page=1;
+                            this.page = 1;
                             this.getMainData();
                         }
 
@@ -424,7 +430,6 @@
 
                     }
                 }
-
 
 
             },
@@ -513,7 +518,7 @@
                             compareEndTime: _this.cpEndDate,
                             pageStart: _this.page,
                             pageSize: _this.pageSize,
-                            compareType:_this.compareVal
+                            compareType: _this.compareVal
                             // buildingId: 1
                         }
                     })
@@ -540,8 +545,11 @@
                 var end = this.value4[1];
                 console.log(this.value4);
 
-
-                if (this.compareVal == 'tb' || this.dateType == 'month') {
+                if (this.compareVal == 'zdy') {
+                    console.log(this.format(new Date(this.userDefined[0])));
+                    this.cpStartDate = this.format(new Date(this.userDefined[0]));
+                    this.cpEndDate = this.format(new Date(this.userDefined[1]));
+                } else if (this.compareVal == 'tb' || this.dateType == 'month') {
                     let startdate = new Date(start);
                     let enddate = new Date(end);
                     this.bindAdd(startdate, 'y', -1);
@@ -567,10 +575,6 @@
                         this.cpStartDate = this.format(startdate);
                         this.cpEndDate = this.format(enddate);
                     }
-                } else if (this.compareVal == 'zdy') {
-                    // console.log(this.userDefined);
-                    this.cpStartDate = this.format(new Date(this.userDefined[0]));
-                    this.cpEndDate = this.format(new Date(this.userDefined[1]));
                 }
             },
             getMainData() {
@@ -595,7 +599,7 @@
                             compareEndTime: _this.cpEndDate,
                             pageStart: 0,
                             pageSize: 10,
-                            compareType:_this.compareVal
+                            compareType: _this.compareVal
                             // buildingId: 1
                         }
                     })
@@ -820,7 +824,7 @@
             var prev = new Date().setTime(new Date().getTime() - 3600 * 1000 * 1);
             var now = new Date().getTime();
 
-            console.log(prev,now);
+            console.log(prev, now);
             // this.value4[0] = prev;
             // this.value4[1] = now;
 
@@ -838,17 +842,17 @@
             }
 
 
-                var prev = new Date().getTime();
-                var now = new Date().getTime();
+            var prev = new Date().getTime();
+            var now = new Date().getTime();
 
 
-                prev=new Date().setMinutes('00');
-                prev=new Date(prev).setSeconds('00');
-                prev=new Date(prev).setHours('00');
-                // console.log(prev);
+            prev = new Date().setMinutes('00');
+            prev = new Date(prev).setSeconds('00');
+            prev = new Date(prev).setHours('00');
+            // console.log(prev);
 
 
-            this.value4=[prev,now];
+            this.value4 = [prev, now];
             this.getTreeData();
 
         }
@@ -1046,6 +1050,8 @@
             }
             .empty {
                 width: 223px;
+                color: #6486A6;
+                outline:none;
                 height: 28px;
                 border: 1px solid rgba(45, 243, 255, 1);
                 border-radius: 14px;

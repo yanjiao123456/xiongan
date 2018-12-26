@@ -36,7 +36,7 @@
                             <el-radio class="choice" @change="checkedChange()" v-model="checked" label="2">位置:
                             </el-radio>
                             <el-select class="select select_ts" filterable @change="selectChange(2)" multiple
-                                       collapse-tags v-model="select2" placeholder="请选择分项">
+                                       collapse-tags v-model="select2" placeholder="请选择位置">
                                 <el-option
                                         v-for="item in selectData2"
                                         :key="item.key"
@@ -48,10 +48,10 @@
 
                         <div v-show="sw" class="item-show more-box">
                             <!-- <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox> -->
-                            <el-radio class="choice" @change="checkedChange()" v-model="checked" label="3">分项:
+                            <el-radio class="choice" @change="checkedChange()" v-model="checked" label="4">分项:
                             </el-radio>
-                            <el-select class="select select_ts" filterable @change="selectChange(3)" multiple
-                                       collapse-tags v-model="select4" placeholder="请选择位置">
+                            <el-select class="select select_ts" filterable @change="selectChange(4)" multiple
+                                       collapse-tags v-model="select4" placeholder="请选择分项">
                                 <el-option
                                         v-for="item in selectData4"
                                         :key="item.key"
@@ -212,7 +212,7 @@
         name: "inquire",
         data() {
             return {
-                radio: '2',                 //筛选条件 水电冷压缩
+                radio: '1',                 //筛选条件 水电冷压缩
                 filtrateShow: true,         //筛选条件展示收缩
                 days: null,                    //快速查询label
                 daysnum: true,
@@ -287,14 +287,14 @@
                 this.days = null
             },
             checkedChange() { //条件切换单选，条件内容为空
-                // this.select1 = [];
-                // this.select2 = [];
-                // this.select3 = [];
-                // this.select4 = [];
-                // this.selectData1 = [];
-                // this.selectData2 = [];
-                // this.selectData3 = [];
-                // this.selectData4 = [];
+                this.select1 = [];
+                this.select2 = [];
+                this.select3 = [];
+                this.select4 = [];
+                this.selectData1 = [];
+                this.selectData2 = [];
+                this.selectData3 = [];
+                this.selectData4 = [];
                 this.selectNum = [];
                 this.indexData = '';
                 this.selectList()
@@ -368,8 +368,8 @@
                     branch: this.branchs,        //支路
                     // branch:'237,323,324',        //支路
                     buildingId: this.buildingId,       //后期改变
-                    power: this.powers,         //分项
-                    location: this.location,      //位置
+                    power: this.location,      //位置
+                    location: this.powers,         //分项
                     beginTime: this.startTime,  //开始时间
                     endTime: this.endTime,     //结束时间
                     pageNum: this.page,  //分页
@@ -424,8 +424,8 @@
                     branch: this.branchs,        //支路
                     // branch:'237,323,324',        //支路
                     buildingId: this.buildingId,       //后期改变
-                    power: this.powers,         //分项
-                    location: this.location,      //位置
+                    power: this.location,         //分项
+                    location: this.powers,      //位置
                     beginTime: this.startTime,  //开始时间
                     endTime: this.endTime     //结束时间
                 };
