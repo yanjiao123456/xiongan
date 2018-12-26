@@ -61,10 +61,11 @@
                 // 当前页是否为当前最小页码
                 if (this.activeNum > 1) {
                     this.activeNum = this.activeNum - 1;
+                    this.sendPageNum(this.activeNum,this.pagesize);
                 } else {
                     this.activeNum=1;
                 }
-                this.sendPageNum(this.activeNum,this.pagesize);
+
             },
 
             // 下一页
@@ -72,10 +73,11 @@
                 // 当前页是否为当前最大页码
                 if (this.activeNum < this.pages) {
                     this.activeNum = this.activeNum + 1
+                    this.sendPageNum(this.activeNum,this.pagesize);
                 } else {
                    this.activeNum=this.pages;
                 }
-                this.sendPageNum(this.activeNum,this.pagesize);
+
             },
 
             // 第一页
