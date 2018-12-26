@@ -1231,5 +1231,23 @@
     font-size: 14px;
     border-radius: 4px;
 }
+.el-picker-panel.el-date-range-picker.el-popper, .el-picker-panel.el-date-range-picker.el-popper .el-time-panel.el-popper{
+    border: 0;
+}
+.el-picker-panel.el-date-range-picker.el-popper .el-time-panel.el-popper{
+    background-color: #001121;
+
+}
 
 
+.el-picker-panel.el-date-range-picker.el-popper .el-time-spinner__item{
+    color: rgba(223, 253, 255, 1);
+}
+.el-picker-panel.el-date-range-picker.el-popper .el-time-spinner__item:hover:not(.disabled):not(.active) {
+    background:rgba(45,243,255,.5);
+    cursor: pointer;
+}
+.el-picker-panel.el-date-range-picker.el-popper .el-time-panel__btn.confirm {
+    font-weight: 800;
+    color: #2DF3FF;
+}
