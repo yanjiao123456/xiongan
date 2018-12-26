@@ -199,7 +199,7 @@
                                                 <span>{{list7.per}}</span><small>%</small> <span>{{list7.value}}</span><small>kWh</small>
                                             </div>
                                             <div>
-                                                <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.title}}</p>
+                                                <p> <span class="rec" v-bind:style="{background:color6}"></span> {{list8.name}}</p>
                                                 <span>{{list8.per}}</span><small>%</small> <span>{{list8.value}}</span><small>kWh</small>
                                             </div>
                                         </div>
@@ -1156,18 +1156,20 @@
                         if(response.data.theObj.length>3){
                             for (var i = 0; i < 3; i++) {
                             datas.push(response.data.theObj[i].value);
-                            Ydata.push(response.data.theObj[i].treeName);
+                            Ydata.push(response.data.theObj[i].name);
                             }
                         }else{
                             for (var i = 0; i < response.data.theObj.length; i++) {
                             datas.push(response.data.theObj[i].value);
-                            Ydata.push(response.data.theObj[i].treeName);
+                            Ydata.push(response.data.theObj[i].name);
                         }
                         }
                         // for (var i = 0; i < response.data.theObj.length; i++) {
                         //     datas.push(response.data.theObj[i].value);
                         //     Ydata.push(response.data.theObj[i].treeName);
                         // }
+                        console.log(response.data.theObj)
+                        console.log(Ydata);
                         var option5 = {
                             color: ['#75C8F0', '#3E62AC', '#52A991', '#66A9C9', '#00BFC7', '#99D683', '#B4C1D7', '#21834B'],
                             tooltip: {
