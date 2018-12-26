@@ -34,22 +34,21 @@
                 <el-collapse-transition>
                     <div v-show="filtrateShow" class="filtrate-show">
                         <div class="item-row">
-
                             <i class="icon-lx"></i>
                             <span class="checkbox-tit">分析方法:</span>
                             <div class="count">
                                 <!--<div class="bg"></div>-->
                                 <select v-model="compareVal">
-                                    <option value="tongbi">同比</option>
-                                    <option value="huanbi">环比</option>
-                                    <option value="zibi">定比</option>
+                                    <option value="tb">同比</option>
+                                    <option value="hb">环比</option>
+                                    <option value="zdy">定比</option>
                                 </select>
                             </div>
 
 
                             <!--v-show="compareVal == 15"-->
                         </div>
-                        <div v-show="compareVal == 'zibi'" class="item-row">
+                        <div v-show="compareVal == 'zdy'" class="item-row">
                             <div class="fl">
                                 <span class="date-select">时间选择</span>
                                 <el-date-picker
@@ -67,9 +66,9 @@
                         <div class="item-row">
                             <i class="icon-wd"></i>
                             <span class="checkbox-tit">维度:</span>
-                            <el-radio class="choice" v-model="dateType" label="hour">时</el-radio>
-                            <el-radio class="choice" v-model="dateType" label="day">天</el-radio>
-                            <el-radio class="choice" v-model="dateType" label="month">月</el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'datetimerange'" v-model="dateType" label="hour">时</el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType" label="day">天</el-radio>
+                            <el-radio class="choice" @change="datePickerType = 'daterange'" v-model="dateType" label="month">月</el-radio>
                         </div>
                         <!--value-format="yyyy-MM-dd HH:mm:ss"-->
                         <!--value-format="timestamp"-->
@@ -79,7 +78,7 @@
                                 <el-date-picker
                                         class
                                         v-model="value4"
-                                        type="datetimerange"
+                                        :type="datePickerType"
                                         value-format="timestamp"
                                         range-separator="—"
                                         :picker-options="pickerOptions0"
@@ -219,12 +218,25 @@
                 page: 1,
                 pageSize: 10,
                 unit: '',
+                datePickerType:'datetimerange',
 
 
                 dateType: 'hour',
                 totalSize: 1,
-
+                // value4() {
+                //     var prev = new Date().getTime();
+                //     var now = new Date().getTime();
+                //
+                //
+                //     prev=new Date().setMinutes('00');
+                //     prev=new Date(prev).setSeconds('00');
+                //     prev=new Date(prev).setHours('00');
+                //     console.log(prev);
+                //     return [prev,now];
+                // }
+                // prev:new Date().getTime()
                 // value4: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+                value4: [],
                 startDate: '',
                 endDate: '',
                 cpStartDate: '',
@@ -258,7 +270,7 @@
 
                 ],
                 zNodes: [],
-                compareVal: "tongbi",
+                compareVal: "tb",
                 compareShow: false,
                 dataShow: false,
 
@@ -324,17 +336,17 @@
             pages
         },
         computed: {
-            value4() {
-                var prev = new Date().getTime();
-                var now = new Date().getTime();
-
-
-                prev=new Date().setMinutes('00');
-                prev=new Date(prev).setSeconds('00');
-                prev=new Date(prev).setHours('00');
-                console.log(prev);
-                return [prev,now];
-            }
+            // time1() {
+            //     var prev = new Date().getTime();
+            //     var now = new Date().getTime();
+            //
+            //
+            //     prev=new Date().setMinutes('00');
+            //     prev=new Date(prev).setSeconds('00');
+            //     prev=new Date(prev).setHours('00');
+            //     console.log(prev);
+            //     return [prev,now];
+            // }
         },
         //2018-12-23 00:00:00
         methods: {
@@ -382,7 +394,7 @@
                 if (this.value4) {
                     // console.log('有数据');
                     // this.page=1;
-                    if (this.compareVal == 'zibi') {
+                    if (this.compareVal == 'zdy') {
                         if (this.userDefined) {
                             // console.log(this.userDefined);
                             let userDefined = this.userDefined[1] - this.userDefined[0];
@@ -494,7 +506,8 @@
                             compareBeginTime: _this.cpStartDate,
                             compareEndTime: _this.cpEndDate,
                             pageStart: _this.page,
-                            pageSize: _this.pageSize
+                            pageSize: _this.pageSize,
+                            compareType:_this.compareVal
                             // buildingId: 1
                         }
                     })
@@ -522,7 +535,7 @@
                 console.log(this.value4);
 
 
-                if (this.compareVal == 'tongbi' || this.dateType == 'month') {
+                if (this.compareVal == 'tb' || this.dateType == 'month') {
                     let startdate = new Date(start);
                     let enddate = new Date(end);
                     this.bindAdd(startdate, 'y', -1);
@@ -531,7 +544,7 @@
                     this.cpEndDate = this.format(enddate);
 
 
-                } else if (this.compareVal == 'huanbi') {
+                } else if (this.compareVal == 'hb') {
                     let startdate = new Date(start);
                     let enddate = new Date(end);
                     this.bindAdd(startdate, 'd', -1);
@@ -548,7 +561,7 @@
                         this.cpStartDate = this.format(startdate);
                         this.cpEndDate = this.format(enddate);
                     }
-                } else if (this.compareVal == 'zibi') {
+                } else if (this.compareVal == 'zdy') {
                     // console.log(this.userDefined);
                     this.cpStartDate = this.format(new Date(this.userDefined[0]));
                     this.cpEndDate = this.format(new Date(this.userDefined[1]));
@@ -575,7 +588,8 @@
                             compareBeginTime: _this.cpStartDate,
                             compareEndTime: _this.cpEndDate,
                             pageStart: 0,
-                            pageSize: 10
+                            pageSize: 10,
+                            compareType:_this.compareVal
                             // buildingId: 1
                         }
                     })
@@ -816,6 +830,19 @@
             } else {
                 this.buildingId = 1;
             }
+
+
+                var prev = new Date().getTime();
+                var now = new Date().getTime();
+
+
+                prev=new Date().setMinutes('00');
+                prev=new Date(prev).setSeconds('00');
+                prev=new Date(prev).setHours('00');
+                // console.log(prev);
+
+
+            this.value4=[prev,now];
             this.getTreeData();
 
         }

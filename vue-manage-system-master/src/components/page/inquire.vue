@@ -9,17 +9,19 @@
             <el-collapse-transition>
                 <div v-show="filtrateShow" class="filtrate-show">
                     <div class="item-row">
-                        <el-radio class="choice" v-model="radio" label="1">电</el-radio>
-                        <el-radio class="choice" v-model="radio" label="2">水</el-radio>
-                        <el-radio class="choice" v-model="radio" label="3">冷热</el-radio>
+                        <el-radio @change="checkedChange" class="choice" v-model="radio" label="1">电</el-radio>
+                        <el-radio @change="checkedChange" class="choice" v-model="radio" label="2">水</el-radio>
+                        <el-radio @change="checkedChange" class="choice" v-model="radio" label="3">冷热</el-radio>
                         <!-- <el-radio class="choice" v-model="radio" label="4">压缩空气</el-radio> -->
                     </div>
                     <div class="item-row item2">
                         <div class="more-box">
                             <!-- <el-checkbox v-model="checked">支路:</el-checkbox> -->
                             <!-- 后期改为单选其他禁用就定义多个if  判断label其他禁用   selectData1 2 3 4  可以是一个  model不一样只是四个框赋值不一样 -->
-                            <el-radio class="choice" @change="checkedChange(1,1)" v-model="checked" label="1">支路:</el-radio>
-                            <el-select class="select select_ts"  @change="selectChange(1)" filterable multiple collapse-tags v-model="select1" placeholder="请选择支路">
+                            <el-radio class="choice" @change="checkedChange()" v-model="checked" label="1">支路:
+                            </el-radio>
+                            <el-select class="select select_ts" @change="selectChange(1)" filterable multiple
+                                       collapse-tags v-model="select1" placeholder="请选择支路">
                                 <el-option
                                         v-for="item in selectData1"
                                         :key="item.key"
@@ -31,8 +33,10 @@
 
                         <div class="more-box">
                             <!-- <el-checkbox class="ml92" v-model="checked">分项:</el-checkbox> -->
-                            <el-radio class="choice" @change="checkedChange(2,4)" v-model="checked" label="2">分项:</el-radio>
-                            <el-select class="select select_ts" filterable @change="selectChange(2)" multiple collapse-tags v-model="select2" placeholder="请选择分项">
+                            <el-radio class="choice" @change="checkedChange()" v-model="checked" label="2">位置:
+                            </el-radio>
+                            <el-select class="select select_ts" filterable @change="selectChange(2)" multiple
+                                       collapse-tags v-model="select2" placeholder="请选择分项">
                                 <el-option
                                         v-for="item in selectData2"
                                         :key="item.key"
@@ -41,22 +45,13 @@
                                 </el-option>
                             </el-select>
                         </div>
-                        <!-- <div v-show="sw" class="item-show more-box">
-                            <el-checkbox class="ml92" v-model="checked3">部门:</el-checkbox>
-                            <el-radio class="choice" @change="checkedChange(3,null)" v-model="checked" label="3">部门:</el-radio>
-                            <el-select class="select" @change="selectChange(3)" multiple collapse-tags v-model="select3" placeholder="请选择部门">
-                                <el-option
-                                        v-for="item in selectData3"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </div> -->
+
                         <div v-show="sw" class="item-show more-box">
                             <!-- <el-checkbox class="ml92" v-model="checked4">位置:</el-checkbox> -->
-                            <el-radio class="choice" @change="checkedChange(4,2)" v-model="checked" label="4">位置:</el-radio>
-                            <el-select class="select select_ts" filterable @change="selectChange(4)" multiple collapse-tags v-model="select4" placeholder="请选择位置">
+                            <el-radio class="choice" @change="checkedChange()" v-model="checked" label="3">分项:
+                            </el-radio>
+                            <el-select class="select select_ts" filterable @change="selectChange(3)" multiple
+                                       collapse-tags v-model="select4" placeholder="请选择位置">
                                 <el-option
                                         v-for="item in selectData4"
                                         :key="item.key"
@@ -88,7 +83,6 @@
                             </el-date-picker>
                         </div>
                         <!--<br>-->
-
 
 
                         <!--</el-col>-->
@@ -168,16 +162,16 @@
                 <!-- <div class="head-right"><i class="icon-pdf"></i><i class="icon-excel"></i></div> -->
             </div>
             <div class="table-box">
-                    <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
-                    <el-table :data="tableData" border stripe style="width: 100%">
-                        <el-table-column
-                                :key="index"
-                                v-for="(v,index) in titArr"
-                                class="trs"
-                                :prop="v.prop"
-                                :label="v.label"
-                        ></el-table-column>
-                    </el-table>
+                <div class="table-tit">【 2018-09-18 00:00:00 至 2018-09-18 20:00:00 能耗数据 】</div>
+                <el-table :data="tableData" border stripe style="width: 100%">
+                    <el-table-column
+                            :key="index"
+                            v-for="(v,index) in titArr"
+                            class="trs"
+                            :prop="v.prop"
+                            :label="v.label"
+                    ></el-table-column>
+                </el-table>
             </div>
             <pages :total="totalSize" @returnPageNum="getDates"></pages>
             <!-- <template-table :data-tit="tableTitle"></template-table> -->
@@ -212,27 +206,28 @@
 <script>
     import TemplateTable from '../views/template-table'
     import pages from "../common/pages";
+
     var echarts = require('echarts');
     export default {
         name: "inquire",
         data() {
             return {
-                radio: '1',                 //筛选条件 水电冷压缩
+                radio: '2',                 //筛选条件 水电冷压缩
                 filtrateShow: true,         //筛选条件展示收缩
                 days: null,                    //快速查询label
-                daysnum:true,
+                daysnum: true,
                 count: '',
-                totalSize:1,  
+                totalSize: 1,
                 btns: null,                    //查询重置按钮选中添加颜色
-                checked:"1",             //支路
-                selectNum:[],             //筛选条件数据
-                indexData:"",             //筛选做处理
-                startTime:"",             //开始时间
-                endTime:"",               //结束时间
-                branchs:"",
-                dataTli:[],
-                powers:"",
-                tableData:[],
+                checked: "1",             //支路
+                selectNum: [],             //筛选条件数据
+                indexData: "",             //筛选做处理
+                startTime: "",             //开始时间
+                endTime: "",               //结束时间
+                branchs: "",
+                dataTli: [],
+                powers: "",
+                tableData: [],
                 titArr: [
                     // {
                     //     prop: "dateTime",
@@ -240,27 +235,27 @@
                     //     sortable: false
                     // }
                 ],
-                location:"",
-                one:[],
-                two:[],
-                three:[],
-                four:[],
-                titles:[],
-                selectData1:[],           //支出初始框
-                selectData2:[],
-                selectData3:[],
-                selectData4:[],
+                location: "",
+                one: [],
+                two: [],
+                three: [],
+                four: [],
+                titles: [],
+                selectData1: [],           //支出初始框
+                selectData2: [],
+                selectData3: [],
+                selectData4: [],
                 select1: [],                //支路select
                 select2: [],
-                buildingId:1,                  
+                buildingId: 1,
                 select3: [],
                 select4: [],
                 sw: true,
                 value6: '',
                 options: [],
                 consumptionData: [],
-                page:1,
-                pageSize:10
+                page: 1,
+                pageSize: 10
             }
         },
         components: {
@@ -268,94 +263,94 @@
             pages
         },
         created() {
-            
+
         },
         methods: {
-            getDates(page,pageSize){
-                this.page=page;
-                this.pageSize=pageSize;
+            getDates(page, pageSize) {
+                this.page = page;
+                this.pageSize = pageSize;
                 this.labelData();
             },
-            pickerBtn(){
+            pickerBtn() {
                 var preDate = new Date(this.value6[0]); //前一天
-                    var Y = preDate.getFullYear() + '-';
-                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
-                    var D = preDate.getDate();
-                    this.startTime=Y+M+D;
+                var Y = preDate.getFullYear() + '-';
+                var M = (preDate.getMonth() + 1 < 10 ? '0' + (preDate.getMonth() + 1) : preDate.getMonth() + 1) + '-';
+                var D = preDate.getDate();
+                this.startTime = Y + M + D;
 
                 var preDate = new Date(this.value6[1]); //前一天
-                    var Y = preDate.getFullYear() + '-';
-                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
-                    var D = preDate.getDate();
-                    this.endTime=Y+M+D;
-                    
-                    this.days=null
+                var Y = preDate.getFullYear() + '-';
+                var M = (preDate.getMonth() + 1 < 10 ? '0' + (preDate.getMonth() + 1) : preDate.getMonth() + 1) + '-';
+                var D = preDate.getDate();
+                this.endTime = Y + M + D;
+
+                this.days = null
             },
-            checkedChange(index,row){ //条件切换单选，条件内容为空
-                this.select1=[];
-                this.select2=[];
-                this.select3=[];
-                this.select4=[];
-                this.selectData1=[];
-                this.selectData2=[];
-                this.selectData3=[];
-                this.selectData4=[];
-                this.selectNum=[];
+            checkedChange() { //条件切换单选，条件内容为空
+                // this.select1 = [];
+                // this.select2 = [];
+                // this.select3 = [];
+                // this.select4 = [];
+                // this.selectData1 = [];
+                // this.selectData2 = [];
+                // this.selectData3 = [];
+                // this.selectData4 = [];
+                this.selectNum = [];
                 this.indexData = '';
-                this.selectList(index,row)
+                this.selectList()
             },
-            alertMessage(){
+            alertMessage() {
                 this.$message({
                     message: '最多选择 4 条数据',
                     type: 'warning'
                 });
             },
-            selectChange(row){
+            selectChange(row) {
                 this.indexData = '';
-                this.selectNum=[];
-                if(row==1){    //支路
-                    if(this.select1.length>4){
-                       this.alertMessage()
-                       this.select1=[];
-                    }else{
-                        this.selectNum=this.select1;
+                this.selectNum = [];
+                if (row == 1) {    //支路
+                    if (this.select1.length > 4) {
+                        this.alertMessage()
+                        this.select1 = [];
+                    } else {
+                        this.selectNum = this.select1;
                     }
-                }else if(row==2){  //分项
-                 if(this.select2.length>4){
-                       this.alertMessage()
-                       this.select2=[];
-                    }else{
-                        this.selectNum=this.select2;
+                } else if (row == 2) {  //分项
+                    if (this.select2.length > 4) {
+                        this.alertMessage()
+                        this.select2 = [];
+                    } else {
+                        this.selectNum = this.select2;
                     }
                     // this.selectNum=this.select2;
-                }else if(row==3){  //部门
-                 if(this.select3.length>4){
-                       this.alertMessage()
-                       this.select3=[];
-                    }else{
-                        this.selectNum=this.select3;
+                } else if (row == 3) {  //部门
+                    if (this.select3.length > 4) {
+                        this.alertMessage()
+                        this.select3 = [];
+                    } else {
+                        this.selectNum = this.select3;
                     }
                     // this.selectNum=this.select3;
-                }else if(row==4){  //位置
-                 if(this.select4.length>4){
-                       this.alertMessage()
-                       this.select4=[];
-                    }else{
-                        this.selectNum=this.select4;
+                } else if (row == 4) {  //位置
+                    if (this.select4.length > 4) {
+                        this.alertMessage()
+                        this.select4 = [];
+                    } else {
+                        this.selectNum = this.select4;
                     }
                     // this.selectNum=this.select4;
-                }else{
-                    this.selectNum=[];
+                } else {
+                    this.selectNum = [];
                 }
-                for(var i=0;i<this.selectNum.length;i++){
-                    if(!this.indexData){      	//得到多行的id
+                for (var i = 0; i < this.selectNum.length; i++) {
+                    if (!this.indexData) {      	//得到多行的id
                         this.indexData += this.selectNum[i];
-                    }else{
-                        this.indexData += ','+this.selectNum[i];
+                    } else {
+                        this.indexData += ',' + this.selectNum[i];
                     }
                 }
             },
-            creatList(){
+            creatList() {
                 // this.$axios.get('/sep_tree!queryTreeByType.action', {
                 //     params: {
                 //         type: 1,
@@ -367,150 +362,151 @@
                 //     console.log(error);
                 // });
             },
-            labelData(){
-                var params={
-                    energyType:this.radio,      //水电冷热
-                    branch:this.branchs,        //支路
+            labelData() {
+                var params = {
+                    energyType: this.radio,      //水电冷热
+                    branch: this.branchs,        //支路
                     // branch:'237,323,324',        //支路
-                    buildingId:this.buildingId,       //后期改变
-                    power:this.powers,         //分项
-                    location:this.location,      //位置
-                    beginTime:this.startTime,  //开始时间
-                    endTime:this.endTime,     //结束时间
-                    pageNum:this.page,  //分页
-                    pageSize:this.pageSize//一页展示多少条
+                    buildingId: this.buildingId,       //后期改变
+                    power: this.powers,         //分项
+                    location: this.location,      //位置
+                    beginTime: this.startTime,  //开始时间
+                    endTime: this.endTime,     //结束时间
+                    pageNum: this.page,  //分页
+                    pageSize: this.pageSize//一页展示多少条
                 };
-                this.$axios.get('/energy_query!queryTable.action', {params}).then((response)=> {
-                    let Do=response;
-                    if(Do.status==200){
-                        this.titArr=[];
-                        this.tableData=Do.data.result.page.list;
-                        this.totalSize=Do.data.result.page.total;
-                        for(var i=0;i<this.tableData.length;i++){
-                            this.tableData.dateTime=this.tableData[i].dateTime.split(".")[0];
+                this.$axios.get('/energy_query!queryTable.action', {params}).then((response) => {
+                    let Do = response;
+                    if (Do.status == 200) {
+                        this.titArr = [];
+                        this.tableData = Do.data.result.page.list;
+                        this.totalSize = Do.data.result.page.total;
+                        for (var i = 0; i < this.tableData.length; i++) {
+                            this.tableData.dateTime = this.tableData[i].dateTime.split(".")[0];
                         }
-                        for(var i=0;i<Do.data.result.page.titleList.length;i++){
-                            var json={
-                                prop:"",
-                                label:"",
+                        for (var i = 0; i < Do.data.result.page.titleList.length; i++) {
+                            var json = {
+                                prop: "",
+                                label: "",
                                 sortable: false
-                            }; 
-                            json.prop=Do.data.result.page.titleList[i];
-                            json.label=Do.data.result.page.titleList[i];
+                            };
+                            json.prop = Do.data.result.page.titleList[i];
+                            json.label = Do.data.result.page.titleList[i];
                             this.titArr.push(json)
                         }
-                        for(var i=0;i<this.titArr.length;i++){
-                            if(this.titArr[i].prop=="时间"){
-                                this.titArr[i].prop="dateTime"
-                            }else if(this.titArr[i].prop=="汇总"){
-                                this.titArr[i].prop="total"
+                        for (var i = 0; i < this.titArr.length; i++) {
+                            if (this.titArr[i].prop == "时间") {
+                                this.titArr[i].prop = "dateTime"
+                            } else if (this.titArr[i].prop == "汇总") {
+                                this.titArr[i].prop = "total"
                             }
                         }
                         console.log(this.titArr)
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 });
             },
-            inquLre(){
-                this.branchs="";
-                this.powers="";
-                this.location="";
-                if(this.checked==1){
-                    this.branchs=this.indexData;
-                }else if(this.checked==2){
-                    this.powers=this.indexData;
-                }else{
-                    this.location=this.indexData;
+            inquLre() {
+                this.branchs = "";
+                this.powers = "";
+                this.location = "";
+                if (this.checked == 1) {
+                    this.branchs = this.indexData;
+                } else if (this.checked == 2) {
+                    this.powers = this.indexData;
+                } else {
+                    this.location = this.indexData;
+                }
+                ;
+                var params = {
+                    energyType: this.radio,      //水电冷热
+                    branch: this.branchs,        //支路
+                    // branch:'237,323,324',        //支路
+                    buildingId: this.buildingId,       //后期改变
+                    power: this.powers,         //分项
+                    location: this.location,      //位置
+                    beginTime: this.startTime,  //开始时间
+                    endTime: this.endTime     //结束时间
                 };
-                var params={
-                        energyType:this.radio,      //水电冷热
-                        branch:this.branchs,        //支路
-                        // branch:'237,323,324',        //支路
-                        buildingId:this.buildingId,       //后期改变
-                        power:this.powers,         //分项
-                        location:this.location,      //位置
-                        beginTime:this.startTime,  //开始时间
-                        endTime:this.endTime     //结束时间
-                };
-                this.$axios.get('/energy_query!queryChart.action', {params}).then((response)=> {
-                    let Do=response;
-                    if(Do.status==200){
-                        this.consumptionData=Do.data.result.consumptionData;
-                        for(var i=0;i<this.consumptionData.length;i++){
-                            this.consumptionData[i].class='consumption-item';
-                            if(i==0){
-                                this.consumptionData[0].col='head col1';
-                            }else if(i==1){
-                                this.consumptionData[1].col='head col2';
-                            }else if(i==2){
-                                this.consumptionData[2].col='head col3';
-                            }else{
-                                this.consumptionData[3].col='head col4';
+                this.$axios.get('/energy_query!queryChart.action', {params}).then((response) => {
+                    let Do = response;
+                    if (Do.status == 200) {
+                        this.consumptionData = Do.data.result.consumptionData;
+                        for (var i = 0; i < this.consumptionData.length; i++) {
+                            this.consumptionData[i].class = 'consumption-item';
+                            if (i == 0) {
+                                this.consumptionData[0].col = 'head col1';
+                            } else if (i == 1) {
+                                this.consumptionData[1].col = 'head col2';
+                            } else if (i == 2) {
+                                this.consumptionData[2].col = 'head col3';
+                            } else {
+                                this.consumptionData[3].col = 'head col4';
                             }
                         }
                         this.one = Do.data.result.energyChart.one;
                         this.two = Do.data.result.energyChart.two;
                         this.three = Do.data.result.energyChart.three;
-                        this.titles =Do.data.result.energyChart.title;
+                        this.titles = Do.data.result.energyChart.title;
                         // this.four=Do.data.result.energyChart.four;
-                        this.dataTli=Do.data.result.energyChart.date;
-                        for(var j=0;j<this.dataTli.length;j++){
-                            this.dataTli[j]=this.dataTli[j].split(" ")[0];
-                        };
+                        this.dataTli = Do.data.result.energyChart.date;
+                        for (var j = 0; j < this.dataTli.length; j++) {
+                            this.dataTli[j] = this.dataTli[j].split(" ")[0];
+                        }
+                        ;
                         this.SetEchart();
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 });
             },
-            btnser(row){        //查询  重置    个性化按钮
+            btnser(row) {        //查询  重置    个性化按钮
                 // row==0?this.btns=0:(row==1?this.btns=1:this.btns=2);
-                if(row==0){ //查询按钮
-                    this.btns=0;    //添加css颜色
+                if (row == 0) { //查询按钮
+                    this.btns = 0;    //添加css颜色
                     this.inquLre();
                     this.labelData();
-                }else if(row==1){   //重置按钮
-                    this.btns=1;  
-                    this.selectNum=[];
-                    this.value6="";
-                    this.select1=[];
-                    this.select2=[];
-                    this.select3=[];
-                    this.select4=[];
-                    this.days=null;
-                    this.radio="1"
-                }else if(row==2){      //个性化按钮
-                    this.btns=2;    //添加css颜色
-                }else{
+                } else if (row == 1) {   //重置按钮
+                    this.btns = 1;
+                    this.selectNum = [];
+                    this.value6 = "";
+                    // this.select1 = [];
+                    // this.select2 = [];
+                    // this.select3 = [];
+                    // this.select4 = [];
+                    this.days = null;
+                    this.radio = "1"
+                } else if (row == 2) {      //个性化按钮
+                    this.btns = 2;    //添加css颜色
+                } else {
                     this.inquLre();
                     this.labelData();
                 }
             },
-            newDatas(news,ends){
+            newDatas(news, ends) {
                 var curDate = new Date();
-                    var preDate = new Date(curDate.getTime() - 24*60*60*1000*news); //前一天
-                    var Y = preDate.getFullYear() + '-';
-                    var M = (preDate.getMonth()+1 < 10 ? '0'+(preDate.getMonth()+1) : preDate.getMonth()+1) + '-';
-                    var D = preDate.getDate();
-                    this.startTime=Y+M+D;   //开始时间
+                var preDate = new Date(curDate.getTime() - 24 * 60 * 60 * 1000 * news); //前一天
+                var Y = preDate.getFullYear() + '-';
+                var M = (preDate.getMonth() + 1 < 10 ? '0' + (preDate.getMonth() + 1) : preDate.getMonth() + 1) + '-';
+                var D = preDate.getDate();
+                this.startTime = Y + M + D;   //开始时间
 
-                    var endDate = new Date();
-                    var endDates = new Date(endDate.getTime() - 24*60*60*1000*ends); //前一天
-                    var Y = endDates.getFullYear() + '-';
-                    var M = (endDates.getMonth()+1 < 10 ? '0'+(endDates.getMonth()+1) : endDates.getMonth()+1) + '-';
-                    var D = endDates.getDate();
-                    this.endTime=Y+M+D;//结束时间
-                    console.log(this.startTime,this.endTime)
+                var endDate = new Date();
+                var endDates = new Date(endDate.getTime() - 24 * 60 * 60 * 1000 * ends); //前一天
+                var Y = endDates.getFullYear() + '-';
+                var M = (endDates.getMonth() + 1 < 10 ? '0' + (endDates.getMonth() + 1) : endDates.getMonth() + 1) + '-';
+                var D = endDates.getDate();
+                this.endTime = Y + M + D;//结束时间
+                console.log(this.startTime, this.endTime)
             },
-            newMonth(){
+            newMonth() {
                 var nowdays = new Date();
                 var year = nowdays.getFullYear();
                 var month = nowdays.getMonth();
-                if(month==0)
-                {
-                    month=12;
-                    year=year-1;
+                if (month == 0) {
+                    month = 12;
+                    year = year - 1;
                 }
                 if (month < 10) {
                     month = "0" + month;
@@ -519,21 +515,21 @@
                 var myDate = new Date(year, month, 0);
                 this.endTime = year + "-" + month + "-" + myDate.getDate();//上个月的最后一天
             },
-            daysBtn(row){          //快速查询按钮
+            daysBtn(row) {          //快速查询按钮
                 //  row==0?this.days=0:(row==1?this.days=1:(row==2?this.days=2:this.days=3));
-                this.value6="";
-                if(row==0){
-                    this.days=0;
-                    this.newDatas(1,1)
-                }else if(row==1){
-                    this.days=1
-                     this.newDatas(3,1)
-                }else if(row==2){
-                    this.days=2
-                    this.newDatas(7,1)
-                }else if(row==3){
-                     this.days=3
-                     this.newMonth()
+                this.value6 = "";
+                if (row == 0) {
+                    this.days = 0;
+                    this.newDatas(1, 1)
+                } else if (row == 1) {
+                    this.days = 1
+                    this.newDatas(3, 1)
+                } else if (row == 2) {
+                    this.days = 2
+                    this.newDatas(7, 1)
+                } else if (row == 3) {
+                    this.days = 3
+                    this.newMonth()
                 }
             },
             SetEchart() {
@@ -551,7 +547,7 @@
                     legend: {
                         data: this.titles,
                         align: 'left',
-                        top:'5%',
+                        top: '5%',
                         x: 'center',
                         right: '4%',
                         icon: 'rect',
@@ -629,7 +625,7 @@
 
                 // 使用刚指定的配置项和数据显示图表。
                 growRankingChart.setOption(option);
-                window.onresize=function(){
+                window.onresize = function () {
                     growRankingChart.resize;
                 }
             },
@@ -659,42 +655,47 @@
 
                 return sums;
             },
-            selectList(index,row){
+            selectList() {
+                let _this = this;
                 this.$axios.get('/jinfeng/sep_tree!queryListByType.action?', {
                     params: {
-                        parentId:0,
-                        buildingId:this.buildingId,       //后期改变
-                        type:row
+                        parentId: 0,
+                        buildingId: _this.buildingId,       //后期改变
+                        itemType:_this.radio,
+                        type: _this.checked
                     }
-                }).then((response)=> {
-                    let Do=response;
-                    if(Do.status==200){
-                        if(index==1){
-                            this.selectData1=Do.data.data
-                        }else if(index==2){
-                            this.selectData2=Do.data.data
-                        }else if(index==3){
-                            this.selectData3=Do.data.data
-                        }else{
-                            this.selectData4=Do.data.data
+                }).then((response) => {
+                    let Do = response;
+                    if (Do.status == 200) {
+                        if (_this.checked == 1) {
+                            this.selectData1 = Do.data.data
+                        } else if (_this.checked == 2) {
+                            this.selectData2 = Do.data.data
+                        } else if (_this.checked == 3) {
+                            this.selectData3 = Do.data.data
+                        } else {
+                            this.selectData4 = Do.data.data
                         }
                     }
-                }).catch((error)=>{
+                }).catch((error) => {
                     console.log(error);
                 });
             }
         },
         mounted() {
-            this.buildingId=localStorage.getItem('buildingId');
-            if(!this.buildingId){
-                 this.buildingId=1;
-            }
-            this.checkedChange(1,1)
-            this.newDatas(0,0);//当前天数
+
+
+            this.newDatas(0, 0);//当前天数
             this.btnser(8);
             this.SetEchart()
             // =================================================
-
+        },
+        created(){
+            this.buildingId = localStorage.getItem('buildingId');
+            if (!this.buildingId) {
+                this.buildingId = 1;
+            }
+            this.checkedChange()
         }
 
     }
@@ -791,7 +792,7 @@
                     .select {
                         /*width: 220px;*/
                         margin-left: 7px;
-                        .el-tag{
+                        .el-tag {
                             background-color: none !important;
                         }
                     }
@@ -861,7 +862,7 @@
                     }
 
                 }
-                .item-row-2{
+                .item-row-2 {
                     height: auto;
                     width: 100%;
                     padding: 13px 10px;
@@ -1196,13 +1197,15 @@
     }
 </style>
 <style>
-    .el-select-dropdown /deep/ .selected{
+    .el-select-dropdown /deep/ .selected {
         background: none !important;
     }
-    .select /deep/ .el-tag{
+
+    .select /deep/ .el-tag {
         background: none;
     }
-    .select_ts{
+
+    .select_ts {
         width: 230px;
     }
 </style>
