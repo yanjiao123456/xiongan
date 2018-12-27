@@ -166,18 +166,33 @@
             <div class="table-box">
                 <div class="table-tit">【 {{ startTime }} 至 {{ endTime }} 能耗数据 】</div>
                 <el-table :data="tableData" border stripe style="width: 100%">
+
+                    <el-table-column
+                            class="trs"
+                            prop="dateTime"
+                            label="时间"
+                           >
+                    </el-table-column>
                     <el-table-column
                             :key="index"
                             v-for="(v,key,index) in titArr"
+                            v-if="key!='dateTime'&&key!='total'"
                             class="trs"
                             :prop="key"
-                            :label="key=='dateTime'?'时间':key||key=='total'?'汇总':key"
+                            :label="key"
                     ></el-table-column>
+                    <el-table-column
+                            class="trs"
+                            prop="total"
+                            label="汇总"
+                    >
+                    </el-table-column>
+
                     <!--<el-table-column-->
-                    <!--class="trs"-->
-                    <!--prop="id"-->
-                    <!--label="ID"-->
-                    <!--width="180">-->
+                            <!--class="trs"-->
+                            <!--prop="dateTime"-->
+                            <!--label="时间"-->
+                    <!--&gt;-->
                     <!--</el-table-column>-->
                 </el-table>
             </div>
@@ -275,22 +290,22 @@
             TemplateTable,
             pages
         },
-        computed:{
-            use(){
-                if(this.radio == 1){
+        computed: {
+            use() {
+                if (this.radio == 1) {
                     return '用电量'
-                }else if(this.radio == 2){
+                } else if (this.radio == 2) {
                     return '用水量'
-                }else if(this.radio == 3){
+                } else if (this.radio == 3) {
                     return '冷热量'
                 }
             },
-            units(){
-                if(this.radio == 1){
+            units() {
+                if (this.radio == 1) {
                     return 'kWh'
-                }else if(this.radio == 2){
+                } else if (this.radio == 2) {
                     return 't'
-                }else if(this.radio == 3){
+                } else if (this.radio == 3) {
                     return ''
                 }
             }
@@ -411,9 +426,9 @@
                     if (Do.status == 200) {
                         this.titArr = [];
                         this.tableData = Do.data.result.page.list;
-                        if (Do.data.result.page.total <= 0){
+                        if (Do.data.result.page.total <= 0) {
                             this.totalSize = 1;
-                        } else{
+                        } else {
                             this.totalSize = Do.data.result.page.total;
                         }
 
@@ -430,18 +445,10 @@
                             // console.log(Do.data.result.page.list[i]);
                             json.prop = Do.data.result.page.list[i];
                             json.label = Do.data.result.page.list[i];
-                            this.titArr=Do.data.result.page.list[i];
+                            this.titArr = Do.data.result.page.list[i];
                             // console.log(this.titArr[0].label);
                         }
-                        // console.log(this.titArr);
-                        // for (var i = 0; i < this.titArr.length; i++) {
-                        //     if (this.titArr[i] == "dateTime") {
-                        //         this.titArr[i] = "时间"
-                        //     } else if (this.titArr[i] == "total") {
-                        //         this.titArr[i].prop = "汇总"
-                        //     }
-                        // }
-                        console.log(this.titArr);
+                      
                     }
                 }).catch((error) => {
                     console.log(error);
@@ -663,12 +670,12 @@
                         name: this.titles[2],
                         type: 'bar',
                         data: this.three
-                    },{
+                    }, {
                         name: this.titles[3],
                         type: 'bar',
                         data: this.four
                     }
-                ]
+                    ]
                 }
 
 
@@ -710,7 +717,7 @@
                     params: {
                         parentId: 0,
                         buildingId: _this.buildingId,       //后期改变
-                        itemType:_this.radio,
+                        itemType: _this.radio,
                         type: _this.checked
                     }
                 }).then((response) => {
@@ -739,7 +746,7 @@
             this.SetEchart()
             // =================================================
         },
-        created(){
+        created() {
             this.buildingId = localStorage.getItem('buildingId');
             if (!this.buildingId) {
                 this.buildingId = 1;
