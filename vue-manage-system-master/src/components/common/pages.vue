@@ -83,7 +83,7 @@
 
             // 第一页
             onFirstClick () {
-                this.activeNum=1;
+                this.activeNum=0;
                 this.sendPageNum(this.activeNum,this.pagesize);
             },
 

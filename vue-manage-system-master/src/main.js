@@ -18,8 +18,8 @@ import axios from 'axios';
 Vue.prototype.$axios = axios;
 
 
-// axios.defaults.baseURL = 'http://10.72.0.28:8080/jinfeng';
-axios.defaults.baseURL = 'http://10.76.107.100:18080/jinfeng';
+axios.defaults.baseURL = 'http://10.72.0.28:8080/jinfeng';
+// axios.defaults.baseURL = 'http://10.76.107.100:18080/jinfeng';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
