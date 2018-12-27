@@ -481,10 +481,10 @@
                     this.btns = 1;
                     this.selectNum = [];
                     this.value6 = "";
-                    // this.select1 = [];
-                    // this.select2 = [];
-                    // this.select3 = [];
-                    // this.select4 = [];
+                    this.select1 = [];
+                    this.select2 = [];
+                    this.select3 = [];
+                    this.select4 = [];
                     this.days = null;
                     this.radio = "1"
                 } else if (row == 2) {      //个性化按钮

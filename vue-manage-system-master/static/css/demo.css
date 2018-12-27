@@ -434,8 +434,8 @@
     color: rgba(45, 243, 255, 1);
     display: inline-block;
     font-size: inherit;
-    height: 40px;
-    line-height: 40px;
+    height: 20px;
+    line-height: 20px;
     outline: 0;
     padding: 0 15px;
     -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
@@ -471,7 +471,7 @@
 }
 
 .el-date-range-picker.el-picker-panel .el-date-table td.in-range div, .el-date-range-picker.el-picker-panel .el-date-table td.in-range div:hover, .el-date-table.is-week-mode .el-date-table__row.current div, .el-date-range-picker.el-picker-panel .el-date-table.is-week-mode .el-date-table__row:hover div {
-    background-color: #178596;
+    background-color: transparent;
 }
 
 .el-date-range-picker.el-picker-panel .el-date-range-picker.el-picker-panel {
@@ -504,10 +504,10 @@
 }
 
 .el-date-range-picker.el-picker-panel .el-date-table th {
-    padding: 5px;
+    padding: 1px;
     color: #DFFDFF;
     font-weight: 400;
-    border-bottom: solid 1px #ebeef5;
+    border-bottom: 0;
 }
 
 .el-date-range-picker.el-picker-panel .el-picker-panel__footer {
@@ -517,6 +517,7 @@
     background-color: rgba(0, 17, 33, .85);
     position: relative;
     font-size: 0;
+    top: 20px;
 }
 
 .el-date-range-picker.el-picker-panel .el-date-table td.next-month, .el-date-range-picker.el-picker-panel .el-date-table td.prev-month {
@@ -548,7 +549,8 @@
     white-space: nowrap;
     cursor: pointer;
     /*background: #24C7D5;*/
-    /*border: 1px solid #24C7D5;*/
+    border: 1px solid #24C7D4;
+    color:rgba(45,243,255,1);
     /*color:rgba(223,253,255,1);*/
     -webkit-appearance: none;
     text-align: center;
@@ -560,13 +562,14 @@
     -o-transition: .1s;
     transition: .1s;
     font-weight: 500;
-    /*padding: 12px 20px;*/
-    font-size: 14px;
+    padding: 2px 10px;
+    font-size:12px;
     border-radius: 4px;
+    margin-right: 10px;
 }
 
 .el-date-range-picker.el-picker-panel .el-date-table td.end-date span, .el-date-range-picker.el-picker-panel .el-date-table td.start-date span {
-    background-color: #1B5F90;
+    background-color: #178494;
 }
 
 .el-popper.el-select-dropdown {
@@ -1216,7 +1219,7 @@
     cursor: pointer;
     background: #24C7D5;
     border: 1px solid #24C7D5;
-    color: rgba(223, 253, 255, 1);
+    /*color: rgba(223, 253, 255, 1);*/
     -webkit-appearance: none;
     text-align: center;
     -webkit-box-sizing: border-box;
@@ -1227,8 +1230,11 @@
     -o-transition: .1s;
     transition: .1s;
     font-weight: 500;
-    padding: 12px 20px;
-    font-size: 14px;
+    padding: 2px 10px;
+    font-size:12px;
+    font-family:HiraginoSansGB-W6;
+    font-weight:normal;
+    color:rgba(223,253,255,1);
     border-radius: 4px;
 }
 .el-picker-panel.el-date-range-picker.el-popper, .el-picker-panel.el-date-range-picker.el-popper .el-time-panel.el-popper{
@@ -1260,3 +1266,29 @@
     background-color: #fff;
 }
 /*el-select-dropdown__item.selected*/
+
+/*//////////时间时间选择器////////////////////////////////////////////////////////////*/
+.el-picker-panel.el-date-range-picker.el-popper.has-time .el-date-range-picker__time-header {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    border-bottom: 1px solid #178494;
+    font-size: 12px;
+    padding: 0px 5px 0px;
+    display: table;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.el-picker-panel.el-date-range-picker.el-popper.has-time .el-date-range-picker {
+    width: 513px;
+}
+.el-picker-panel.el-date-range-picker.el-popper.has-time .el-date-range-picker__content{
+    float: left;
+    width: 50%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 11px;
+    border: 0;
+}

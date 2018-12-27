@@ -493,7 +493,6 @@
                 this.getTreeData();
             },
             zTreeOnCheck(event, treeId, setting) {
-
                 this.treeId = setting.id;
                 this.getMainData();
                 // this.getTableData();
@@ -538,47 +537,58 @@
                     });
             },
             bindss() {
-
-                this.startDate = this.format(new Date(this.value4[0]));
-                this.endDate = this.format(new Date(this.value4[1]));
-                var start = this.value4[0];
-                var end = this.value4[1];
                 console.log(this.value4);
+                if (this.value4 == '' || this.value4 == null) {
+                    this.$message.error(' 未选择时间 ');
+                }else{
 
-                if (this.compareVal == 'zdy') {
-                    console.log(this.format(new Date(this.userDefined[0])));
-                    this.cpStartDate = this.format(new Date(this.userDefined[0]));
-                    this.cpEndDate = this.format(new Date(this.userDefined[1]));
-                } else if (this.compareVal == 'tb' || this.dateType == 'month') {
-                    let startdate = new Date(start);
-                    let enddate = new Date(end);
-                    this.bindAdd(startdate, 'y', -1);
-                    this.bindAdd(enddate, 'y', -1);
-                    this.cpStartDate = this.format(startdate);
-                    this.cpEndDate = this.format(enddate);
+                    this.startDate = this.format(new Date(this.value4[0]));
+                    this.endDate = this.format(new Date(this.value4[1]));
+                    var start = this.value4[0];
+                    var end = this.value4[1];
+                    console.log(this.value4);
 
-
-                } else if (this.compareVal == 'hb') {
-                    let startdate = new Date(start);
-                    let enddate = new Date(end);
-                    this.bindAdd(startdate, 'd', -1);
-                    this.bindAdd(enddate, 'd', -1);
-                    this.cpStartDate = this.format(startdate);
-                    this.cpEndDate = this.format(enddate);
-
-
-                    if (this.dateType == 'day') {
+                    if (this.compareVal == 'zdy') {
+                        console.log(this.format(new Date(this.userDefined[0])));
+                        this.cpStartDate = this.format(new Date(this.userDefined[0]));
+                        this.cpEndDate = this.format(new Date(this.userDefined[1]));
+                    } else if (this.compareVal == 'tb' || this.dateType == 'month') {
                         let startdate = new Date(start);
                         let enddate = new Date(end);
-                        this.bindAdd(startdate, 'm', -1);
-                        this.bindAdd(enddate, 'm', -1);
+                        this.bindAdd(startdate, 'y', -1);
+                        this.bindAdd(enddate, 'y', -1);
                         this.cpStartDate = this.format(startdate);
                         this.cpEndDate = this.format(enddate);
+
+
+                    } else if (this.compareVal == 'hb') {
+                        let startdate = new Date(start);
+                        let enddate = new Date(end);
+                        this.bindAdd(startdate, 'd', -1);
+                        this.bindAdd(enddate, 'd', -1);
+                        this.cpStartDate = this.format(startdate);
+                        this.cpEndDate = this.format(enddate);
+
+
+                        if (this.dateType == 'day') {
+                            let startdate = new Date(start);
+                            let enddate = new Date(end);
+                            this.bindAdd(startdate, 'm', -1);
+                            this.bindAdd(enddate, 'm', -1);
+                            this.cpStartDate = this.format(startdate);
+                            this.cpEndDate = this.format(enddate);
+                        }
                     }
                 }
+
+
             },
             getMainData() {
                 this.bindss();
+                if (this.value4 == '' || this.value4 == null) {
+                    // this.$message.error(' 未选择时间 ');
+                    return
+                }
                 var _this = this;
                 console.log('_this.dateType', _this.dateType);
                 console.log('_this.startDate', _this.startDate);
@@ -755,8 +765,10 @@
                     chartChart.resize();
                 };
             },
-            zTreeOnClick(e, treeId, treeNode){
+            zTreeOnClick(e, treeId, treeNode) {
+                // console.log(treeNode);
                 var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                // console.log(zTree);
                 zTree.checkNode(treeNode, !treeNode.checked, null, true);
                 return false;
             },
@@ -765,13 +777,13 @@
                 var setting = {
                     check: {
                         enable: true,
-                        // enable: true,
                         chkStyle: "radio",
-                        radioType: "all"
+                        radioType: "all",
+                        // chkboxType: { "Y": "p", "N": "s" }
                     },
                     callback: {
                         onCheck: _this.zTreeOnCheck,
-                        onClick:_this.zTreeOnClick
+                        onClick: _this.zTreeOnClick
                     },
                     view: {
                         nameIsHTML: true, //允许name支持html
@@ -911,7 +923,8 @@
         font-weight: normal;
         color: rgba(254, 254, 254, 1);
     }
-.ztree li .curSelectedNode span.node_name {
+
+    .ztree li .curSelectedNode span.node_name {
         margin-left: 4px;
         font-size: 12px;
         font-family: HiraginoSansGB-W3;
@@ -961,6 +974,7 @@
     .ztree li span.button.radio_true_full,
     .ztree li span.button.radio_true_full_focus,
     .ztree li span.button.chk.radio_true_part,
+    .ztree li span.button.radio_false_part,
     .ztree li span.button.chk.radio_true_part_focus {
         width: 16px;
         height: 16px;
@@ -969,9 +983,9 @@
     }
 
     .ztree li span.button.radio_false_full,
-    .ztree li span.button.radio_false_full_focus,
-    .ztree li span.button.radio_false_part,
-    .ztree li span.button.radio_false_part_focus {
+    .ztree li span.button.radio_false_full_focus {
+        /*.ztree li span.button.radio_false_part,*/
+        /*.ztree li span.button.radio_false_part_focus {*/
         width: 14px;
         height: 14px;
         background: url("../../assets/NengHaoChaXun/椭圆 884.png") no-repeat;
@@ -1064,7 +1078,7 @@
             .empty {
                 width: 223px;
                 color: #6486A6;
-                outline:none;
+                outline: none;
                 height: 28px;
                 border: 1px solid rgba(45, 243, 255, 1);
                 border-radius: 14px;
@@ -1076,10 +1090,21 @@
                 &:before {
                     content: "";
                 }
-                &::-webkit-input-placeholder { color:#BECDDE; }
-                &::-moz-placeholder { color:#BECDDE; } /* firefox 19+ */
-                &:-ms-input-placeholder { color:#BECDDE; } /* Internet Explorer 10+ */
-                &:-moz-placeholder { color:#BECDDE; } /* firefox 14-18 */
+                &::-webkit-input-placeholder {
+                    color: #BECDDE;
+                }
+                &::-moz-placeholder {
+                    color: #BECDDE;
+                }
+                /* firefox 19+ */
+                &:-ms-input-placeholder {
+                    color: #BECDDE;
+                }
+                /* Internet Explorer 10+ */
+                &:-moz-placeholder {
+                    color: #BECDDE;
+                }
+                /* firefox 14-18 */
             }
             .ztree {
                 margin-top: 20px;
