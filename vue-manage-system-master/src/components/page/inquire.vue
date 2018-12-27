@@ -78,6 +78,7 @@
                                     v-model="value6"
                                     type="daterange"
                                     range-separator="—"
+                                    :picker-options="pickerOptions0"
                                     start-placeholder="开始日期"
                                     end-placeholder="结束日期">
                             </el-date-picker>
@@ -123,10 +124,11 @@
                             <i class="icon-nh"></i>
                             {{ v.tit }}
                         </div>
+
                         <div class="electricity">
-                            <span class="ele-tit">用电量</span>
+                            <span class="ele-tit">{{ use }}</span>
                             <span class="num">{{ v.electricity }}</span>
-                            <span class="unit">kWh</span>
+                            <span class="unit">{{ units }}</span>
                         </div>
                         <div class="number-box">
                             <div class="electricity-number">
@@ -166,11 +168,17 @@
                 <el-table :data="tableData" border stripe style="width: 100%">
                     <el-table-column
                             :key="index"
-                            v-for="(v,index) in titArr"
+                            v-for="(v,key,index) in titArr"
                             class="trs"
-                            :prop="v.prop"
-                            :label="v.label"
+                            :prop="key"
+                            :label="key=='dateTime'?'时间':key||key=='total'?'汇总':key"
                     ></el-table-column>
+                    <!--<el-table-column-->
+                    <!--class="trs"-->
+                    <!--prop="id"-->
+                    <!--label="ID"-->
+                    <!--width="180">-->
+                    <!--</el-table-column>-->
                 </el-table>
             </div>
             <pages :total="totalSize" @returnPageNum="getDates"></pages>
@@ -255,15 +263,37 @@
                 options: [],
                 consumptionData: [],
                 page: 1,
-                pageSize: 10
+                pageSize: 10,
+                pickerOptions0: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now() - 8.64e6
+                    }
+                },
             }
         },
         components: {
             TemplateTable,
             pages
         },
-        created() {
-
+        computed:{
+            use(){
+                if(this.radio == 1){
+                    return '用电量'
+                }else if(this.radio == 2){
+                    return '用水量'
+                }else if(this.radio == 3){
+                    return '冷热量'
+                }
+            },
+            units(){
+                if(this.radio == 1){
+                    return 'kWh'
+                }else if(this.radio == 2){
+                    return 't'
+                }else if(this.radio == 3){
+                    return ''
+                }
+            }
         },
         methods: {
             getDates(page, pageSize) {
@@ -391,24 +421,27 @@
                         for (var i = 0; i < this.tableData.length; i++) {
                             this.tableData.dateTime = this.tableData[i].dateTime.split(".")[0];
                         }
-                        for (var i = 0; i < Do.data.result.page.titleList.length; i++) {
+                        for (var i = 0; i < Do.data.result.page.list.length; i++) {
                             var json = {
                                 prop: "",
                                 label: "",
                                 sortable: false
                             };
-                            json.prop = Do.data.result.page.titleList[i];
-                            json.label = Do.data.result.page.titleList[i];
-                            this.titArr.push(json)
+                            // console.log(Do.data.result.page.list[i]);
+                            json.prop = Do.data.result.page.list[i];
+                            json.label = Do.data.result.page.list[i];
+                            this.titArr=Do.data.result.page.list[i];
+                            // console.log(this.titArr[0].label);
                         }
-                        for (var i = 0; i < this.titArr.length; i++) {
-                            if (this.titArr[i].prop == "时间") {
-                                this.titArr[i].prop = "dateTime"
-                            } else if (this.titArr[i].prop == "汇总") {
-                                this.titArr[i].prop = "total"
-                            }
-                        }
-                        console.log(this.titArr)
+                        // console.log(this.titArr);
+                        // for (var i = 0; i < this.titArr.length; i++) {
+                        //     if (this.titArr[i] == "dateTime") {
+                        //         this.titArr[i] = "时间"
+                        //     } else if (this.titArr[i] == "total") {
+                        //         this.titArr[i].prop = "汇总"
+                        //     }
+                        // }
+                        console.log(this.titArr);
                     }
                 }).catch((error) => {
                     console.log(error);
