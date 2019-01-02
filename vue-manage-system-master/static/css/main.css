@@ -19,7 +19,9 @@ body {
 a {
     text-decoration: none
 }
-
+input{
+    outline:none;
+}
 
 .content-box {
     position: absolute;

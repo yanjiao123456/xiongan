@@ -128,11 +128,23 @@
                             //     index: "gf",
                             //     title: "光伏监测"
                             // },
-                            // {
-                            //     icon: "ml5 icon-all icon-bdsjk",
-                            //     index: "bdsjk",
-                            //     title: "变电所监控"
-                            // }
+                            {
+                                icon: "ml5 icon-all icon-bdsjk",
+                                index: "bdsjk",
+                                title: "变电所监控",
+                                subs:[
+                                    {
+                                        icon: "ml20",
+                                        index: "biandiansuozonglan",
+                                        title: "变电所总览"
+                                    },
+                                    {
+                                        icon: "ml20",
+                                        index: "biandianqijiance",
+                                        title: "变电器监测"
+                                    }
+                                ]
+                            }
                         ]
                     },
                     {
@@ -608,7 +620,7 @@
                     background: url("../../assets/PeiDianJianCe/icon_gf.png") no-repeat;
                 }
                 .icon-bdsjk {
-                    background: url("../../assets/PeiDianJianCe/icon_bdsjk.png") no-repeat;
+                    background: url("../../assets/PeiDianJianCe/icon_bdsjk1.png") no-repeat;
                 }
                 /*.icon-nhcx {*/
                 /*background: url("../../assets/PeiDianJianCe/icon_nhcx.png") no-repeat;*/

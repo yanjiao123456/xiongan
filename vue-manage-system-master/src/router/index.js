@@ -19,112 +19,153 @@ export default new Router({
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: {title: '系统首页'}
                 },
+                //实时监测  start------------------------------------------------------------------------
+
                 {
                     path: '/PeiDianTu',
-                    component: resolve => require(['../components/page/PeiDianTu.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/PeiDianTu.vue'], resolve),
                     meta: {title: '配电图'}
                 },
                 {
-                    path: '/inquire',
-                    component: resolve => require(['../components/page/inquire.vue'], resolve),
-                    meta: {title: '数据查询'}
-                },
-                {
                     path: '/PeiDianInquire',
-                    component: resolve => require(['../components/page/PeiDianInquire.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/PeiDianInquire.vue'], resolve),
                     meta: {title: '数据查询'}
-
                 },
                 {
                     path: '/ShiShiShuJu',
-                    component: resolve => require(['../components/page/ShiShiShuJu.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/ShiShiShuJu.vue'], resolve),
                     meta: {title: '实时数据'}
                 },
                 {
                     path: '/YunXingBaoBiao',
-                    component: resolve => require(['../components/page/YunXingBaoBiao.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/YunXingBaoBiao.vue'], resolve),
                     meta: {title: '运行报表'}
                 },
                 {
                     path: '/YuanChengChaoBiao',
-                    component: resolve => require(['../components/page/YuanChengChaoBiao.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/YuanChengChaoBiao.vue'], resolve),
                     meta: {title: '远程抄表'}
                 },
                 {
                     path: '/ShuJuDuiBi',
-                    component: resolve => require(['../components/page/ShuJuDuiBi.vue'], resolve),
+                    component: resolve => require(['../components/page/ShiShiJianCe/ShuJuDuiBi.vue'], resolve),
                     meta: {title: '数据对比'}
                 },
                 {
+                    path: '/BianDianSuoZongLan',
+                    component: resolve => require(['../components/page/ShiShiJianCe/BianDianSuoZongLan.vue'], resolve),
+                    meta: {title: '变电所总览'}
+                },
+                {
+                    path: '/BianDianQiJianCe',
+                    component: resolve => require(['../components/page/ShiShiJianCe/BianDianQiJianCe.vue'], resolve),
+                    meta: {title: '变电器监测'}
+                },
+
+                //实时监测  end--------------------------------------------------------------------------
+                //能耗查询  start--------------------------------------------------------------------------
+
+                {
+                    path: '/inquire',
+                    component: resolve => require(['../components/page/NengHaoChaXun/inquire.vue'], resolve),
+                    meta: {title: '数据查询'}
+                },
+
+
+                //能耗查询  end--------------------------------------------------------------------------
+                //能效分析  start--------------------------------------------------------------------------
+
+                {
                     path: '/NengHaoQuShi',
-                    component: resolve => require(['../components/page/NengHaoQuShi.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/NengHaoQuShi.vue'], resolve),
                     meta: {title: '能耗趋势'}
                 },
                 {
                     path: '/NengHaoChengBen',
-                    component: resolve => require(['../components/page/NengHaoChengBen.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/NengHaoChengBen.vue'], resolve),
                     meta: {title: '能耗成本'}
                 },
                 {
                     path: '/DuiBiFenXi',
-                    component: resolve => require(['../components/page/DuiBiFenXi.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/DuiBiFenXi.vue'], resolve),
                     meta: {title: '对比分析'}
                 },
                 {
                     path: '/NengYuanJiHua',
-                    component: resolve => require(['../components/page/NengYuanJiHua.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/NengYuanJiHua.vue'], resolve),
                     meta: {title: '能源计划'}
                 },
                 {
                     path: '/RiFuHe',
-                    component: resolve => require(['../components/page/RiFuHe.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/RiFuHe.vue'], resolve),
                     meta: {title: '日负荷'}
                 },
                 {
-                    path: '/BaoJingGuanLi',
-                    component: resolve => require(['../components/page/BaoJingGuanLi.vue'], resolve),
-                    meta: {title: '报警管理'}
-                },
-                {
-                    path: '/GongLvYinShu',
-                    component: resolve => require(['../components/page/GongLvYinShu.vue'], resolve),
-                    meta: {title: '功率因数'}
-                },
-                {
-                    path: '/YiBiaoTaiZhang',
-                    component: resolve => require(['../components/page/YiBiaoTaiZhang.vue'], resolve),
-                    meta: {title: '仪表台账'}
-                },
-                {
-                    path: '/BaoJingDingYi',
-                    component: resolve => require(['../components/page/BaoJingDingYi.vue'], resolve),
-                    meta: {title: '报警定义'}
-                },
-                {
                     path: '/DingBiaoGuanLi',
-                    component: resolve => require(['../components/page/DingBiaoGuanLi.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/DingBiaoGuanLi.vue'], resolve),
                     meta: {title: '定标管理'}
                 },
                 {
                     path: '/KPIFenXi',
-                    component: resolve => require(['../components/page/KPIFenXi.vue'], resolve),
+                    component: resolve => require(['../components/page/NengXiaoFenXi/KPIFenXi.vue'], resolve),
                     meta: {title: 'KPI分析'}
                 },
                 {
+                    path: '/FengGuYongDian',
+                    component: resolve => require(['../components/page/NengXiaoFenXi/FengGuYongDian.vue'], resolve),
+                    meta: {title: '峰谷用电'}
+                },
+
+                //能效分析  end--------------------------------------------------------------------------
+
+
+
+                //报警管理  start------------------------------------------------------------------------
+
+                {
+                    path: '/BaoJingGuanLi',
+                    component: resolve => require(['../components/page/BaoJingGuanLi/BaoJingGuanLi.vue'], resolve),
+                    meta: {title: '报警管理'}
+                },
+                {
+                    path: '/BaoJingDingYi',
+                    component: resolve => require(['../components/page/BaoJingGuanLi/BaoJingDingYi.vue'], resolve),
+                    meta: {title: '报警定义'}
+                },
+
+
+                //报警管理  end--------------------------------------------------------------------------
+
+                //电能质量  start--------------------------------------------------------------------------
+                {
+                    path: '/GongLvYinShu',
+                    component: resolve => require(['../components/page/DianNengZhiLiang/GongLvYinShu.vue'], resolve),
+                    meta: {title: '功率因数'}
+                },
+
+                //电能质量  end--------------------------------------------------------------------------
+                //设备管理  start--------------------------------------------------------------------------
+                {
+                    path: '/YiBiaoTaiZhang',
+                    component: resolve => require(['../components/page/SheBeiGuanLi/YiBiaoTaiZhang.vue'], resolve),
+                    meta: {title: '仪表台账'}
+                },
+                {
                     path: '/SheBeiZongLan',
-                    component: resolve => require(['../components/page/SheBeiZongLan.vue'], resolve),
+                    component: resolve => require(['../components/page/SheBeiGuanLi/SheBeiZongLan.vue'], resolve),
                     meta: {title: '设备总览'}
                 },
                 {
                     path: '/SheBeiDangAn',
-                    component: resolve => require(['../components/page/SheBeiDangAn.vue'], resolve),
+                    component: resolve => require(['../components/page/SheBeiGuanLi/SheBeiDangAn.vue'], resolve),
                     meta: {title: '设备档案'}
                 },
-                {
-                    path: '/FengGuYongDian',
-                    component: resolve => require(['../components/page/FengGuYongDian.vue'], resolve),
-                    meta: {title: '峰谷用电'}
-                },
+                //设备管理  end--------------------------------------------------------------------------
+
+
+
+
+
                 {
                     path: '/icon',
                     component: resolve => require(['../components/page/Icon.vue'], resolve),
